@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Crm/Crm.csproj" />
+  <Project Path="Entities/Entities.csproj" />
+</Solution>
