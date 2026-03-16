@@ -30,4 +30,18 @@ public class MedicalService
     /// Стоимость услуги
     /// </summary>
     public decimal ServicePrice { get; set; }
+
+    public MedicalService()
+    { }
+
+    /// <summary>
+    /// Конструктор для инициализации свойств (без ServiceId).
+    /// </summary>
+    public MedicalService(string serviceName, string serviceType, string serviceCode, decimal servicePrice)
+    {
+        ServiceName = serviceName;
+        ServiceType = serviceType;
+        ServiceCode = serviceCode;
+        ServicePrice = servicePrice;
+    }
 }

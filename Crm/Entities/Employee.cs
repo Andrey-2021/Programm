@@ -40,4 +40,22 @@ public class Employee
     /// Электронная почта
     /// </summary>
     public string Email { get; set; }
+
+    public Employee()
+    { 
+    }
+
+    /// <summary>
+    /// Конструктор для инициализации всех свойств, кроме EmployeeId.
+    /// </summary>
+    public Employee(string lastName, string firstName, string middleName,
+                    string position, string phoneNumber, string email)
+    {
+        LastName = lastName;
+        FirstName = firstName;
+        MiddleName = middleName;
+        Position = position;
+        PhoneNumber = phoneNumber;
+        Email = email;
+    }
 }

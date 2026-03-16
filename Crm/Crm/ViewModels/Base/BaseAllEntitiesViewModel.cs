@@ -124,23 +124,23 @@ internal class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChan
     {
         IsBusy = true;
 
-        try
-        {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                var allEntities = db.Set<TEntity>().AsSplitQuery();
-                var result = await allEntities.ToListAsync();
-                if (result == null)
-                    Entities = null;
-                else
-                    Entities = new ObservableCollection<TEntity>(result);
-            }
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show("Ошибка: " + ex.Message
-                + Environment.NewLine + " InnerException:" + ex.InnerException?.Message);
-        }
+        //try
+        //{
+        //    using (ApplicationContext db = new ApplicationContext())
+        //    {
+        //        var allEntities = db.Set<TEntity>().AsSplitQuery();
+        //        var result = await allEntities.ToListAsync();
+        //        if (result == null)
+        //            Entities = null;
+        //        else
+        //            Entities = new ObservableCollection<TEntity>(result);
+        //    }
+        //}
+        //catch (Exception ex)
+        //{
+        //    MessageBox.Show("Ошибка: " + ex.Message
+        //        + Environment.NewLine + " InnerException:" + ex.InnerException?.Message);
+        //}
         IsBusy = false;
     }
 

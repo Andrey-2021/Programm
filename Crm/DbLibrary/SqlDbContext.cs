@@ -1,8 +1,8 @@
 ﻿using Entities;
 using Microsoft.EntityFrameworkCore;
-namespace Crm;
+namespace DbLibrary;
 
-internal class ApplicationContext : DbContext
+internal class SqlDbContext : DbContext
 {
     public DbSet<Patient> Patients { get; set; }
     public DbSet<MedicalService> MedicalServices{ get; set; }
@@ -11,7 +11,7 @@ internal class ApplicationContext : DbContext
     public DbSet<Payment> Payments{ get; set; }
     public DbSet<Employee> Employees { get; set; }
 
-    public ApplicationContext()
+    public SqlDbContext()
     {
         //Database.EnsureCreated();
     }

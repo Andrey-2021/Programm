@@ -19,6 +19,11 @@
 
         <Menu x:Name="myMenu" DockPanel.Dock="Top" Background="Beige" Padding="5">
 
+            <MenuItem Header="Администратор">
+                <MenuItem Header="Создать новую БД" Command="{Binding CreateDbCommand}"></MenuItem>
+                <MenuItem Header="Пользователи" Command="{Binding ShowAllUsersCommand}"></MenuItem>
+            </MenuItem>
+            
             <MenuItem Header="Справочники" >
                 <MenuItem Header="Пациенты" Command="{Binding ShowAllPatientsCommand}"></MenuItem>
                 <MenuItem Header="Услуги" Command="{Binding ShowAllMedicalServicesCommand}"></MenuItem>
@@ -33,9 +38,12 @@
             <MenuItem Header="Выход" ></MenuItem> -->
         </Menu>
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Center">
-            <Button  Width="120" Height="30" Click="Button_Click">Создать новую БД</Button>
-            <Label>Мой телеграмм  902 744 0691</Label>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label>Напишите мне сюда -</Label>
+            <Label>Мой телеграмм +7 902 744 0691</Label>
+            <Label>только на vsesdal ничего про это писать не надо</Label>
+            <Label>Ну уж если нет телеграмм, то на  job2017ya@yandex.ru</Label>
+            
         </StackPanel>
         
         
