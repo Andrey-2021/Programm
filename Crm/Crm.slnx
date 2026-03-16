@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="Crm/Crm.csproj" />
   <Project Path="Entities/Entities.csproj" />
+  <Project Path="InitDb/InitDb.csproj" Id="12722d38-9e00-41b9-867a-92e7bb95d03c" />
 </Solution>

@@ -7,6 +7,39 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
 
+        <Menu x:Name="myMenu" DockPanel.Dock="Top" Background="Beige" Padding="5">
+
+            <MenuItem Header="Справочники" >
+                <MenuItem Header="Пациенты" Command="{Binding ShowAllPatientsCommand}"></MenuItem>
+                <MenuItem Header="Услуги" Command="{Binding ShowAllMedicalServicesCommand}"></MenuItem>
+                <MenuItem Header="Сотрудники" Command="{Binding ShowAllEmployeesCommand}"></MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="Договора" >
+                <MenuItem Header="Оформление договора" Command="{Binding AddContractCommand}"></MenuItem>
+                <MenuItem Header="Все договора" Command="{Binding ShowAllContractsCommand}"></MenuItem>
+            </MenuItem>
+            
+            <MenuItem Header="Выход" ></MenuItem> -->
+        </Menu>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <Button  Width="120" Height="30" Click="Button_Click">Создать новую БД</Button>
+            <Label>Мой телеграмм  902 744 0691</Label>
+        </StackPanel>
+        
+        
+        <StatusBar Grid.Row="2" Background="Azure" Padding="5">
+        </StatusBar>
     </Grid>
 </Window>
