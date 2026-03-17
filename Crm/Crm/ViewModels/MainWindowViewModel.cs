@@ -3,7 +3,6 @@ using DbLibrary;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using System.Xml.Linq;
 namespace Crm.ViewModels;
 
 internal class MainWindowViewModel
@@ -43,6 +42,16 @@ internal class MainWindowViewModel
 	/// </summary>
 	public ICommand? AddContractCommand { get; private set; }
 
+    /// <summary>
+	/// Команда "Показать помощь"
+	/// </summary>
+	public ICommand? ShowHelpCommand { get; private set; }
+
+    /// <summary>
+    /// Команда "Показать информацию о программе"
+    /// </summary>
+    public ICommand? ShowAboutProgrammCommand { get; private set; }
+
     public MainWindowViewModel()
     {
         CreateDbCommand = new RelayCommand(CreateNewDb);
@@ -54,6 +63,9 @@ internal class MainWindowViewModel
 
         ShowAllContractsCommand = new RelayCommand(ShowAllContracts);
         AddContractCommand = new RelayCommand(AddContract);
+
+        ShowAboutProgrammCommand = new RelayCommand(ShowAboutProgramm);
+        ShowHelpCommand = new RelayCommand(ShowHelp);
     }
 
     /// <summary>
@@ -111,5 +123,20 @@ internal class MainWindowViewModel
     {
         var view = new AddContractWindow();
         view.ShowDialog();
+    }
+
+    private void ShowHelp(object? parametr)
+    {
+        //var view = container.GetRequiredService<IHelpView>();
+        var view = new HelpWindow();
+        view.ShowDialog();
+    }
+
+    private async void ShowAboutProgramm(object? parametr)
+    {
+        //var view = container.GetRequiredService<IAboutProgrammView>();
+        var view = new AboutProgrammWindow();
+        view.ShowDialog();
+        //await view.ShowMAUIPage();
     }
 }

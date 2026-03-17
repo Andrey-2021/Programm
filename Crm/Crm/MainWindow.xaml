@@ -34,18 +34,14 @@
                 <MenuItem Header="Оформление договора" Command="{Binding AddContractCommand}"></MenuItem>
                 <MenuItem Header="Все договора" Command="{Binding ShowAllContractsCommand}"></MenuItem>
             </MenuItem>
-            
+
+            <MenuItem Header="Справка" >
+                <MenuItem Header="О программе" Command="{Binding ShowAboutProgrammCommand}"></MenuItem>
+                <MenuItem Header="Помощь" Command="{Binding ShowHelpCommand}"></MenuItem>
+            </MenuItem>
+
             <MenuItem Header="Выход" ></MenuItem> -->
         </Menu>
-
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label>Напишите мне сюда -</Label>
-            <Label>Мой телеграмм +7 902 744 0691</Label>
-            <Label>только на vsesdal ничего про это писать не надо</Label>
-            <Label>Ну уж если нет телеграмм, то на  job2017ya@yandex.ru</Label>
-            
-        </StackPanel>
-        
         
         <StatusBar Grid.Row="2" Background="Azure" Padding="5">
         </StatusBar>

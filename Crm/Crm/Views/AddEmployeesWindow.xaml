@@ -5,8 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
-        Title="AddEmployeesWindow" Height="450" Width="800">
+        Title="Сотрудник" Height="550" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"></ColumnDefinition>
+            <ColumnDefinition Width="70*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="60*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="labelTitle"
+           Grid.Column="0" Grid.Row="0"
+           Margin="10"
+           Grid.ColumnSpan="2"
+           HorizontalContentAlignment="Center"
+           VerticalContentAlignment="Bottom">
+            Введите данные о сотруднике:
+        </Label>
+
+        <Label Grid.Column="0" Grid.Row="1">Фамилия:</Label>
+        <TextBox Grid.Column="1" Grid.Row="1"
+             Text="{Binding Path=MainEntity.LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+             Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+
+        <Label Grid.Column="0" Grid.Row="2">Имя:</Label>
+        <TextBox Grid.Column="1" Grid.Row="2"
+             Text="{Binding Path=MainEntity.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+             Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+
+        <Label Grid.Column="0" Grid.Row="3">Отчество:</Label>
+        <TextBox Grid.Column="1" Grid.Row="3"
+             Text="{Binding Path=MainEntity.MiddleName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+             Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+
+        <Label Grid.Column="0" Grid.Row="4">Дата рождения:</Label>
+        <Label Grid.Column="0" Grid.Row="5">Группа:</Label>
+
+        <Button Grid.Column="1" Grid.Row="6"
+            Margin="10,10,10,10" Padding="10"
+            MinWidth="120"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Command="{Binding SaveCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            Сохранить
+        </Button>
+
+        <Button Grid.Column="1" Grid.Row="6"
+            Margin="0,0,280,0" Padding="10"
+            MinWidth="120"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Command="{Binding CloseWindowCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            Отмена
+        </Button>
     </Grid>
+
 </Window>

@@ -1,25 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿namespace Crm.Views;
 
-namespace Crm.Views
+public partial class EmployeesWindow : Window
 {
-    /// <summary>
-    /// Логика взаимодействия для EmployeesWindow.xaml
-    /// </summary>
-    public partial class EmployeesWindow : Window
+    public EmployeesWindow()
     {
-        public EmployeesWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        var viewModel = new EmployeesViewModel();
+        DataContext = viewModel;
     }
 }

@@ -1,7 +1,4 @@
-﻿using Crm.ViewModels;
-using System.Windows;
-namespace Crm.Views;
-
+﻿namespace Crm.Views;
 public partial class PatientsWindow : Window
 {
     public PatientsWindow()

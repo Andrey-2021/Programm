@@ -71,4 +71,26 @@ public class Contract
     public int EmployeeId { get; set; }
     public Employee? Employee { get; set; }
 
+    public Contract()
+    { }
+
+    /// <summary>
+    /// Конструктор для инициализации всех свойств, кроме ContractId.
+    /// </summary>
+    public Contract(Patient patient, DateTime contractDate, string contractNumber, DateTime startDate,
+                    DateTime endDate, decimal totalAmount, string totalAmountText, string paymentStatus,
+                    string contractStatus, string notes, Employee responsibleEmployee)
+    {
+        Patient = patient;
+        ContractDate = contractDate;
+        ContractNumber = contractNumber;
+        StartDate = startDate;
+        EndDate = endDate;
+        TotalAmount = totalAmount;
+        TotalAmountText = totalAmountText;
+        PaymentStatus = paymentStatus;
+        ContractStatus = contractStatus;
+        Notes = notes;
+        Employee = responsibleEmployee;
+    }
 }

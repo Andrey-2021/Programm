@@ -1,6 +1,4 @@
-﻿using Entities;
-using Microsoft.EntityFrameworkCore;
-namespace DbLibrary;
+﻿namespace DbLibrary;
 
 internal class SqlDbContext : DbContext
 {

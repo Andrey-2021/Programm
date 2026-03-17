@@ -1,6 +1,4 @@
-﻿using Entities;
-namespace InitDb;
-
+﻿namespace InitDb;
 
 /// <summary>
 /// Отдельный класс для создания 20 экземпляров Employee с конкретными данными.

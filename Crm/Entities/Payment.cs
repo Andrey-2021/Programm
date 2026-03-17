@@ -1,5 +1,4 @@
 ﻿namespace Entities;
-
 using System;
 
 /// <summary>
@@ -43,4 +42,21 @@ public class Payment
     /// Примечания к платежу
     /// </summary>
     public string PaymentNotes { get; set; }
+
+    public Payment()
+    { }
+
+    /// <summary>
+    /// Конструктор для инициализации всех свойств, кроме PaymentId.
+    /// </summary>
+    public Payment(Contract contract, DateTime paymentDate, string paymentMethod,
+                   decimal paymentAmount, string transactionId, string paymentNotes)
+    {
+        Contract = contract;
+        PaymentDate = paymentDate;
+        PaymentMethod = paymentMethod;
+        PaymentAmount = paymentAmount;
+        TransactionId = transactionId;
+        PaymentNotes = paymentNotes;
+    }
 }

@@ -96,7 +96,6 @@ public class Patient
         string gender, string phoneNumber, string email, string address, string passportSeries,
         string passportNumber, DateTime passportIssueDate, string passportIssuingAuthority)
     {
-        //PatientId = patientId;
         LastName = lastName;
         FirstName = firstName;
         MiddleName = middleName;

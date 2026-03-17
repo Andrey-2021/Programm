@@ -44,4 +44,20 @@ public class ContractItem
     /// Сумма по данной строке (DECIMAL(12,2))
     /// </summary>
     public decimal ItemTotal { get; set; }
+
+    public ContractItem()
+    { }
+
+    /// <summary>
+    /// Конструктор для инициализации всех свойств, кроме ContractItemId.
+    /// </summary>
+    public ContractItem(Contract contract, MedicalService service, int quantity, decimal price, decimal discount, decimal itemTotal)
+    {
+        Contract = contract;
+        MedicalService = service;
+        Quantity = quantity;
+        Price = price;
+        Discount = discount;
+        ItemTotal = itemTotal;
+    }
 }

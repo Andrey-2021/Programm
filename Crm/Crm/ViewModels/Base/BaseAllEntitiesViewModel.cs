@@ -1,15 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using DbLibrary;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using System.Xml;
 namespace Crm.ViewModels.Base;
 
 internal class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChanged
-    where TEntity : class,  new()
+    where TEntity : class, new()
     where TAddView : class
 {
     public bool IsBusy { get; set; }
@@ -83,7 +81,7 @@ internal class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChan
 
     protected virtual async void ShowAddEntityWindow(object? parametr)
     {
-       
+
     }
 
     protected virtual bool CheckIsPossibleShowAddEntityWindow(object? parametr)
@@ -98,7 +96,7 @@ internal class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChan
 
     protected virtual async void DelEntity(object? parametr)
     {
-       
+
     }
 
     protected virtual bool CheckIsPossibleDeleAddEntity(object? parametr)
@@ -108,7 +106,7 @@ internal class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChan
 
     protected virtual async void EditEntity(object? parametr)
     {
-        
+
     }
 
     protected virtual bool CheckIsPossibleEditAddEntity(object? parametr)
@@ -123,24 +121,19 @@ internal class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChan
 	protected virtual async Task LoadNecessaryDates()
     {
         IsBusy = true;
+        var repository = new DbRepository();
+        var result = await repository.GetEntitiesAsync<TEntity>();
 
-        //try
-        //{
-        //    using (ApplicationContext db = new ApplicationContext())
-        //    {
-        //        var allEntities = db.Set<TEntity>().AsSplitQuery();
-        //        var result = await allEntities.ToListAsync();
-        //        if (result == null)
-        //            Entities = null;
-        //        else
-        //            Entities = new ObservableCollection<TEntity>(result);
-        //    }
-        //}
-        //catch (Exception ex)
-        //{
-        //    MessageBox.Show("Ошибка: " + ex.Message
-        //        + Environment.NewLine + " InnerException:" + ex.InnerException?.Message);
-        //}
+        if (result.ex is null)
+        {
+            Entities = new ObservableCollection<TEntity>(result.data);
+        }
+        else
+        {
+            MessageBox.Show("Ошибка при создании новой БД. Попробуйте выполнить операцию позже или обратитесь к администратору "
+                + Environment.NewLine + "Exception:" + result.ex?.Message
+                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message);
+        }
         IsBusy = false;
     }
 

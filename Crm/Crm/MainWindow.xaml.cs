@@ -1,7 +1,4 @@
-﻿using Crm.ViewModels;
-using InitDb;
-using System.Windows;
-namespace Crm;
+﻿namespace Crm;
 
 public partial class MainWindow : Window
 {
