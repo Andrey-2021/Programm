@@ -3,4 +3,6 @@
   <Project Path="DbLibrary/DbLibrary.csproj" Id="f0e4e36c-8d50-40bc-a877-760296468c3c" />
   <Project Path="Entities/Entities.csproj" />
   <Project Path="InitDb/InitDb.csproj" Id="12722d38-9e00-41b9-867a-92e7bb95d03c" />
+  <Project Path="ViewModels/ViewModels.csproj" Id="48348218-2de3-424d-9eaf-31528a3df9de" />
+  <Project Path="WindowsInterfaces/WindowsInterfaces.csproj" Id="66b98688-dcbd-466f-876c-c02ed8aa2d27" />
 </Solution>

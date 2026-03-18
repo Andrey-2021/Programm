@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-namespace Crm.ViewModels;
+namespace ViewModels;
 
 public class RelayCommand : ICommand
 {

@@ -1,11 +1,8 @@
-﻿using Crm.Views;
-using DbLibrary;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Input;
-namespace Crm.ViewModels;
+﻿using Microsoft.Identity.Client;
 
-internal class MainWindowViewModel
+namespace ViewModels;
+
+public class MainWindowViewModel
 {
     /// <summary>
 	/// Команда "Создать новую БД"
@@ -52,8 +49,18 @@ internal class MainWindowViewModel
     /// </summary>
     public ICommand? ShowAboutProgrammCommand { get; private set; }
 
-    public MainWindowViewModel()
+    /// <summary>
+    /// Команда "Выход"
+    /// </summary>
+    public ICommand? ExitCommand { get; private set; }
+
+
+    private IServiceProvider container;
+
+    public MainWindowViewModel(IServiceProvider serviceProvider)
     {
+        this.container = serviceProvider;
+
         CreateDbCommand = new RelayCommand(CreateNewDb);
         ShowAllUsersCommand = new RelayCommand(ShowAllUsers);
 
@@ -66,6 +73,8 @@ internal class MainWindowViewModel
 
         ShowAboutProgrammCommand = new RelayCommand(ShowAboutProgramm);
         ShowHelpCommand = new RelayCommand(ShowHelp);
+
+        ExitCommand = new RelayCommand( _=>Environment.Exit(0));
     }
 
     /// <summary>
@@ -74,69 +83,78 @@ internal class MainWindowViewModel
 	/// <param name="parametr"></param>
 	private async void CreateNewDb(object? parametr)
     {
-        var repository = new DbRepository();
+        //var repository = new DbRepository();
+        //var result = await repository.CreateNewDbAsync();
+
+        //if(result.operationResult)
+        //{
+        //    MessageBox.Show("БД создана");
+        //}
+        //else
+        //{
+        //    MessageBox.Show("Ошибка при создании новой БД. Попробуйте выполнить операцию позже или обратитесь к администратору "
+        //        + Environment.NewLine + "Exception:" + result.ex?.Message
+        //        + Environment.NewLine+ "InnerException:" + result.ex?.InnerException?.Message);
+        //}
+
+        var repository = container.GetRequiredService<DbRepository>();
         var result = await repository.CreateNewDbAsync();
 
-        if(result.operationResult)
-        {
-            MessageBox.Show("БД создана");
-        }
-        else
-        {
-            MessageBox.Show("Ошибка при создании новой БД. Попробуйте выполнить операцию позже или обратитесь к администратору "
+        var view = container.GetRequiredService<IMessageWindowView>();
+        if (result.operationResult == false) //если ошибка
+            view.ViewModel.Parametr = "Ошибка при создании новой БД. Попробуйте выполнить операцию позже или обратитесь к администратору."
                 + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine+ "InnerException:" + result.ex?.InnerException?.Message);
-        }
+                + Environment.NewLine+ "InnerException:" + result.ex?.InnerException?.Message;
+        else
+            view.ViewModel.Parametr = "БД создана";
+        view.ShowDialog();
     }
 
     private void ShowAllUsers(object? parametr)
     {
-        //var view = container.GetRequiredService<IUsersView>();
-        //view.ShowDialog();
+        var view = container.GetRequiredService<IUsersView>();
+        view.ShowDialog();
     }
 
     private void ShowAllPatients(object? parametr)
     {
-        var view = new PatientsWindow();
+        var view = container.GetRequiredService<IPatientsView>();
         view.ShowDialog();
     }
 
     private void ShowAllEmployees(object? parametr)
     {
-        var view = new EmployeesWindow();
+        var view = container.GetRequiredService<IEmployeesView>();
         view.ShowDialog();
     }
 
     private void ShowAllMedicalServices(object? parametr)
     {
-        var view = new MedicalServicesWindow();
+        var view = container.GetRequiredService<IMedicalServicesView>();
         view.ShowDialog();
     }
 
     private void ShowAllContracts(object? parametr)
     {
-        var view = new ContractsWindow();
+        var view = container.GetRequiredService<IContractsView>();
         view.ShowDialog();
     }
 
     private void AddContract(object? parametr)
     {
-        var view = new AddContractWindow();
+        var view = container.GetRequiredService<IAddContractView>();
         view.ShowDialog();
     }
 
     private void ShowHelp(object? parametr)
     {
-        //var view = container.GetRequiredService<IHelpView>();
-        var view = new HelpWindow();
+        var view = container.GetRequiredService<IHelpView>();
         view.ShowDialog();
     }
 
     private async void ShowAboutProgramm(object? parametr)
     {
-        //var view = container.GetRequiredService<IAboutProgrammView>();
-        var view = new AboutProgrammWindow();
+        var view = container.GetRequiredService<IAboutProgrammView>();
         view.ShowDialog();
-        //await view.ShowMAUIPage();
     }
 }

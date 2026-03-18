@@ -1,11 +1,10 @@
 ﻿namespace Crm;
 
-public partial class MainWindow : Window
+public partial class MainWindow : Window, IMainWindowView
 {
-    public MainWindow()
+    public MainWindow(MainWindowViewModel viewModel)
     {
         InitializeComponent();
-        var viewModel =new MainWindowViewModel();
         DataContext = viewModel;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Crm.Views;
 
-public partial class AddPaymentWindow : Window
+public partial class AddPaymentWindow : Window, IAddPaymentView
 {
     public AddPaymentWindow()
     {

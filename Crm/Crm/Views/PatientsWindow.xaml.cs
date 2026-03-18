@@ -1,10 +1,9 @@
 ﻿namespace Crm.Views;
-public partial class PatientsWindow : Window
+public partial class PatientsWindow : Window, IPatientsView
 {
     public PatientsWindow()
     {
         InitializeComponent();
-        var viewModel =new PatientsViewModel();
-        DataContext = viewModel;
+        DataContext = new PatientsViewModel();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Crm.Views;
 
-public partial class AddMedicalServiceWindow : Window
+public partial class AddMedicalServiceWindow : Window, IAddMedicalServiceView
 {
     public AddMedicalServiceWindow()
     {

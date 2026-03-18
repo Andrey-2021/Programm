@@ -1,6 +1,6 @@
 ﻿namespace Crm.Views;
 
-public partial class LoginWindow : Window
+public partial class LoginWindow : Window, ILoginView
 {
     public LoginWindow()
     {

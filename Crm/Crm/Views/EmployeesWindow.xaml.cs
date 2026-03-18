@@ -1,6 +1,8 @@
-﻿namespace Crm.Views;
+﻿using Entities;
 
-public partial class EmployeesWindow : Window
+namespace Crm.Views;
+
+public partial class EmployeesWindow : Window, IEmployeesView
 {
     public EmployeesWindow()
     {

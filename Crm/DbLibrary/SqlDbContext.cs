@@ -8,6 +8,7 @@ internal class SqlDbContext : DbContext
     public DbSet<ContractItem> ContractItems { get; set; }
     public DbSet<Payment> Payments{ get; set; }
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<RegisteredUser> RegisteredUsers { get; set; }
 
     public SqlDbContext()
     {

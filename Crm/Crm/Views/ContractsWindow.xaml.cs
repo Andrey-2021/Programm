@@ -1,6 +1,6 @@
 ﻿namespace Crm.Views;
 
-public partial class ContractsWindow : Window
+public partial class ContractsWindow : Window, IContractsView
 {
     public ContractsWindow()
     {

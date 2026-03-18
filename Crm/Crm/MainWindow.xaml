@@ -40,7 +40,7 @@
                 <MenuItem Header="Помощь" Command="{Binding ShowHelpCommand}"></MenuItem>
             </MenuItem>
 
-            <MenuItem Header="Выход" ></MenuItem> -->
+            <MenuItem Header="Выход" Command="{Binding ExitCommand}"></MenuItem>
         </Menu>
         
         <StatusBar Grid.Row="2" Background="Azure" Padding="5">
