@@ -1,6 +1,4 @@
-﻿using Microsoft.Identity.Client;
-
-namespace ViewModels;
+﻿namespace ViewModels;
 
 public class MainWindowViewModel
 {
@@ -83,20 +81,6 @@ public class MainWindowViewModel
 	/// <param name="parametr"></param>
 	private async void CreateNewDb(object? parametr)
     {
-        //var repository = new DbRepository();
-        //var result = await repository.CreateNewDbAsync();
-
-        //if(result.operationResult)
-        //{
-        //    MessageBox.Show("БД создана");
-        //}
-        //else
-        //{
-        //    MessageBox.Show("Ошибка при создании новой БД. Попробуйте выполнить операцию позже или обратитесь к администратору "
-        //        + Environment.NewLine + "Exception:" + result.ex?.Message
-        //        + Environment.NewLine+ "InnerException:" + result.ex?.InnerException?.Message);
-        //}
-
         var repository = container.GetRequiredService<DbRepository>();
         var result = await repository.CreateNewDbAsync();
 

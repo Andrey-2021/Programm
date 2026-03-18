@@ -9,7 +9,7 @@ public class ContractItem
     /// ID строки договора (ключевое поле)
     /// </summary>
     [Key]
-    public int ContractItemId { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// ID договора

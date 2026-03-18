@@ -1,5 +1,6 @@
 ﻿using Crm.Views;
 using DbLibrary;
+using Microsoft.EntityFrameworkCore;
 using UniverApp.Views;
 namespace Crm;
 
@@ -39,6 +40,15 @@ public partial class App : Application
 
     private void ConfigureServices(ServiceCollection services)
     {
+        string connectionString = "Data Source = WIN10PC; Initial Catalog =MedicalCRM ; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        services.AddDbContextFactory<SqlDbContext>
+                (
+                    options => options.UseSqlServer(connectionString
+                                                    // описание  EnableRetryOnFailure -  https://makolyte.com/how-to-do-retries-in-ef-core/
+                                                    , options => { options.EnableRetryOnFailure(); }
+                                                    )
+                    );
+
         services.AddTransient<DbRepository>();
         services.AddTransient<IMessageWindowView, MessageWindow>();
 

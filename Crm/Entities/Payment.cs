@@ -10,7 +10,7 @@ public class Payment
     /// ID платежа (ключевое поле)
     /// </summary>
     [Key]
-    public int PaymentId { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// ID договора

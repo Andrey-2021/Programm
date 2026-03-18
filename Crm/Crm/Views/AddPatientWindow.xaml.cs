@@ -2,9 +2,12 @@
 
 public partial class AddPatientWindow : Window, IAddPatientView
 {
-    public AddPatientWindow()
+    public IViewModelWithParametr ViewModel { get; set; }
+
+    public AddPatientWindow(AddPatientViewModel viewModel)
     {
         InitializeComponent();
-        DataContext = new AddPatientViewModel();
+        ViewModel = viewModel;
+        DataContext = viewModel;
     }
 }

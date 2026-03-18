@@ -1,8 +1,4 @@
-﻿
-
-using Microsoft.Extensions.DependencyInjection;
-
-namespace ViewModels.Base;
+﻿namespace ViewModels.Base;
 
 /// <summary>
 /// Базовый класс для всех AddViewModel
@@ -18,8 +14,8 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	/// <summary>
 	/// Главная сущность/объект
 	/// </summary>
-	public TEntity? MainEntity { get=> mainEntity; set { mainEntity = value; OnPropertyChanged(); } }
-	private TEntity? mainEntity;
+	public TEntity MainEntity { get=> mainEntity; set { mainEntity = value; OnPropertyChanged(); } }
+	private TEntity mainEntity = default!;
 
 	/// <summary>
 	/// Команда "Сохранить"
@@ -98,7 +94,7 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	/// <param name="parametr"></param>
 	protected virtual async void Save(object? parametr)
 	{
-		/*
+		
 		if (BaseINotifyDataErrorInfo.HasErrorsOnlyInAllMyPublicProperties(MainEntity))
 			return;
 
@@ -125,7 +121,7 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 			return;
 		}
 		CloseWindow(parametr);//всё хорошо, закрываем  окно
-		*/
+		
 	}
 
 	/// <summary>

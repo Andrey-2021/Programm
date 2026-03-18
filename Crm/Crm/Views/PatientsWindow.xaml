@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
-        Title="Пациенты" Height="450" Width="800"
+        Title="Пациенты" Height="450" Width="1000"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,7 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" 
@@ -25,15 +25,15 @@
         </Label>
 
         <DataGrid MinHeight="150"
-       Grid.Column="0" Grid.Row="1"
-       IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
-       SelectionMode="Single"
-       VerticalScrollBarVisibility="Auto"
-       AutoGenerateColumns="False"
-       CanUserReorderColumns="False"
-       Margin="10"
-       ItemsSource="{Binding Entities, Mode=TwoWay}"
-       SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
+                  Grid.Column="0" Grid.Row="1"
+                  IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+                  SelectionMode="Single"
+                  VerticalScrollBarVisibility="Auto"
+                  AutoGenerateColumns="False"
+                  CanUserReorderColumns="False"
+                  Margin="10"
+                  ItemsSource="{Binding Entities, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding LastName}" Header="Фамилия" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding FirstName}" Header="Имя" Width="5*"></DataGridTextColumn>
@@ -44,8 +44,6 @@
                 <DataGridTextColumn Binding="{Binding Gender}" Header="Пол" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding PhoneNumber}" Header="Телефон" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Email}" Header="e-mail" Width="5*"></DataGridTextColumn>
-                
-
             </DataGrid.Columns>
         </DataGrid>
 
@@ -55,5 +53,8 @@
             <Button Command="{Binding DelCommand}">Удалить</Button>
             <Button Command="{Binding RefreshCommand}">Обновить</Button>
         </StackPanel>
+        <StatusBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
+        </StatusBar>
     </Grid>
 </Window>

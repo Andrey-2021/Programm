@@ -1,6 +1,6 @@
 ﻿namespace DbLibrary;
 
-internal class SqlDbContext : DbContext
+public class SqlDbContext : DbContext
 {
     public DbSet<Patient> Patients { get; set; }
     public DbSet<MedicalService> MedicalServices{ get; set; }
@@ -10,15 +10,19 @@ internal class SqlDbContext : DbContext
     public DbSet<Employee> Employees { get; set; }
     public DbSet<RegisteredUser> RegisteredUsers { get; set; }
 
-    public SqlDbContext()
+    public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options)
     {
-        //Database.EnsureCreated();
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        string connection = "Data Source = WIN10PC; Initial Catalog =MedicalCRM ; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
-        optionsBuilder.UseSqlServer(connection);
-    }
+    //public SqlDbContext()
+    //{
+    //    //Database.EnsureCreated();
+    //}
+
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    string connection = "Data Source = WIN10PC; Initial Catalog =MedicalCRM ; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    //    //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
+    //    optionsBuilder.UseSqlServer(connection);
+    //}
 }

@@ -1,5 +1,5 @@
 ﻿namespace WindowsInterfaces;
 
-public interface IAddPatientView:IView
+public interface IAddPatientView : IViewWithViewModel
 {
 }

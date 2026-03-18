@@ -3,43 +3,131 @@
 /// <summary>
 /// Простой класс, представляющий запись таблицы "Сотрудники"
 /// </summary>
-public class Employee
+[Comment("Сотрудники")]
+[Index(nameof(Employee.LastName), IsUnique = false)] // Индексируем по фамилии
+public class Employee : BaseINotifyDataErrorInfo, IHaveId
 {
     /// <summary>
-    /// ID сотрудника (ключевое поле)
+    /// Id сотрудника (ключевое поле)
     /// </summary>
     [Key]
-    public int EmployeeId { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Фамилия
     /// </summary>
-    public string LastName { get; set; }
+    [Required(ErrorMessage = "Введите фамилию")]
+    [StringLength(LengthConstants.lastNameMaxLength, MinimumLength = LengthConstants.lastNameMinLength, ErrorMessage = "Длина названия должна быть не менее {2} и не более {1} символов")]
+    [Comment("Фамилия")]
+    [DisplayName("Фамилия")]
+    public string LastName
+    {
+        get => lastName;
+        set
+        {
+            lastName = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    public string lastName;
 
     /// <summary>
     /// Имя
     /// </summary>
-    public string FirstName { get; set; }
+    [Required(ErrorMessage = "Введите имя")]
+    [StringLength(LengthConstants.firstNameMaxLength, MinimumLength = LengthConstants.firstNameMinLength, ErrorMessage = "Длина названия должна быть не менее {2} и не более {1} символов")]
+    [Comment("Имя")]
+    [DisplayName("Имя")]
+    public string FirstName
+    {
+        get => firstName;
+        set
+        {
+            firstName = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    public string firstName;
 
     /// <summary>
     /// Отчество
     /// </summary>
-    public string MiddleName { get; set; }
+    [Required(ErrorMessage = "Введите отчество")]
+    [StringLength(LengthConstants.middleNameMaxLength, MinimumLength = LengthConstants.middleNameMinLength, ErrorMessage = "Длина названия должна быть не менее {2} и не более {1} символов")]
+    [Comment("Отчество")]
+    [DisplayName("Отчество")]
+    public string MiddleName
+    {
+        get => middleName;
+        set
+        {
+            middleName = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    public string middleName;
 
     /// <summary>
     /// Должность
     /// </summary>
-    public string Position { get; set; }
+    [Required(ErrorMessage = "Введите должность")]
+    [StringLength(LengthConstants.positionMaxLength, MinimumLength = LengthConstants.positionMinLength, ErrorMessage = "Длина названия должности должна быть не менее {2} и не более {1} символов")]
+    [Comment("Должность")]
+    [DisplayName("Должность")]
+    public string Position
+    {
+        get => position;
+        set
+        {
+            position = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    private string position;
 
     /// <summary>
     /// Номер телефона
     /// </summary>
-    public string PhoneNumber { get; set; }
+    [Phone(ErrorMessage = "Неверный формат телефона")]
+    [Required(ErrorMessage = "Введите телефон")]
+    [StringLength(LengthConstants.phonetMaxLength, MinimumLength = LengthConstants.phonetMinLength, ErrorMessage = "Длина номера телефона должна быть не менее {2} и не более {1} символов")]
+    //[MaxLength(LengthConstants.phonetMaxLength, ErrorMessage = "Длина № телефона должна быть не более {1} символов")]
+    [Comment("Телефон")]
+    [DisplayName("Телефон")]
+    public string PhoneNumber
+    {
+        get => phoneNumber;
+        set
+        {
+            phoneNumber = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    public string phoneNumber;
 
     /// <summary>
     /// Электронная почта
     /// </summary>
-    public string Email { get; set; }
+    [EmailAddress(ErrorMessage = "Неверный формат e-mail")]
+    [Required(ErrorMessage = "Обязательно должен быть введен e-mail")]
+    [MaxLength(LengthConstants.emailMaxLength, ErrorMessage = "Длина e-mail должна быть не более {1} символов")]
+    [Comment("e-mail")]
+    public string Email
+    {
+        get => email;
+        set
+        {
+            email = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    public string email;
 
     public Employee()
     { 

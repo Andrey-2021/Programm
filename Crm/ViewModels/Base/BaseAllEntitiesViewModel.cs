@@ -5,160 +5,194 @@
 /// </summary>
 /// <typeparam name="TEntity">Тип главной сущности</typeparam>
 /// <typeparam name="TAddView">Тип View (Окна) для добавления новой/редактирования сущности</typeparam>
-public class BaseAllEntitiesViewModel<TEntity, TAddView>: INotifyPropertyChanged, IViewModel
-	where TEntity : class, IHaveId, new()
-	where TAddView : IViewWithViewModel
+public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChanged, IViewModel
+    where TEntity : class, IHaveId, new()
+    where TAddView : IViewWithViewModel
 {
-	public bool IsBusy { get; set; }
-	protected IServiceProvider serviceProvider;
-	protected DbRepository repository;
+    /// <summary>
+    /// Сообщение в строку статуса
+    /// </summary>
+    public string? StatusMessage
+    {
+        get => statusMessage;
+        set
+        {
+            statusMessage = value;
+            OnPropertyChanged();
+        }
+    }
+    public string? statusMessage;
 
-	public ObservableCollection<TEntity>? entities;
-	
-	/// <summary>
-	/// Список сущностей из БД
-	/// </summary>
-	public ObservableCollection<TEntity>? Entities
-	{
-		get => entities;
-		set
-		{
-			entities = value;
-			OnPropertyChanged();
-		}
-	}
+    public bool IsBusy { get; set; }
+    protected IServiceProvider serviceProvider;
 
-	public TEntity? selectedEntity;
-	
-	/// <summary>
-	/// Выбранная сущность
-	/// </summary>
-	public TEntity? SelectedEntity
-	{
-		get => selectedEntity;
-		set
-		{
-			selectedEntity = value;
-			OnPropertyChanged();
-		}
-	}
-	
-	/// <summary>
-	/// Команда "Добавить"
-	/// </summary>
-	public ICommand? AddCompanyCommand { private set; get; }
+    /// <summary>
+    /// Список сущностей из БД
+    /// </summary>
+    public ObservableCollection<TEntity>? Entities
+    {
+        get => entities;
+        set
+        {
+            entities = value;
+            OnPropertyChanged();
+        }
+    }
+    public ObservableCollection<TEntity>? entities;
 
-	/// <summary>
-	/// Команда "Обновить"
-	/// </summary>
-	public ICommand? RefreshCommand { private set; get; }
+    /// <summary>
+    /// Выбранная сущность
+    /// </summary>
+    public TEntity? SelectedEntity
+    {
+        get => selectedEntity;
+        set
+        {
+            selectedEntity = value;
+            OnPropertyChanged();
+        }
+    }
+    public TEntity? selectedEntity;
 
-	/// <summary>
-	/// Команда "Удалить"
-	/// </summary>
-	public RelayCommand? DelCommand { private set; get; }
+    /// <summary>
+    /// Команда "Добавить"
+    /// </summary>
+    public ICommand? AddCompanyCommand { private set; get; }
 
-	/// <summary>
-	/// Команда "Редактировать"
-	/// </summary>
-	public RelayCommand? EditCommand { private set; get; }
+    /// <summary>
+    /// Команда "Обновить"
+    /// </summary>
+    public ICommand? RefreshCommand { private set; get; }
 
-	/// <summary>
-	/// Конструктор
-	/// </summary>
-	/// <param name="serviceProvider"></param>
-	public BaseAllEntitiesViewModel(IServiceProvider serviceProvider)
-	{
-		this.serviceProvider = serviceProvider;
-		repository = this.serviceProvider.GetRequiredService<DbRepository>();
-		
-		//настраиваем команды
-		AddCompanyCommand = new RelayCommand(ShowAddEntityWindow, CheckIsPossibleShowAddEntityWindow);
-		RefreshCommand = new RelayCommand(RefreshEntities);
-		DelCommand = new RelayCommand(DelEntity, CheckIsPossibleDeleAddEntity);
-		EditCommand = new RelayCommand(EditEntity, CheckIsPossibleEditAddEntity);
+    /// <summary>
+    /// Команда "Удалить"
+    /// </summary>
+    public RelayCommand? DelCommand { private set; get; }
 
-		var task= Task.Run(() => LoadNecessaryDates());
-		task.Wait();
-	}
+    /// <summary>
+    /// Команда "Редактировать"
+    /// </summary>
+    public RelayCommand? EditCommand { private set; get; }
 
-	protected virtual async void ShowAddEntityWindow(object? parametr)
-	{
-		var view = serviceProvider.GetRequiredService<TAddView>();
-		view.ShowDialog();
-		await LoadNecessaryDates();
-	}
+    /// <summary>
+    /// Конструктор
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public BaseAllEntitiesViewModel(IServiceProvider serviceProvider)
+    {
+        this.serviceProvider = serviceProvider;
+        //настраиваем команды
+        AddCompanyCommand = new RelayCommand(ShowAddEntityWindow, CheckIsPossibleShowAddEntityWindow);
+        RefreshCommand = new RelayCommand(RefreshEntities);
+        DelCommand = new RelayCommand(DelEntity, CheckIsPossibleDeleAddEntity);
+        EditCommand = new RelayCommand(EditEntity, CheckIsPossibleEditAddEntity);
 
-	protected virtual bool CheckIsPossibleShowAddEntityWindow(object? parametr)
-	{
-		return true;
-	}
+        var task = Task.Run(() => LoadNecessaryDates());
+        task.Wait();
+    }
 
-	protected virtual async void RefreshEntities(object? parametr)
-	{
-		await LoadNecessaryDates();
-	}
+    protected virtual async void ShowAddEntityWindow(object? parametr)
+    {
+        var view = serviceProvider.GetRequiredService<TAddView>();
+        view.ShowDialog();
+        await LoadNecessaryDates();
+    }
 
-	protected virtual async void DelEntity(object? parametr)
-	{
-		//if (SelectedEntity == null) return;
-		//IsBusy = true;
-		//await repository.DelEntityAsync<TEntity>(SelectedEntity);
-		//await LoadNecessaryDates();
-		//IsBusy = false;
-	}
+    protected virtual bool CheckIsPossibleShowAddEntityWindow(object? parametr)
+    {
+        return true;
+    }
 
-	protected virtual bool CheckIsPossibleDeleAddEntity(object? parametr)
-	{
-		return SelectedEntity!=null;
-	}
+    protected virtual async void RefreshEntities(object? parametr)
+    {
+        await LoadNecessaryDates();
+    }
 
-	protected virtual async void EditEntity(object? parametr)
-	{
-		var view = serviceProvider.GetRequiredService<TAddView>();
-		view.ViewModel.Parametr = SelectedEntity;
-		view.ShowDialog();
-		await LoadNecessaryDates();
-	}
+    protected virtual async void DelEntity(object? parametr)
+    {
+        if (SelectedEntity == null) return;
+        IsBusy = true;
+        var repository = this.serviceProvider.GetRequiredService<DbRepository>();
+        var result = await repository.DelEntityAsync<TEntity>(SelectedEntity);
 
-	protected virtual bool CheckIsPossibleEditAddEntity(object? parametr)
-	{
-		return SelectedEntity != null;
-	}
+        if (result.ex is not null)
+        {
+            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
+            view.ViewModel.Parametr = "Ошибка при удалении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
+                + Environment.NewLine + "Exception:" + result.ex?.Message
+                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+        }
+        else
+        {
+            StatusMessage = "Данные удалены. " + DateTime.Now;
+        }
 
-	/// <summary>
-	/// Загрузка сущностей из БД
-	/// </summary>
-	/// <returns></returns>
-	protected virtual async Task LoadNecessaryDates()
-	{
-		//IsBusy = true;
-		//var response = await repository.GetEntitiesAsync<TEntity>();
-		//if (response == null)
-		//	Entities = null;
-		//else
-		//	Entities = new ObservableCollection<TEntity>(response);
-		//IsBusy = false;
-	}
+        await LoadNecessaryDates();
+        IsBusy = false;
+    }
+
+    protected virtual bool CheckIsPossibleDeleAddEntity(object? parametr)
+    {
+        return SelectedEntity != null;
+    }
+
+    protected virtual async void EditEntity(object? parametr)
+    {
+        var view = serviceProvider.GetRequiredService<TAddView>();
+        view.ViewModel.Parametr = SelectedEntity;
+        view.ShowDialog();
+        await LoadNecessaryDates();
+    }
+
+    protected virtual bool CheckIsPossibleEditAddEntity(object? parametr)
+    {
+        return SelectedEntity != null;
+    }
+
+    /// <summary>
+    /// Загрузка сущностей из БД
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task LoadNecessaryDates()
+    {
+        IsBusy = true;
+        var repository = this.serviceProvider.GetRequiredService<DbRepository>();
+
+        var result = await repository.GetEntitiesAsync<TEntity>();
+
+        if (result.ex is null)
+            Entities = new ObservableCollection<TEntity>(result.data);
+        else
+        {
+            Entities = null;
+            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
+            view.ViewModel.Parametr = "Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
+                + Environment.NewLine + "Exception:" + result.ex?.Message
+                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+        }
 
 
+        IsBusy = false;
+    }
 
-	public event PropertyChangedEventHandler? PropertyChanged;
-	public void OnPropertyChanged([CallerMemberName] string prop = "")
-	{
-		if (PropertyChanged != null)
-		{
-			PropertyChanged(this, new PropertyChangedEventArgs(prop));
-			CheckCommands();
-		}
-	}
 
-	/// <summary>
-	/// Проверка можно ли выполнить команды
-	/// </summary>
-	protected virtual void CheckCommands()
-	{
-		DelCommand?.RaiseCanExecuteChanged();
-		EditCommand?.RaiseCanExecuteChanged();
-	}
+    //для реализации интерфейса INotifyPropertyChanged
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public void OnPropertyChanged([CallerMemberName] string prop = "")
+    {
+        if (PropertyChanged != null)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            CheckCommands();
+        }
+    }
+
+    /// <summary>
+    /// Проверка можно ли выполнить команды
+    /// </summary>
+    protected virtual void CheckCommands()
+    {
+        DelCommand?.RaiseCanExecuteChanged();
+        EditCommand?.RaiseCanExecuteChanged();
+    }
 }

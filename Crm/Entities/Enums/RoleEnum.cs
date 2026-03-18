@@ -5,15 +5,17 @@
 /// </summary>
 public enum RoleEnum
 {
-	/// <summary>
-	/// Администратор
-	/// </summary>
-	admin=1,
+    /// <summary>
+    /// Администратор
+    /// </summary>
+    [Description("Администратор")]
+    admin =1,
 
-	/// <summary>
-	/// Менеджер
-	/// </summary>
-	manager=2
+    /// <summary>
+    /// Менеджер
+    /// </summary>
+    [Description("Менеджер")]
+    manager =2
 }
 
 
