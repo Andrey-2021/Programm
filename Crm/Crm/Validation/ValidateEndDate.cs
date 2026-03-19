@@ -13,7 +13,7 @@ public class ValidateData
         var instance = (Contract)context.ObjectInstance;
         if (endDate < instance.StartDate)
         {
-            return new ValidationResult("Дата окончания не может быть раньше даты начала", new[] { nameof(EndDate) });
+            return new ValidationResult("Дата окончания не может быть раньше даты начала", new[] { nameof(endDate) });
         }
         return ValidationResult.Success;
     }

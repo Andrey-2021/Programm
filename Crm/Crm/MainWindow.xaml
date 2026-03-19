@@ -29,6 +29,8 @@
                 <MenuItem Header="Пациенты" Command="{Binding ShowAllPatientsCommand}"></MenuItem>
                 <MenuItem Header="Услуги" Command="{Binding ShowAllMedicalServicesCommand}"></MenuItem>
                 <MenuItem Header="Сотрудники" Command="{Binding ShowAllEmployeesCommand}"></MenuItem>
+                <Separator />
+                <MenuItem Header="Должности сотрудников" Command="{Binding ShowAllPositionsCommand}"></MenuItem>
             </MenuItem>
 
             <MenuItem Header="Договора" >

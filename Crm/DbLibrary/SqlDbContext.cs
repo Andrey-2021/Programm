@@ -9,6 +9,7 @@ public class SqlDbContext : DbContext
     public DbSet<Payment> Payments{ get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<RegisteredUser> RegisteredUsers { get; set; }
+    public DbSet<Position> Positions { get; set; }
 
     public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options)
     {

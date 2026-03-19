@@ -1,4 +1,6 @@
-﻿namespace Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Entities;
 
 /// <summary>
 /// Простой класс, представляющий запись таблицы "Сотрудники"
@@ -30,7 +32,7 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
             Validate(value);
         }
     }
-    public string lastName;
+    public string lastName = string.Empty;
 
     /// <summary>
     /// Имя
@@ -49,7 +51,7 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
             Validate(value);
         }
     }
-    public string firstName;
+    public string firstName = string.Empty;
 
     /// <summary>
     /// Отчество
@@ -68,16 +70,39 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
             Validate(value);
         }
     }
-    public string middleName;
+    public string middleName=string.Empty;
+
+    /// <summary>
+    /// ID Должности
+    /// </summary>
+    /// <remarks>
+	/// Внешний ключ. Связь Один-Ко-Многим
+	///</remarks>
+    [Required(ErrorMessage = "Для сотрудника обязательно должна быть указана должность")]
+    [Range(1, int.MaxValue, ErrorMessage = "Не выбрана должность")]
+    [Comment("ID должности")]
+    [DisplayName("ID должности")]
+    public int PositionId
+    {
+        get => positionId;
+        set
+        {
+            positionId = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    private int positionId;
 
     /// <summary>
     /// Должность
     /// </summary>
-    [Required(ErrorMessage = "Введите должность")]
-    [StringLength(LengthConstants.positionMaxLength, MinimumLength = LengthConstants.positionMinLength, ErrorMessage = "Длина названия должности должна быть не менее {2} и не более {1} символов")]
+	/// <remarks>
+	/// Навигационное свойство. Связь один-ко-многим
+	///</remarks>
     [Comment("Должность")]
     [DisplayName("Должность")]
-    public string Position
+    public Position? Position
     {
         get => position;
         set
@@ -87,7 +112,7 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
             Validate(value);
         }
     }
-    private string position;
+    private Position? position;
 
     /// <summary>
     /// Номер телефона
@@ -108,16 +133,16 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
             Validate(value);
         }
     }
-    public string phoneNumber;
+    public string phoneNumber=String.Empty;
 
     /// <summary>
     /// Электронная почта
     /// </summary>
     [EmailAddress(ErrorMessage = "Неверный формат e-mail")]
-    [Required(ErrorMessage = "Обязательно должен быть введен e-mail")]
+    //[Required(ErrorMessage = "Обязательно должен быть введен e-mail")]
     [MaxLength(LengthConstants.emailMaxLength, ErrorMessage = "Длина e-mail должна быть не более {1} символов")]
     [Comment("e-mail")]
-    public string Email
+    public string? Email
     {
         get => email;
         set
@@ -127,7 +152,7 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
             Validate(value);
         }
     }
-    public string email;
+    public string? email;
 
     public Employee()
     { 
@@ -137,7 +162,7 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
     /// Конструктор для инициализации всех свойств, кроме EmployeeId.
     /// </summary>
     public Employee(string lastName, string firstName, string middleName,
-                    string position, string phoneNumber, string email)
+                    Position position, string phoneNumber, string email)
     {
         LastName = lastName;
         FirstName = firstName;

@@ -117,5 +117,14 @@ internal class LengthConstants
     public const int contractStatusMaxLength = 20;
     public const int contractStatusMinLength = 2;
 
-    public const int notesMaxLength = 4000; 
+    public const int notesMaxLength = 4000;
+
+    /// <summary>
+    /// Минимальная длина название должности
+    /// </summary>
+    public const byte positionNameMinLength = 4;
+    /// <summary>
+    /// Максимальная длина название должности
+    /// </summary>
+    public const int positionNameMaxLength = 255;
 }

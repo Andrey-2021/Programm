@@ -9,7 +9,7 @@ public static class EmployeeSeeder
     /// <summary>
     /// Возвращает список из 20 сотрудников с заранее определёнными данными.
     /// </summary>
-    public static List<Employee> GetSampleEmployees()
+    public static List<Employee> GetSampleEmployees(List<Position> positions)
     {
         var employees = new List<Employee>();
 
@@ -19,7 +19,7 @@ public static class EmployeeSeeder
             lastName: "Иванов",
             firstName: "Пётр",
             middleName: "Сергеевич",
-            position: "Врач-терапевт",
+            position: positions[0],
             phoneNumber: "+7 (123) 111-22-33",
             email: "ivanov@clinic.ru"
         ));
@@ -28,7 +28,7 @@ public static class EmployeeSeeder
             lastName: "Петрова",
             firstName: "Мария",
             middleName: "Ивановна",
-            position: "Медицинская сестра",
+            position: positions[1],
             phoneNumber: "+7 (123) 222-33-44",
             email: "petrova@clinic.ru"
         ));
@@ -37,7 +37,7 @@ public static class EmployeeSeeder
             lastName: "Сидоров",
             firstName: "Алексей",
             middleName: "Викторович",
-            position: "Хирург",
+            position: positions[2],
             phoneNumber: "+7 (123) 333-44-55",
             email: "sidorov@clinic.ru"
         ));
@@ -46,7 +46,7 @@ public static class EmployeeSeeder
             lastName: "Кузнецова",
             firstName: "Елена",
             middleName: "Владимировна",
-            position: "Регистратор",
+            position: positions[3],
             phoneNumber: "+7 (123) 444-55-66",
             email: "kuznetsova@clinic.ru"
         ));
@@ -55,7 +55,7 @@ public static class EmployeeSeeder
             lastName: "Смирнов",
             firstName: "Дмитрий",
             middleName: "Николаевич",
-            position: "Заведующий отделением",
+            position: positions[4],
             phoneNumber: "+7 (123) 555-66-77",
             email: "smirnov@clinic.ru"
         ));
@@ -64,7 +64,7 @@ public static class EmployeeSeeder
             lastName: "Михайлова",
             firstName: "Анна",
             middleName: "Олеговна",
-            position: "Врач-педиатр",
+            position: positions[5],
             phoneNumber: "+7 (123) 666-77-88",
             email: "mikhailova@clinic.ru"
         ));
@@ -73,7 +73,7 @@ public static class EmployeeSeeder
             lastName: "Фёдоров",
             firstName: "Андрей",
             middleName: "Павлович",
-            position: "Врач-кардиолог",
+            position: positions[6],
             phoneNumber: "+7 (123) 777-88-99",
             email: "fedorov@clinic.ru"
         ));
@@ -82,7 +82,7 @@ public static class EmployeeSeeder
             lastName: "Морозова",
             firstName: "Ольга",
             middleName: "Игоревна",
-            position: "Медицинская сестра",
+            position: positions[0],
             phoneNumber: "+7 (123) 888-99-00",
             email: "morozova@clinic.ru"
         ));
@@ -91,7 +91,7 @@ public static class EmployeeSeeder
             lastName: "Волков",
             firstName: "Иван",
             middleName: "Алексеевич",
-            position: "Врач-невролог",
+            position: positions[1],
             phoneNumber: "+7 (123) 999-00-11",
             email: "volkov@clinic.ru"
         ));
@@ -100,7 +100,7 @@ public static class EmployeeSeeder
             lastName: "Соколова",
             firstName: "Татьяна",
             middleName: "Дмитриевна",
-            position: "Физиотерапевт",
+            position: positions[2],
             phoneNumber: "+7 (123) 000-11-22",
             email: "sokolova@clinic.ru"
         ));
@@ -109,7 +109,7 @@ public static class EmployeeSeeder
             lastName: "Лебедев",
             firstName: "Максим",
             middleName: "Сергеевич",
-            position: "Врач-офтальмолог",
+            position: positions[3],
             phoneNumber: "+7 (124) 111-22-33",
             email: "lebedev@clinic.ru"
         ));
@@ -118,7 +118,7 @@ public static class EmployeeSeeder
             lastName: "Козлова",
             firstName: "Наталья",
             middleName: "Викторовна",
-            position: "Лаборант",
+            position: positions[4],
             phoneNumber: "+7 (124) 222-33-44",
             email: "kozlova@clinic.ru"
         ));
@@ -127,7 +127,7 @@ public static class EmployeeSeeder
             lastName: "Новиков",
             firstName: "Александр",
             middleName: "Иванович",
-            position: "Врач-уролог",
+            position: positions[5],
             phoneNumber: "+7 (124) 333-44-55",
             email: "novikov@clinic.ru"
         ));
@@ -136,7 +136,7 @@ public static class EmployeeSeeder
             lastName: "Зайцева",
             firstName: "Ирина",
             middleName: "Петровна",
-            position: "Медицинская сестра",
+            position: positions[6],
             phoneNumber: "+7 (124) 444-55-66",
             email: "zaytseva@clinic.ru"
         ));
@@ -145,7 +145,7 @@ public static class EmployeeSeeder
             lastName: "Павлов",
             firstName: "Михаил",
             middleName: "Геннадьевич",
-            position: "Врач-стоматолог",
+            position: positions[7],
             phoneNumber: "+7 (124) 555-66-77",
             email: "pavlov@clinic.ru"
         ));
@@ -154,7 +154,7 @@ public static class EmployeeSeeder
             lastName: "Борисова",
             firstName: "Екатерина",
             middleName: "Анатольевна",
-            position: "Гинеколог",
+            position: positions[8],
             phoneNumber: "+7 (124) 666-77-88",
             email: "borisova@clinic.ru"
         ));
@@ -163,7 +163,7 @@ public static class EmployeeSeeder
             lastName: "Соловьёв",
             firstName: "Владимир",
             middleName: "Андреевич",
-            position: "Врач-дерматолог",
+            position: positions[9],
             phoneNumber: "+7 (124) 777-88-99",
             email: "soloviev@clinic.ru"
         ));
@@ -172,7 +172,7 @@ public static class EmployeeSeeder
             lastName: "Васильева",
             firstName: "Светлана",
             middleName: "Максимовна",
-            position: "Психолог",
+            position: positions[7],
             phoneNumber: "+7 (124) 888-99-00",
             email: "vasilieva@clinic.ru"
         ));
@@ -181,7 +181,7 @@ public static class EmployeeSeeder
             lastName: "Попов",
             firstName: "Артём",
             middleName: "Валерьевич",
-            position: "Врач-эндоскопист",
+            position: positions[8],
             phoneNumber: "+7 (124) 999-00-11",
             email: "popov@clinic.ru"
         ));
@@ -190,7 +190,7 @@ public static class EmployeeSeeder
             lastName: "Алексеева",
             firstName: "Дарья",
             middleName: "Сергеевна",
-            position: "Администратор",
+            position: positions[9],
             phoneNumber: "+7 (124) 000-11-22",
             email: "alekseeva@clinic.ru"
         ));

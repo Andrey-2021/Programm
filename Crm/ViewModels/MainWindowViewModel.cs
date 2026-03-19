@@ -23,6 +23,11 @@ public class MainWindowViewModel
     public ICommand? ShowAllEmployeesCommand { get; private set; }
 
     /// <summary>
+    /// Команда "показать должности сотрудников"
+    /// </summary>
+    public ICommand? ShowAllPositionsCommand { get; private set; }
+
+    /// <summary>
 	/// Команда "показать услуги"
 	/// </summary>
 	public ICommand? ShowAllMedicalServicesCommand { get; private set; }
@@ -65,6 +70,7 @@ public class MainWindowViewModel
         ShowAllPatientsCommand = new RelayCommand(ShowAllPatients);
         ShowAllEmployeesCommand = new RelayCommand(ShowAllEmployees);
         ShowAllMedicalServicesCommand = new RelayCommand(ShowAllMedicalServices);
+        ShowAllPositionsCommand = new RelayCommand(ShowAllPositionsServices);
 
         ShowAllContractsCommand = new RelayCommand(ShowAllContracts);
         AddContractCommand = new RelayCommand(AddContract);
@@ -115,6 +121,12 @@ public class MainWindowViewModel
     private void ShowAllMedicalServices(object? parametr)
     {
         var view = container.GetRequiredService<IMedicalServicesView>();
+        view.ShowDialog();
+    }
+    
+    private void ShowAllPositionsServices(object? parametr)
+    {
+        var view = container.GetRequiredService<IPositionsView>();
         view.ShowDialog();
     }
 

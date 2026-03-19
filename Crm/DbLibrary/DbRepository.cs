@@ -35,7 +35,10 @@ public class DbRepository
                     var patients = PatientSeeder.GetSamplePatients();
                     await db.Patients.AddRangeAsync(patients);
 
-                    var employees = EmployeeSeeder.GetSampleEmployees();
+                    var positions = PositionSeeder.GetSamplePositions();
+                    await db.Positions.AddRangeAsync(positions);
+
+                    var employees = EmployeeSeeder.GetSampleEmployees(positions);
                     await db.Employees.AddRangeAsync(employees);
 
                     var medServices= MedicalServiceSeeder.GetSampleServices();

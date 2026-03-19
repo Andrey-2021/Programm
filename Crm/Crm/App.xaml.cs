@@ -74,6 +74,9 @@ public partial class App : Application
         services.AddTransient<IAddUserView, AddUserWindow>();
         services.AddTransient<IUsersView, UsersWindow>();
 
+        services.AddTransient<IAddPositionView, AddPositionWindow>();
+        services.AddTransient<IPositionsView, PositionsWindow>();
+
         // Регистрируем ViewModel-и
         services.AddTransient<MessageViewModel>();
 
@@ -97,5 +100,7 @@ public partial class App : Application
         services.AddTransient<AddUserViewModel>();
         services.AddTransient<UsersViewModel>();
 
+        services.AddTransient<AddPositionViewModel>();
+        services.AddTransient<PositionsViewModel>();
     }
 }
