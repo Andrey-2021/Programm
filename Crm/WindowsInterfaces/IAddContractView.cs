@@ -1,5 +1,5 @@
 ﻿namespace WindowsInterfaces;
 
-public interface IAddContractView:IView
+public interface IAddContractView : IViewWithViewModel
 {
 }

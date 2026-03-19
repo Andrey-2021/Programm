@@ -6,7 +6,7 @@
 public class Position : BaseINotifyDataErrorInfo, IHaveId
 {
     /// <summary>
-    /// Id сотрудника (ключевое поле)
+    /// Id
     /// </summary>
     /// <remarks>
     /// Связь один-ко-многим с Employee

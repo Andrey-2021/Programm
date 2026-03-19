@@ -4,9 +4,110 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
+        xmlns:converter="clr-namespace:Crm"
+         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="AddMedicalServiceWindow" Height="450" Width="800">
+        Title="Медицинская услуга" Height="550" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"></ColumnDefinition>
+            <ColumnDefinition Width="70*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="labelTitle"
+           Grid.Column="0" Grid.Row="0"
+           Margin="10"
+           Grid.ColumnSpan="2"
+           HorizontalContentAlignment="Center"
+           VerticalContentAlignment="Bottom">
+            Введите данные о сотруднике:
+        </Label>
+
+        <Label Grid.Column="0" Grid.Row="1">Наименование услуги:</Label>
+        <TextBox Grid.Column="1" Grid.Row="1"
+             Text="{Binding Path=MainEntity.ServiceName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+             Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+
+        <Label Grid.Column="0" Grid.Row="2">Код услуги:</Label>
+        <TextBox Grid.Column="1" Grid.Row="2"
+             Text="{Binding Path=MainEntity.ServiceCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+             Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+
+        <Label Grid.Column="0" Grid.Row="3">Цена:</Label>
+        <!--<TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"
+             Margin="10" Padding="5" Width="200">
+            <TextBox.Text>
+                <Binding Path="MainEntity.ServicePrice" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.Converter>
+                        <converter:StrToIntConverter></converter:StrToIntConverter>
+                    </Binding.Converter>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>-->
+
+        <!--https://stackoverflow.com/questions/382676/good-numericupdown-equivalent-in-wpf-->
+        <xctk:DecimalUpDown Grid.Column="1" Grid.Row="3"
+                            FormatString="C2" 
+                            Value="{Binding MainEntity.ServicePrice, UpdateSourceTrigger=PropertyChanged}"
+                            Minimum="0"
+                            Maximum="1000000"
+                            Increment="0.01"
+                            Width="200"
+                            Margin="5 5 5 5"
+                            HorizontalAlignment="Left"/>
+
+        <Label Grid.Column="0" Grid.Row="4">Тип:</Label>
+        <DataGrid MinHeight="50"
+                  Grid.Column="1" Grid.Row="4"
+                  IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+                  SelectionMode="Single"
+                  VerticalScrollBarVisibility="Auto"
+                  AutoGenerateColumns="False"
+                  CanUserReorderColumns="False"
+                  Margin="5 5 5 5"
+                  ItemsSource="{Binding Entities, Mode=TwoWay}"
+                  SelectedValuePath="Id"
+                  SelectedValue="{Binding Path=MainEntity.MedicalServiceTypeId, ValidatesOnNotifyDataErrors=True}"
+                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="MediumAquamarine"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="MediumAquamarine"/>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}" 
+                                    Header="Название типа медицинской услуги" 
+                                    Width="5*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Column="1" Grid.Row="5"
+            Margin="10,10,10,10" Padding="10"
+            MinWidth="120"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Command="{Binding SaveCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            Сохранить
+        </Button>
+
+        <Button Grid.Column="1" Grid.Row="5"
+            Margin="0,0,280,0" Padding="10"
+            MinWidth="120"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Command="{Binding CloseWindowCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            Отмена
+        </Button>
     </Grid>
+
 </Window>

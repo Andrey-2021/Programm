@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Entities;
+﻿namespace Entities;
 
 /// <summary>
 /// Простой класс, представляющий запись таблицы "Сотрудники"

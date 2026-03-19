@@ -1,5 +1,5 @@
 ﻿namespace WindowsInterfaces;
 
-public interface IAddEmployeesView
+public interface IAddEmployeesView : IViewWithViewModel
 {
 }

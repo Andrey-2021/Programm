@@ -10,7 +10,8 @@ public class SqlDbContext : DbContext
     public DbSet<Employee> Employees { get; set; }
     public DbSet<RegisteredUser> RegisteredUsers { get; set; }
     public DbSet<Position> Positions { get; set; }
-
+    public DbSet<MedicalServiceType> MedicalServiceTypes { get; set; }
+    
     public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options)
     {
     }
@@ -26,4 +27,10 @@ public class SqlDbContext : DbContext
     //    //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
     //    optionsBuilder.UseSqlServer(connection);
     //}
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Employee>().Navigation(e => e.Position).AutoInclude();
+        modelBuilder.Entity<MedicalService>().Navigation(e => e.MedicalServiceType).AutoInclude();
+    }
 }

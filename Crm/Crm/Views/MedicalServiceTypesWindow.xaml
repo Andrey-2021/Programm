@@ -1,11 +1,11 @@
-﻿<Window x:Class="Crm.Views.MedicalServicesWindow"
+﻿<Window x:Class="Crm.Views.MedicalServiceTypesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
-        Title="Медицинские услуги" Height="450" Width="800"
+        Title="Типы медицинских услуг" Height="450" Width="700"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,30 +15,27 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" 
         Grid.ColumnSpan="2"
         HorizontalAlignment="Center">
-            Все пациенты
+            Типы медицинских услуг
         </Label>
 
         <DataGrid MinHeight="150"
-   Grid.Column="0" Grid.Row="1"
-   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
-   SelectionMode="Single"
-   VerticalScrollBarVisibility="Auto"
-   AutoGenerateColumns="False"
-   CanUserReorderColumns="False"
-   Margin="10"
-   ItemsSource="{Binding Entities, Mode=TwoWay}"
-   SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
+              Grid.Column="0" Grid.Row="1"
+              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+              SelectionMode="Single"
+              VerticalScrollBarVisibility="Auto"
+              AutoGenerateColumns="False"
+              CanUserReorderColumns="False"
+              Margin="10"
+              ItemsSource="{Binding Entities, Mode=TwoWay}"
+              SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding ServiceName}" Header="Название услуги" Width="5*"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding ServiceCode}" Header="Код услуги" Width="5*"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Path=MedicalServiceType.Name}" Header="Вид услуги" Width="5*"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding ServicePrice}" Header="Стоимость услуги" Width="5*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Название" Width="5*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -48,6 +45,9 @@
             <Button Command="{Binding DelCommand}">Удалить</Button>
             <Button Command="{Binding RefreshCommand}">Обновить</Button>
         </StackPanel>
+        <StatusBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
+        </StatusBar>
     </Grid>
 
 </Window>

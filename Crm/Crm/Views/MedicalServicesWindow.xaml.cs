@@ -2,10 +2,9 @@
 
 public partial class MedicalServicesWindow : Window, IMedicalServicesView
 {
-    public MedicalServicesWindow()
+    public MedicalServicesWindow(MedicalServicesViewModel viewModel)
     {
         InitializeComponent();
-        var viewModel = new MedicalServicesViewModel();
         DataContext = viewModel;
     }
 }

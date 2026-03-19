@@ -1,8 +1,5 @@
-﻿using Entities.Base;
-using Entities.Enums;
-using Entities.Interfaces;
+﻿using Entities.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Entities;
 
 /// <summary>
@@ -10,15 +7,19 @@ namespace Entities;
 /// </summary>
 public class RegisteredUser : BaseINotifyDataErrorInfo, IHaveId
 {
-	public int Id { get; set; }
+    /// <summary>
+    /// Id
+    /// </summary>
+    public int Id { get; set; }
 
 	/// <summary>
 	/// Login
 	/// </summary>
 	[Required(ErrorMessage = "Обязательно должна быть введен логин")]
-	[StringLength(20, MinimumLength = 4, ErrorMessage = "Длина логина должна быть не менее {2} и не более {1} символов")]
-	[Comment("Логин")]
-	public string? Login
+    [StringLength(LengthConstants.loginMaxLength, MinimumLength = LengthConstants.loginMinLength, ErrorMessage = "Длина логина должна быть не менее {2} и не более {1} символов")]
+    [Comment("Логин")]
+    [DisplayName("Логин")]
+    public string Login
 	{
 		get => login;
 		set
@@ -28,15 +29,16 @@ public class RegisteredUser : BaseINotifyDataErrorInfo, IHaveId
 			Validate(value);
 		}
 	}
-	private string? login;
+	private string login=string.Empty;
 
 	/// <summary>
 	/// Пароль
 	/// </summary>
 	[Required(ErrorMessage = "Обязательно должна быть введен пароль")]
-	[StringLength(20, MinimumLength = 4, ErrorMessage = "Длина пароля должна быть не менее {2} и не более {1} символов")]
-	[Comment("Пароль")]
-	public string? Password
+    [StringLength(LengthConstants.passwordMaxLength, MinimumLength = LengthConstants.passwordMinLength, ErrorMessage = "Длина пароля должна быть не менее {2} и не более {1} символов")]
+    [Comment("Пароль")]
+    [DisplayName("Пароль")]
+    public string Password
 	{
 		get => password;
 		set
@@ -46,14 +48,16 @@ public class RegisteredUser : BaseINotifyDataErrorInfo, IHaveId
 			Validate(value);
 		}
 	}
-	private string? password;
+	private string password = string.Empty;
 
 	/// <summary>
 	/// Повторный пароль
 	/// </summary>
 	[NotMapped]
 	[Compare("Password", ErrorMessage ="Пароли не совпадают ")]
-	public string? ConfirmedPassword
+    [Comment("Повторный пароль")]
+    [DisplayName("Повторный пароль")]
+    public string? ConfirmedPassword
 	{
 		get => confirmedPassword;
 		set
@@ -70,7 +74,8 @@ public class RegisteredUser : BaseINotifyDataErrorInfo, IHaveId
 	/// </summary>
 	[Required(ErrorMessage = "Обязательно должна быть указана роль")]
 	[Comment("Роль")]
-	public RoleEnum? Role
+    [DisplayName("Роль")]
+    public RoleEnum? Role
 	{
 		get => role;
 		set
@@ -81,4 +86,19 @@ public class RegisteredUser : BaseINotifyDataErrorInfo, IHaveId
 		}
 	}
 	private RoleEnum? role;
+
+    /// <summary>
+    /// Конструктор по умолчанию.
+    /// </summary>
+    public RegisteredUser() { }
+
+    /// <summary>
+    /// Конструктор с инициализацией.
+    /// </summary>
+    public RegisteredUser(string login, string password, RoleEnum role)
+    {
+        Login = login;
+		Password = password;
+		Role = role;
+    }
 }

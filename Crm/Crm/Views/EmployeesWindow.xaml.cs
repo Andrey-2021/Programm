@@ -1,13 +1,10 @@
-﻿using Entities;
-
-namespace Crm.Views;
+﻿namespace Crm.Views;
 
 public partial class EmployeesWindow : Window, IEmployeesView
 {
-    public EmployeesWindow()
+    public EmployeesWindow(EmployeesViewModel viewModel)
     {
         InitializeComponent();
-        var viewModel = new EmployeesViewModel();
         DataContext = viewModel;
     }
 }

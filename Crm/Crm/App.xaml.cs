@@ -56,20 +56,25 @@ public partial class App : Application
         // Регистрируем окна
         services.AddTransient<IMainWindowView, MainWindow>();
         services.AddTransient<IAboutProgrammView, AboutProgrammWindow>();
-        services.AddTransient<IAddContractView, AddContractWindow>();
-        services.AddTransient<IAddEmployeesView, AddEmployeesWindow>();
-        services.AddTransient<IAddMedicalServiceView, AddMedicalServiceWindow>();
-
-        services.AddTransient<IAddPatientView, AddPatientWindow>();
-        services.AddTransient<IAddPaymentView, AddPaymentWindow>();
-        services.AddTransient<IContractsView, ContractsWindow>();
-        services.AddTransient<IEmployeesView, EmployeesWindow>();
-
         services.AddTransient<IHelpView, HelpWindow>();
         services.AddTransient<ILoginView, LoginWindow>();
 
         services.AddTransient<IMedicalServicesView, MedicalServicesWindow>();
+        services.AddTransient<IAddMedicalServiceView, AddMedicalServiceWindow>();
+
+        services.AddTransient<IMedicalServiceTypesView, MedicalServiceTypesWindow>();
+        services.AddTransient<IAddMedicalServiceTypeView, AddMedicalServiceTypeWindow>();
+
+        services.AddTransient<IAddPaymentView, AddPaymentWindow>();
+
+        services.AddTransient<IAddEmployeesView, AddEmployeesWindow>();
+        services.AddTransient<IEmployeesView, EmployeesWindow>();
+
+        services.AddTransient<IContractsView, ContractsWindow>();
+        services.AddTransient<IAddContractView, AddContractWindow>();
+        
         services.AddTransient<IPatientsView, PatientsWindow>();
+        services.AddTransient<IAddPatientView, AddPatientWindow>();
 
         services.AddTransient<IAddUserView, AddUserWindow>();
         services.AddTransient<IUsersView, UsersWindow>();
@@ -77,25 +82,34 @@ public partial class App : Application
         services.AddTransient<IAddPositionView, AddPositionWindow>();
         services.AddTransient<IPositionsView, PositionsWindow>();
 
+
+
+
+
         // Регистрируем ViewModel-и
         services.AddTransient<MessageViewModel>();
 
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<AboutProgrammViewModel>();
-        //services.AddTransient<AddContractViewModel>();
-        //services.AddTransient<AddEmployeesWindowViewModel>();
-        //services.AddTransient<AddMedicalServiceViewModel>();
-
-        services.AddTransient<AddPatientViewModel>();
-        //services.AddTransient<AddPaymentViewModel>();
-        services.AddTransient<ContractsViewModel>();
-        services.AddTransient<EmployeesViewModel>();
-
         //services.AddTransient<HelpViewModel>();
         services.AddTransient<LoginViewModel>();
 
-        services.AddTransient<MedicalServicesViewModel>();
         services.AddTransient<PatientsViewModel>();
+        services.AddTransient<AddPatientViewModel>();
+
+        //services.AddTransient<AddPaymentViewModel>();
+
+        services.AddTransient<ContractsViewModel>();
+        services.AddTransient<AddContractViewModel>();
+
+        services.AddTransient<EmployeesViewModel>();
+        services.AddTransient<AddEmployeeViewModel>();
+
+        services.AddTransient<MedicalServicesViewModel>();
+        services.AddTransient<AddMedicalServiceViewModel>();
+
+        services.AddTransient<MedicalServiceTypesViewModel>();
+        services.AddTransient<AddMedicalServiceTypeViewModel>();
 
         services.AddTransient<AddUserViewModel>();
         services.AddTransient<UsersViewModel>();

@@ -36,25 +36,6 @@ public class MedicalService : BaseINotifyDataErrorInfo, IHaveId
     private string serviceName = default!;
 
     /// <summary>
-    /// Вид услуги
-    /// </summary>
-    [Required(ErrorMessage = "Введите вид услуги")]
-    [StringLength(LengthConstants.serviceTypeMaxLength, MinimumLength = LengthConstants.serviceTypeMinLength, ErrorMessage = "Длина вида услуги должна быть не менее {2} и не более {1} символов")]
-    [Comment("Вид услуги")]
-    [DisplayName("Вид услуги")]
-    public string ServiceType
-    {
-        get => serviceType;
-        set
-        {
-            serviceType = value;
-            OnPropertyChanged();
-            Validate(value);
-        }
-    }
-    private string serviceType = default!;
-
-    /// <summary>
     /// Код услуги
     /// </summary>
     [Required(ErrorMessage = "Введите код услуги")]
@@ -72,6 +53,48 @@ public class MedicalService : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private string serviceCode = default!;
+
+    /// <summary>
+    /// Id вид медицинской услуги
+    /// </summary>
+    /// <remarks>
+	/// Внешний ключ. Связь Один-Ко-Многим
+	///</remarks>
+    [Required(ErrorMessage = "Для сотрудника обязательно должна быть указана должность")]
+    [Range(1, int.MaxValue, ErrorMessage = "Не выбрана должность")]
+    [Comment("Id вид медицинской услуги")]
+    [DisplayName("Id вид медицинской услуги")]
+    public int MedicalServiceTypeId
+    {
+        get => medicalServiceTypeId;
+        set
+        {
+            medicalServiceTypeId = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    private int medicalServiceTypeId;
+
+    /// <summary>
+    /// Вид медицинской услуги
+    /// </summary>
+	/// <remarks>
+	/// Навигационное свойство. Связь один-ко-многим
+	///</remarks>
+    [Comment("Вид медицинской услуги")]
+    [DisplayName("Вид медицинской услуги")]
+    public MedicalServiceType? MedicalServiceType
+    {
+        get => medicalServiceType;
+        set
+        {
+            medicalServiceType = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    private MedicalServiceType? medicalServiceType;
 
     /// <summary>
     /// Стоимость услуги
@@ -100,10 +123,10 @@ public class MedicalService : BaseINotifyDataErrorInfo, IHaveId
     /// <summary>
     /// Конструктор для инициализации свойств (без ServiceId).
     /// </summary>
-    public MedicalService(string serviceName, string serviceType, string serviceCode, decimal servicePrice)
+    public MedicalService(string serviceName, MedicalServiceType serviceType, string serviceCode, decimal servicePrice)
     {
         ServiceName = serviceName;
-        ServiceType = serviceType;
+        MedicalServiceType = serviceType;
         ServiceCode = serviceCode;
         ServicePrice = servicePrice;
     }

@@ -2,10 +2,9 @@
 
 public partial class ContractsWindow : Window, IContractsView
 {
-    public ContractsWindow()
+    public ContractsWindow(ContractsViewModel viewModel)
     {
         InitializeComponent();
-        var viewModel = new ContractsViewModel();
         DataContext = viewModel;
     }
 }

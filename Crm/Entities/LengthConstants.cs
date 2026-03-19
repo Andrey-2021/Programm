@@ -127,4 +127,22 @@ internal class LengthConstants
     /// Максимальная длина название должности
     /// </summary>
     public const int positionNameMaxLength = 255;
+
+    /// <summary>
+    /// Минимальная длина Login
+    /// </summary>
+    public const byte loginMinLength = 4;
+    /// <summary>
+    /// Максимальная длина Login
+    /// </summary>
+    public const int loginMaxLength = 50;
+
+    /// <summary>
+    /// Минимальная длина Пароля
+    /// </summary>
+    public const byte passwordMinLength = 4;
+    /// <summary>
+    /// Максимальная длина Пароля
+    /// </summary>
+    public const int passwordMaxLength = 50;
 }

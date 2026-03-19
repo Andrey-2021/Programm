@@ -1,9 +1,11 @@
 ﻿namespace Crm.Views;
 
-public partial class AddMedicalServiceWindow : Window, IAddMedicalServiceView
+
+public partial class AddMedicalServiceTypeWindow : Window, IAddMedicalServiceTypeView
 {
     public IViewModelWithParametr ViewModel { get; set; }
-    public AddMedicalServiceWindow(AddMedicalServiceViewModel viewModel)
+
+    public AddMedicalServiceTypeWindow(AddMedicalServiceTypeViewModel viewModel)
     {
         InitializeComponent();
         ViewModel = viewModel;

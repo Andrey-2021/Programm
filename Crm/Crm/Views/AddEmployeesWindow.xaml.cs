@@ -2,9 +2,12 @@
 
 public partial class AddEmployeesWindow : Window, IAddEmployeesView
 {
-    public AddEmployeesWindow()
+    public IViewModelWithParametr ViewModel { get; set; }
+
+    public AddEmployeesWindow(AddEmployeeViewModel viewModel)
     {
         InitializeComponent();
-        DataContext = new AddEmployeeViewModel();
+        ViewModel = viewModel;
+        DataContext = viewModel;
     }
 }

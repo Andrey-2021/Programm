@@ -38,8 +38,7 @@
                 <DataGridTextColumn Binding="{Binding LastName}" Header="Фамилия" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding FirstName}" Header="Имя" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding MiddleName}" Header="Отчество" Width="5*"></DataGridTextColumn>
-
-                <DataGridTextColumn Binding="{Binding Position}" Header="Должность" Width="5*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=Position.PositionName}" Header="Должность" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding PhoneNumber}" Header="Телефон" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Email}" Header="e-mail" Width="5*"></DataGridTextColumn>
             </DataGrid.Columns>

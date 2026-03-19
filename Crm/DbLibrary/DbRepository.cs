@@ -12,9 +12,35 @@ public class DbRepository
     }
 
     /// <summary>
+    /// Проверка доступности БД
+    /// </summary>
+    /// <returns></returns>
+    public async Task<(bool checkResult, Exception? ex)> DbAvailableAsync()
+    {
+        try
+        {
+            using (var db = contextFactory.CreateDbContext())
+            {
+                var dbAvailableResult = await db.Database.CanConnectAsync(); //Провеяем доступен ли сервер MSSQL
+
+                if (!dbAvailableResult)
+                    return (false, null) ;// throw new Exception("Сервер БД не доступен.");
+
+                var result = db.Set<RegisteredUser>().Count();//проверяем что есть таблица в БД. Считаем, что если есть таблица, то есть и другие таблицы.
+                if (result >= 0)
+                    return (true,null);
+                return (false, null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return (false, ex);
+        }
+    }
+
+    /// <summary>
 	/// Создать новую БД
 	/// </summary>
-	/// <returns></returns>
 	public async Task<(bool operationResult, Exception? ex)> CreateNewDbAsync()
     {
         try
@@ -30,8 +56,34 @@ public class DbRepository
                 await db.Database.EnsureDeletedAsync();
                 var rezult = await db.Database.EnsureCreatedAsync();
 
+                if (!rezult)
+                    return (false, null);
+                return (true, null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return (false, ex);
+        }
+    }
+
+    /// <summary>
+    /// Загрузить начальные данные в БД
+    /// </summary>
+    public async Task<(bool operationResult, Exception? ex)> SaveInitDataInDbAsync()
+    {
+        try
+        {
+            using (var db = contextFactory.CreateDbContext())
+            {
+                // todo заменить на вызов метода
+                var rezult= await db.Database.CanConnectAsync(); //Провеяем доступен ли сервер MSSQL
+
                 if (rezult)
                 {
+                    var users = UserSeeder.GetSampleUsers();
+                    await db.RegisteredUsers.AddRangeAsync(users);
+
                     var patients = PatientSeeder.GetSamplePatients();
                     await db.Patients.AddRangeAsync(patients);
 
@@ -41,7 +93,10 @@ public class DbRepository
                     var employees = EmployeeSeeder.GetSampleEmployees(positions);
                     await db.Employees.AddRangeAsync(employees);
 
-                    var medServices= MedicalServiceSeeder.GetSampleServices();
+                    var medicalServiceTypes = MedicalServiceTypeSeeder.GetSampleMedicalServiceTypes();
+                    await db.MedicalServiceTypes.AddRangeAsync(medicalServiceTypes);
+
+                    var medServices = MedicalServiceSeeder.GetSampleServices(medicalServiceTypes);
                     await db.MedicalServices.AddRangeAsync(medServices);
 
                     var contracts = ContractSeeder.GetSampleContracts(patients, employees);
@@ -64,6 +119,7 @@ public class DbRepository
             return (false, ex);
         }
     }
+
 
     public async Task<(IEnumerable<TEntity> data, Exception? ex)> GetEntitiesAsync<TEntity>(System.Linq.Expressions.Expression<Func<TEntity, bool>>? predicate = null,
                                                                                             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,

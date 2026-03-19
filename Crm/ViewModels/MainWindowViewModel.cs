@@ -8,6 +8,11 @@ public class MainWindowViewModel
 	public ICommand? CreateDbCommand { get; private set; }
 
     /// <summary>
+	/// Команда "Записать исходные данные в БД"
+	/// </summary>
+	public ICommand? SaveDataInDbCommand { get; private set; }
+
+    /// <summary>
     /// Команда "Пользователи"
     /// </summary>
     public ICommand? ShowAllUsersCommand { get; private set; }
@@ -31,6 +36,11 @@ public class MainWindowViewModel
 	/// Команда "показать услуги"
 	/// </summary>
 	public ICommand? ShowAllMedicalServicesCommand { get; private set; }
+
+    /// <summary>
+	/// Команда "показать Вид медицинских услуги"
+	/// </summary>
+	public ICommand? ShowAllMedicalServicetypesCommand { get; private set; }
 
     /// <summary>
 	/// Команда "показать услуги"
@@ -65,11 +75,13 @@ public class MainWindowViewModel
         this.container = serviceProvider;
 
         CreateDbCommand = new RelayCommand(CreateNewDb);
+        SaveDataInDbCommand = new RelayCommand(SaveDataInDb);
         ShowAllUsersCommand = new RelayCommand(ShowAllUsers);
 
         ShowAllPatientsCommand = new RelayCommand(ShowAllPatients);
         ShowAllEmployeesCommand = new RelayCommand(ShowAllEmployees);
         ShowAllMedicalServicesCommand = new RelayCommand(ShowAllMedicalServices);
+        ShowAllMedicalServicetypesCommand = new RelayCommand(ShowAllMedicalServicetypes);
         ShowAllPositionsCommand = new RelayCommand(ShowAllPositionsServices);
 
         ShowAllContractsCommand = new RelayCommand(ShowAllContracts);
@@ -100,6 +112,24 @@ public class MainWindowViewModel
         view.ShowDialog();
     }
 
+    /// <summary>
+	/// Записать данные в БД
+	/// </summary>
+	private async void SaveDataInDb(object? parametr)
+    {
+        var repository = container.GetRequiredService<DbRepository>();
+        var result = await repository.SaveInitDataInDbAsync();
+
+        var view = container.GetRequiredService<IMessageWindowView>();
+        if (result.operationResult == false) //если ошибка
+            view.ViewModel.Parametr = "Ошибка при записи данных а БД. Попробуйте выполнить операцию позже или обратитесь к администратору."
+                + Environment.NewLine + "Exception:" + result.ex?.Message
+                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+        else
+            view.ViewModel.Parametr = "Данные записаны в БД";
+        view.ShowDialog();
+    }
+
     private void ShowAllUsers(object? parametr)
     {
         var view = container.GetRequiredService<IUsersView>();
@@ -121,6 +151,12 @@ public class MainWindowViewModel
     private void ShowAllMedicalServices(object? parametr)
     {
         var view = container.GetRequiredService<IMedicalServicesView>();
+        view.ShowDialog();
+    }
+
+    private void ShowAllMedicalServicetypes(object? parametr)
+    {
+        var view = container.GetRequiredService<IMedicalServiceTypesView>();
         view.ShowDialog();
     }
     

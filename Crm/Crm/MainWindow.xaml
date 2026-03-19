@@ -22,15 +22,17 @@
 
             <MenuItem Header="Администратор">
                 <MenuItem Header="Создать новую БД" Command="{Binding CreateDbCommand}"></MenuItem>
+                <MenuItem Header="Загрузить данные в БД" Command="{Binding SaveDataInDbCommand}"></MenuItem>
                 <MenuItem Header="Пользователи" Command="{Binding ShowAllUsersCommand}"></MenuItem>
             </MenuItem>
             
             <MenuItem Header="Справочники" >
                 <MenuItem Header="Пациенты" Command="{Binding ShowAllPatientsCommand}"></MenuItem>
-                <MenuItem Header="Услуги" Command="{Binding ShowAllMedicalServicesCommand}"></MenuItem>
+                <MenuItem Header="Медицинские услуги" Command="{Binding ShowAllMedicalServicesCommand}"></MenuItem>
                 <MenuItem Header="Сотрудники" Command="{Binding ShowAllEmployeesCommand}"></MenuItem>
                 <Separator />
                 <MenuItem Header="Должности сотрудников" Command="{Binding ShowAllPositionsCommand}"></MenuItem>
+                <MenuItem Header="Виды медицинских услуг " Command="{Binding ShowAllMedicalServicetypesCommand}"></MenuItem>
             </MenuItem>
 
             <MenuItem Header="Договора" >
