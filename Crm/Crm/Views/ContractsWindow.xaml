@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
-        Title="Договора" Height="450" Width="800"
+        Title="Договора" 
+        Height="650" Width="1200"
+        MinHeight="450" MinWidth="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,13 +17,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" 
      Grid.ColumnSpan="2"
      HorizontalAlignment="Center">
-            Сотружники
+            Договора
         </Label>
 
         <DataGrid MinHeight="150"
@@ -48,7 +50,10 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
                 <DataGridTextColumn Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy\}}"
                                     Header="Дата окончания действия договора" Width="5*"></DataGridTextColumn>
 
+                <DataGridTextColumn Binding="{Binding TotalAmount}" Header="Сумма" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding TotalAmountText}" Header="Общая сумма" Width="5*"></DataGridTextColumn>
+                
+                
                 <DataGridTextColumn Binding="{Binding PaymentStatus}" Header="Статус оплаты" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding ContractStatus}" Header="Статус договора" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Notes}" Header="Примечание" Width="5*"></DataGridTextColumn>
@@ -63,6 +68,10 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
             <Button Command="{Binding DelCommand}">Удалить</Button>
             <Button Command="{Binding RefreshCommand}">Обновить</Button>
         </StackPanel>
+
+        <StatusBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
+        </StatusBar>
     </Grid>
 
 </Window>

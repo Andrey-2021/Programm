@@ -97,6 +97,9 @@ internal class LengthConstants
     public const int serviceNameMaxLength = 255;
     public const int serviceNameMinLength = 2;
 
+    public const int serviceTypeNameMaxLength = 255;
+    public const int serviceTypeNameMinLength = 4;
+
     // Вид услуги
     public const int serviceTypeMaxLength = 255;
     public const int serviceTypeMinLength = 2;

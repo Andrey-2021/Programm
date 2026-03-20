@@ -1,9 +1,9 @@
-﻿using System.Runtime.CompilerServices;
-namespace Entities;
+﻿namespace Entities;
 
 /// <summary>
 /// Вид медицинской услуги
 /// </summary>
+[Comment("Вид медицинской услуги")]
 public class MedicalServiceType : BaseINotifyDataErrorInfo, IHaveId
 {
     /// <summary>
@@ -18,6 +18,10 @@ public class MedicalServiceType : BaseINotifyDataErrorInfo, IHaveId
     /// <summary>
     /// Наименование вида услуги.
     /// </summary>
+    [Required(ErrorMessage = "Введите наименование вида услуги")]
+    [StringLength(LengthConstants.serviceTypeNameMaxLength, MinimumLength = LengthConstants.serviceTypeNameMinLength, ErrorMessage = "Длина наименования должна быть не менее {2} и не более {1} символов")]
+    [Comment("Наименование вида услуги")]
+    [DisplayName("Наименование вида услуги")]
     public string Name
     {
         get => name;
@@ -36,9 +40,9 @@ public class MedicalServiceType : BaseINotifyDataErrorInfo, IHaveId
     public MedicalServiceType() { }
 
     /// <summary>
-    /// Конструктор с инициализацией наименования вида услуги.
+    /// Конструктор с инициализацией
     /// </summary>
-    /// <param name="serviceTypeName">Наименование вида услуги.</param>
+    /// <param name="serviceTypeName">Наименование вида услуги</param>
     public MedicalServiceType(string serviceTypeName)
     {
         Name = serviceTypeName;

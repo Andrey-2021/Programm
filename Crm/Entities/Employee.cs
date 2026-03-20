@@ -118,7 +118,6 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
     [Phone(ErrorMessage = "Неверный формат телефона")]
     [Required(ErrorMessage = "Введите телефон")]
     [StringLength(LengthConstants.phonetMaxLength, MinimumLength = LengthConstants.phonetMinLength, ErrorMessage = "Длина номера телефона должна быть не менее {2} и не более {1} символов")]
-    //[MaxLength(LengthConstants.phonetMaxLength, ErrorMessage = "Длина № телефона должна быть не более {1} символов")]
     [Comment("Телефон")]
     [DisplayName("Телефон")]
     public string PhoneNumber
@@ -137,7 +136,6 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
     /// Электронная почта
     /// </summary>
     [EmailAddress(ErrorMessage = "Неверный формат e-mail")]
-    //[Required(ErrorMessage = "Обязательно должен быть введен e-mail")]
     [MaxLength(LengthConstants.emailMaxLength, ErrorMessage = "Длина e-mail должна быть не более {1} символов")]
     [Comment("e-mail")]
     public string? Email
@@ -157,7 +155,7 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
     }
 
     /// <summary>
-    /// Конструктор для инициализации всех свойств, кроме EmployeeId.
+    /// Конструктор для инициализации
     /// </summary>
     public Employee(string lastName, string firstName, string middleName,
                     Position position, string phoneNumber, string email)

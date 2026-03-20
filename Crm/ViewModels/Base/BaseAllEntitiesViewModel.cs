@@ -23,7 +23,17 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
     }
     public string? statusMessage;
 
+    /// <summary>
+    /// Флаг занятости
+    /// </summary>
     public bool IsBusy { get; set; }
+
+    /// <summary>
+    /// Контейнер. использовать внедрение зависимостей (dependency injection) 
+    /// </summary>
+    /// <remarks>
+	/// Используется для внедрения зависимостей (dependency injection) 
+	///</remarks>
     protected IServiceProvider serviceProvider;
 
     /// <summary>
@@ -96,6 +106,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
         var view = serviceProvider.GetRequiredService<TAddView>();
         view.ShowDialog();
         await LoadNecessaryDates();
+        StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     protected virtual bool CheckIsPossibleShowAddEntityWindow(object? parametr)
@@ -106,6 +117,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
     protected virtual async void RefreshEntities(object? parametr)
     {
         await LoadNecessaryDates();
+        StatusMessage = "Данные перепрочитаны. " + DateTime.Now;
     }
 
     protected virtual async void DelEntity(object? parametr)
@@ -142,6 +154,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
         view.ViewModel.Parametr = SelectedEntity;
         view.ShowDialog();
         await LoadNecessaryDates();
+        StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     protected virtual bool CheckIsPossibleEditAddEntity(object? parametr)
@@ -170,11 +183,8 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
                 + Environment.NewLine + "Exception:" + result.ex?.Message
                 + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
         }
-
-
         IsBusy = false;
     }
-
 
     //для реализации интерфейса INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;

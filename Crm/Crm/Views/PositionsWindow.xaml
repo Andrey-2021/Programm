@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
-        Title="Должности сотрудников" Height="450" Width="700"
+        Title="Должности сотрудников" 
+        Height="450" Width="700"
+        MinHeight="400" MinWidth="600"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>

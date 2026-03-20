@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Entities.Enums;
+
 namespace Entities;
 
 /// <summary>
@@ -18,45 +19,23 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     public int Id { get; set; }
 
     /// <summary>
-    /// ID пациента
+    /// Номер договора
     /// </summary>
-    [Required(ErrorMessage = "Не указан пациент")]
-    [ForeignKey(nameof(Patient))]
-    [Comment("Идентификатор пациента")]
-    [DisplayName("ID пациента")]
-    public int PatientId
+    [Required(ErrorMessage = "Введите номер договора")]
+    [StringLength(LengthConstants.contractNumberMaxLength, MinimumLength = LengthConstants.contractNumberMinLength, ErrorMessage = "Длина номера договора должна быть не менее {2} и не более {1} символов")]
+    [Comment("Номер договора")]
+    [DisplayName("Номер договора")]
+    public string ContractNumber
     {
-        get => patientId;
+        get => contractNumber;
         set
         {
-            patientId = value;
+            contractNumber = value;
             OnPropertyChanged();
             Validate(value);
         }
     }
-    private int patientId;
-
-    /// <summary>
-    /// Пациент
-    /// </summary>
-    [Required(ErrorMessage = "Не указан пациент")]
-    [Comment("Пациент")]
-    [DisplayName("Пациент")]
-    public Patient? Patient
-    {
-        get => patient;
-        set
-        {
-            patient = value;
-            OnPropertyChanged();
-            if (value != null)
-            {
-                PatientId = value.Id; // синхронизация внешнего ключа
-            }
-        }
-    }
-    private Patient? patient;
-
+    private string contractNumber = string.Empty;
 
     /// <summary>
     /// Дата заключения договора
@@ -77,25 +56,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private DateTime contractDate;
-
-    /// <summary>
-    /// Номер договора
-    /// </summary>
-    [Required(ErrorMessage = "Введите номер договора")]
-    [StringLength(LengthConstants.contractNumberMaxLength, MinimumLength = LengthConstants.contractNumberMinLength, ErrorMessage = "Длина номера договора должна быть не менее {2} и не более {1} символов")]
-    [Comment("Номер договора")]
-    [DisplayName("Номер договора")]
-    public string ContractNumber
-    {
-        get => contractNumber;
-        set
-        {
-            contractNumber = value;
-            OnPropertyChanged();
-            Validate(value);
-        }
-    }
-    private string contractNumber = string.Empty;
 
     /// <summary>
     /// Дата начала действия договора
@@ -177,6 +137,14 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     }
     private string totalAmountText = string.Empty;
 
+
+
+
+
+
+
+
+    /*
     /// <summary>
     /// Статус оплаты
     /// </summary>
@@ -195,7 +163,43 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private string paymentStatus = string.Empty;
+    */
 
+    /// <summary>
+    /// Статус оплаты
+    /// </summary>
+    [Required(ErrorMessage = "Введите статус оплаты")]
+    [Comment("Статус оплаты")]
+    [DisplayName("Статус оплаты")]
+    public PaymentStatusEnum? PaymentStatus
+    {
+        get => paymentStatus;
+        set
+        {
+            paymentStatus = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    public PaymentStatusEnum? paymentStatus;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     /// <summary>
     /// Статус договора
     /// </summary>
@@ -214,6 +218,36 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private string contractStatus = string.Empty;
+    */
+
+    /// <summary>
+    /// Статус договора
+    /// </summary>
+    [Required(ErrorMessage = "Введите статус договора")]
+    [Comment("Статус договора")]
+    [DisplayName("Статус договора")]
+    public ContractStatusEnum? ContractStatus
+    {
+        get => contractStatus;
+        set
+        {
+            contractStatus = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    public ContractStatusEnum? contractStatus;
+
+
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Дополнительные примечания к договору
@@ -234,6 +268,80 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     private string notes = string.Empty;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /// <summary>
+    /// ID пациента
+    /// </summary>
+    [Required(ErrorMessage = "Не указан пациент")]
+    [ForeignKey(nameof(Patient))]
+    [Comment("Идентификатор пациента")]
+    [DisplayName("ID пациента")]
+    public int PatientId
+    {
+        get => patientId;
+        set
+        {
+            patientId = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    private int patientId;
+
+    /// <summary>
+    /// Пациент
+    /// </summary>
+    [Required(ErrorMessage = "Не указан пациент")]
+    [Comment("Пациент")]
+    [DisplayName("Пациент")]
+    public Patient? Patient
+    {
+        get => patient;
+        set
+        {
+            patient = value;
+            OnPropertyChanged();
+            if (value != null)
+            {
+                PatientId = value.Id; // синхронизация внешнего ключа
+            }
+        }
+    }
+    private Patient? patient;
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+
     /// <summary>
     /// ID ответственного сотрудника
     /// </summary>
@@ -252,8 +360,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private int employeeId;
-
-
 
     /// <summary>
     /// Ответственный сотрудник
@@ -277,14 +383,15 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     private Employee? employee;
 
     public Contract()
-    { }
+    { 
+    }
 
     /// <summary>
     /// Конструктор для инициализации всех свойств, кроме ContractId.
     /// </summary>
     public Contract(Patient patient, DateTime contractDate, string contractNumber, DateTime startDate,
-                    DateTime endDate, decimal totalAmount, string totalAmountText, string paymentStatus,
-                    string contractStatus, string notes, Employee responsibleEmployee)
+                    DateTime endDate, decimal totalAmount, string totalAmountText, PaymentStatusEnum paymentStatus,
+                    ContractStatusEnum contractStatus, string notes, Employee responsibleEmployee)
     {
         Patient = patient;
         ContractDate = contractDate;

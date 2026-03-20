@@ -7,7 +7,9 @@
         xmlns:converter="clr-namespace:Crm"
          xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Медицинская услуга" Height="550" Width="800"
+        Title="Медицинская услуга" 
+        Height="650" Width="800"
+        MinHeight="550" MinWidth="650"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,7 +20,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
             <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
-            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
@@ -29,7 +31,7 @@
            Grid.ColumnSpan="2"
            HorizontalContentAlignment="Center"
            VerticalContentAlignment="Bottom">
-            Введите данные о сотруднике:
+            Введите данные о медицинской услуге:
         </Label>
 
         <Label Grid.Column="0" Grid.Row="1">Наименование услуги:</Label>
@@ -57,15 +59,16 @@
         <!--https://stackoverflow.com/questions/382676/good-numericupdown-equivalent-in-wpf-->
         <xctk:DecimalUpDown Grid.Column="1" Grid.Row="3"
                             FormatString="C2" 
-                            Value="{Binding MainEntity.ServicePrice, UpdateSourceTrigger=PropertyChanged}"
+                            Value="{Binding MainEntity.ServicePrice, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                             Minimum="0"
                             Maximum="1000000"
                             Increment="0.01"
                             Width="200"
                             Margin="5 5 5 5"
-                            HorizontalAlignment="Left"/>
+                            HorizontalAlignment="Left"
+                            Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="4">Тип:</Label>
+        <Label Grid.Column="0" Grid.Row="4">Вид услуги:</Label>
         <DataGrid MinHeight="50"
                   Grid.Column="1" Grid.Row="4"
                   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
@@ -73,7 +76,7 @@
                   VerticalScrollBarVisibility="Auto"
                   AutoGenerateColumns="False"
                   CanUserReorderColumns="False"
-                  Margin="5 5 5 5"
+                  Margin="5 15 5 15"
                   ItemsSource="{Binding Entities, Mode=TwoWay}"
                   SelectedValuePath="Id"
                   SelectedValue="{Binding Path=MainEntity.MedicalServiceTypeId, ValidatesOnNotifyDataErrors=True}"

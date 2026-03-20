@@ -3,6 +3,7 @@
 /// <summary>
 /// Должность
 /// </summary>
+[Comment("Должность")]
 public class Position : BaseINotifyDataErrorInfo, IHaveId
 {
     /// <summary>
@@ -36,10 +37,12 @@ public class Position : BaseINotifyDataErrorInfo, IHaveId
     /// <summary>
     /// Конструктор по умолчанию.
     /// </summary>
-    public Position() { }
+    public Position() 
+    { 
+    }
 
     /// <summary>
-    /// Конструктор с инициализацией названия должности.
+    /// Конструктор с инициализацией
     /// </summary>
     /// <param name="positionName">Название должности.</param>
     public Position(string positionName)

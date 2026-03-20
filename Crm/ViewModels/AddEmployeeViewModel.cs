@@ -48,4 +48,9 @@ public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
         }
         IsBusy = false;
     }
+
+    protected override void OperationBeforeSave()
+    {
+        MainEntity!.Position = null;
+    }
 }

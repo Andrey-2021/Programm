@@ -14,8 +14,8 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	/// <summary>
 	/// Главная сущность/объект
 	/// </summary>
-	public TEntity MainEntity { get=> mainEntity; set { mainEntity = value; OnPropertyChanged(); } }
-	private TEntity mainEntity = default!;
+	public TEntity? MainEntity { get=> mainEntity; set { mainEntity = value; OnPropertyChanged(); } }
+	private TEntity? mainEntity;
 
 	/// <summary>
 	/// Команда "Сохранить"
@@ -94,7 +94,6 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	/// <param name="parametr"></param>
 	protected virtual async void Save(object? parametr)
 	{
-		
 		if (BaseINotifyDataErrorInfo.HasErrorsOnlyInAllMyPublicProperties(MainEntity))
 			return;
 
@@ -102,10 +101,9 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 		//var results = new List<ValidationResult>();
 		//if (!Validator.TryValidateObject(MainEntity, context, results, true))
 		//	return;
-		 
 
-
-		var result = await repository.UpdateEntityAsync(MainEntity);
+		OperationBeforeSave();
+        var result = await repository.UpdateEntityAsync(MainEntity);
 		
 		if (result!=null) //если ошибка
 		{
@@ -121,8 +119,15 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 			return;
 		}
 		CloseWindow(parametr);//всё хорошо, закрываем  окно
-		
 	}
+
+	/// <summary>
+	/// Опреации выполняемые до операции записи данных в БД
+	/// </summary>
+	protected virtual void OperationBeforeSave()
+	{ 
+	}
+
 
 	/// <summary>
 	/// Проверка можно ли выполнять команду Сохранить

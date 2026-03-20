@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.RegularExpressions;
-
-namespace Entities;
+﻿namespace Entities;
 
 /// <summary>
 /// Медицинские услуги
@@ -11,7 +8,7 @@ namespace Entities;
 public class MedicalService : BaseINotifyDataErrorInfo, IHaveId
 {
     /// <summary>
-    /// ID услуги (ключевое поле)
+    /// Id услуги (ключевое поле)
     /// </summary>
     [Key]
     public int Id { get; set; }
@@ -100,7 +97,7 @@ public class MedicalService : BaseINotifyDataErrorInfo, IHaveId
     /// Стоимость услуги
     /// </summary>
     [Required(ErrorMessage = "Введите стоимость услуги")]
-    [Range(0.01, 9999999.99, ErrorMessage = "Стоимость должна быть положительной и не превышать 9 999 999.99")]
+    [Range(0, 200000, ErrorMessage = "Стоимость должна быть положительной и не превышать 9 999 999.99")]
     [DataType(DataType.Currency)]
     //[Column(TypeName = "decimal(18, 2)")]
     [Comment("Стоимость услуги")]

@@ -48,4 +48,9 @@ public class AddMedicalServiceViewModel : BaseAddEntityViewModel<MedicalService>
         }
         IsBusy = false;
     }
+
+    protected override void OperationBeforeSave()
+    {
+        MainEntity!.MedicalServiceType = null;
+    }
 }

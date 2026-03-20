@@ -7,8 +7,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
-                <ResourceDictionary Source="pack://application:,,,/ValidateDictionary.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/DictionaryForElements.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ValidateDictionary.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

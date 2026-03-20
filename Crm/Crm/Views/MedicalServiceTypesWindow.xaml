@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
-        Title="Типы медицинских услуг" Height="450" Width="700"
+        Title="Виды медицинских услуг" 
+        Height="450" Width="700"
+        MinHeight="400" MinWidth="600"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,9 +21,8 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" 
-        Grid.ColumnSpan="2"
-        HorizontalAlignment="Center">
-            Типы медицинских услуг
+               HorizontalAlignment="Center">
+            Виды медицинских услуг
         </Label>
 
         <DataGrid MinHeight="150"
@@ -40,7 +41,7 @@
         </DataGrid>
 
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <Button Command="{Binding AddCompanyCommand}">Дабавить</Button>
+            <Button Command="{Binding AddCompanyCommand}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Дабавить"></Button>
             <Button Command="{Binding EditCommand}">Редактировать</Button>
             <Button Command="{Binding DelCommand}">Удалить</Button>
             <Button Command="{Binding RefreshCommand}">Обновить</Button>
