@@ -81,6 +81,9 @@ public class DbRepository
 
                 if (rezult)
                 {
+                    var moscow = OrganizationDetailSeeder.GetMoscowMedicalOrganization();
+                    await db.OrganizationInfos.AddRangeAsync(moscow);
+
                     var users = UserSeeder.GetSampleUsers();
                     await db.RegisteredUsers.AddRangeAsync(users);
 

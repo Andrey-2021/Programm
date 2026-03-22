@@ -1,10 +1,344 @@
 ﻿using Entities.Enums;
-
 namespace InitDb;
 
 /// <summary>
 /// Отдельный класс для создания 20 экземпляров Patient с конкретными данными
 /// </summary>
+
+public static class PatientSeeder
+{
+    /// <summary>
+    /// Возвращает список из 20 пациентов с новыми, заменёнными данными.
+    /// </summary>
+    public static List<Patient> GetSamplePatients()
+    {
+        var patients = new List<Patient>();
+
+        // 1
+        patients.Add(new Patient(
+            lastName: "Ковалёв",
+            firstName: "Александр",
+            middleName: "Дмитриевич",
+            birthDate: new DateTime(1985, 3, 12),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (901) 234-56-78",
+            email: "kovalev@mail.ru",
+            address: "г. Краснодар, ул. Красная, д. 10, кв. 45",
+            passportSeries: "5001",
+            passportNumber: "123456",
+            passportIssueDate: new DateTime(2003, 4, 25),
+            passportIssuingAuthority: "Отдел УФМС по Краснодарскому краю"
+        ));
+
+        // 2
+        patients.Add(new Patient(
+            lastName: "Мельникова",
+            firstName: "Екатерина",
+            middleName: "Андреевна",
+            birthDate: new DateTime(1995, 7, 9),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (902) 345-67-89",
+            email: "melnikova@yandex.ru",
+            address: "г. Сочи, ул. Курортная, д. 5, кв. 12",
+            passportSeries: "5002",
+            passportNumber: "789012",
+            passportIssueDate: new DateTime(2015, 8, 14),
+            passportIssuingAuthority: "УФМС России по г. Сочи"
+        ));
+
+        // 3
+        patients.Add(new Patient(
+            lastName: "Гришин",
+            firstName: "Михаил",
+            middleName: "Сергеевич",
+            birthDate: new DateTime(1972, 11, 3),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (903) 456-78-90",
+            email: "grishin@gmail.com",
+            address: "г. Владивосток, ул. Светланская, д. 15, кв. 8",
+            passportSeries: "5003",
+            passportNumber: "345678",
+            passportIssueDate: new DateTime(1992, 12, 5),
+            passportIssuingAuthority: "ОВД г. Владивостока"
+        ));
+
+        // 4
+        patients.Add(new Patient(
+            lastName: "Дроздова",
+            firstName: "Татьяна",
+            middleName: "Игоревна",
+            birthDate: new DateTime(1989, 1, 28),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (904) 567-89-01",
+            email: "drozdova@inbox.ru",
+            address: "г. Хабаровск, ул. Ленина, д. 22, кв. 3",
+            passportSeries: "5004",
+            passportNumber: "567890",
+            passportIssueDate: new DateTime(2007, 2, 20),
+            passportIssuingAuthority: "УФМС по Хабаровскому краю"
+        ));
+
+        // 5
+        patients.Add(new Patient(
+            lastName: "Тимофеев",
+            firstName: "Николай",
+            middleName: "Алексеевич",
+            birthDate: new DateTime(1980, 5, 17),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (905) 678-90-12",
+            email: "timofeev@bk.ru",
+            address: "г. Иркутск, ул. Байкальская, д. 8, кв. 56",
+            passportSeries: "5005",
+            passportNumber: "901234",
+            passportIssueDate: new DateTime(2000, 6, 10),
+            passportIssuingAuthority: "ОВД г. Иркутска"
+        ));
+
+        // 6
+        patients.Add(new Patient(
+            lastName: "Зимина",
+            firstName: "Ольга",
+            middleName: "Павловна",
+            birthDate: new DateTime(1993, 9, 22),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (906) 789-01-23",
+            email: "zimina@rambler.ru",
+            address: "г. Томск, пр. Кирова, д. 12, кв. 78",
+            passportSeries: "5006",
+            passportNumber: "112233",
+            passportIssueDate: new DateTime(2012, 10, 30),
+            passportIssuingAuthority: "УФМС России по Томской области"
+        ));
+
+        // 7
+        patients.Add(new Patient(
+            lastName: "Комаров",
+            firstName: "Виталий",
+            middleName: "Евгеньевич",
+            birthDate: new DateTime(1977, 12, 11),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (907) 890-12-34",
+            email: "komarov@list.ru",
+            address: "г. Кемерово, ул. Весенняя, д. 3, кв. 121",
+            passportSeries: "5007",
+            passportNumber: "445566",
+            passportIssueDate: new DateTime(1997, 1, 15),
+            passportIssuingAuthority: "ОВД г. Кемерово"
+        ));
+
+        // 8
+        patients.Add(new Patient(
+            lastName: "Рыбакова",
+            firstName: "Анастасия",
+            middleName: "Сергеевна",
+            birthDate: new DateTime(1991, 4, 4),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (908) 901-23-45",
+            email: "rybakova@mail.ru",
+            address: "г. Оренбург, ул. Советская, д. 7, кв. 9",
+            passportSeries: "5008",
+            passportNumber: "778899",
+            passportIssueDate: new DateTime(2009, 5, 19),
+            passportIssuingAuthority: "УФМС по Оренбургской области"
+        ));
+
+        // 9
+        patients.Add(new Patient(
+            lastName: "Сергеев",
+            firstName: "Роман",
+            middleName: "Владимирович",
+            birthDate: new DateTime(1984, 8, 30),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (909) 012-34-56",
+            email: "sergeev@yandex.ru",
+            address: "г. Пенза, ул. Московская, д. 41, кв. 17",
+            passportSeries: "5009",
+            passportNumber: "556677",
+            passportIssueDate: new DateTime(2004, 9, 2),
+            passportIssuingAuthority: "ОВД г. Пензы"
+        ));
+
+        // 10
+        patients.Add(new Patient(
+            lastName: "Ларионова",
+            firstName: "Юлия",
+            middleName: "Анатольевна",
+            birthDate: new DateTime(1997, 2, 19),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (910) 123-45-67",
+            email: "larionova@mail.ru",
+            address: "г. Липецк, ул. Победы, д. 2, кв. 34",
+            passportSeries: "5010",
+            passportNumber: "998877",
+            passportIssueDate: new DateTime(2016, 3, 25),
+            passportIssuingAuthority: "УФМС по Липецкой области"
+        ));
+
+        // 11
+        patients.Add(new Patient(
+            lastName: "Никитин",
+            firstName: "Павел",
+            middleName: "Олегович",
+            birthDate: new DateTime(1986, 10, 7),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (911) 234-56-78",
+            email: "nikitin@inbox.ru",
+            address: "г. Киров, ул. Ленина, д. 55, кв. 6",
+            passportSeries: "5011",
+            passportNumber: "334455",
+            passportIssueDate: new DateTime(2006, 11, 11),
+            passportIssuingAuthority: "ОВД г. Кирова"
+        ));
+
+        // 12
+        patients.Add(new Patient(
+            lastName: "Тихонова",
+            firstName: "Алена",
+            middleName: "Максимовна",
+            birthDate: new DateTime(1994, 6, 14),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (912) 345-67-89",
+            email: "tihonova@rambler.ru",
+            address: "г. Чебоксары, ул. Гагарина, д. 19, кв. 44",
+            passportSeries: "5012",
+            passportNumber: "667788",
+            passportIssueDate: new DateTime(2013, 7, 7),
+            passportIssuingAuthority: "УФМС по Чувашской Республике"
+        ));
+
+        // 13
+        patients.Add(new Patient(
+            lastName: "Беляев",
+            firstName: "Артём",
+            middleName: "Игоревич",
+            birthDate: new DateTime(1982, 12, 25),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (913) 456-78-90",
+            email: "belyaev@bk.ru",
+            address: "г. Тверь, ул. Советская, д. 8, кв. 72",
+            passportSeries: "5013",
+            passportNumber: "223344",
+            passportIssueDate: new DateTime(2002, 1, 18),
+            passportIssuingAuthority: "ОВД г. Твери"
+        ));
+
+        // 14
+        patients.Add(new Patient(
+            lastName: "Воронова",
+            firstName: "Светлана",
+            middleName: "Александровна",
+            birthDate: new DateTime(1988, 3, 9),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (914) 567-89-01",
+            email: "voronova@list.ru",
+            address: "г. Брянск, ул. Фокина, д. 12, кв. 21",
+            passportSeries: "5014",
+            passportNumber: "556644",
+            passportIssueDate: new DateTime(2008, 4, 4),
+            passportIssuingAuthority: "УФМС по Брянской области"
+        ));
+
+        // 15
+        patients.Add(new Patient(
+            lastName: "Зуев",
+            firstName: "Денис",
+            middleName: "Викторович",
+            birthDate: new DateTime(1979, 9, 16),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (915) 678-90-12",
+            email: "zuev@gmail.com",
+            address: "г. Тула, ул. Ленина, д. 34, кв. 5",
+            passportSeries: "5015",
+            passportNumber: "998822",
+            passportIssueDate: new DateTime(1999, 10, 10),
+            passportIssuingAuthority: "ОВД г. Тулы"
+        ));
+
+        // 16
+        patients.Add(new Patient(
+            lastName: "Львова",
+            firstName: "Маргарита",
+            middleName: "Геннадьевна",
+            birthDate: new DateTime(1996, 11, 2),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (916) 789-01-23",
+            email: "lvova@mail.ru",
+            address: "г. Калуга, ул. Кирова, д. 7, кв. 88",
+            passportSeries: "5016",
+            passportNumber: "113366",
+            passportIssueDate: new DateTime(2015, 12, 12),
+            passportIssuingAuthority: "УФМС по Калужской области"
+        ));
+
+        // 17
+        patients.Add(new Patient(
+            lastName: "Гусев",
+            firstName: "Максим",
+            middleName: "Анатольевич",
+            birthDate: new DateTime(1983, 4, 28),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (917) 890-12-34",
+            email: "gusev@yandex.ru",
+            address: "г. Смоленск, ул. Большая Советская, д. 9, кв. 43",
+            passportSeries: "5017",
+            passportNumber: "447788",
+            passportIssueDate: new DateTime(2003, 5, 5),
+            passportIssuingAuthority: "ОВД г. Смоленска"
+        ));
+
+        // 18
+        patients.Add(new Patient(
+            lastName: "Крылова",
+            firstName: "Вероника",
+            middleName: "Дмитриевна",
+            birthDate: new DateTime(1990, 7, 13),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (918) 901-23-45",
+            email: "krylova@inbox.ru",
+            address: "г. Белгород, ул. Гражданская, д. 18, кв. 56",
+            passportSeries: "5018",
+            passportNumber: "225588",
+            passportIssueDate: new DateTime(2010, 8, 8),
+            passportIssuingAuthority: "УФМС по Белгородской области"
+        ));
+
+        // 19
+        patients.Add(new Patient(
+            lastName: "Орлов",
+            firstName: "Кирилл",
+            middleName: "Иванович",
+            birthDate: new DateTime(1974, 1, 20),
+            gender: GenderEnum.мужской,
+            phoneNumber: "+7 (919) 012-34-56",
+            email: "orlov@rambler.ru",
+            address: "г. Курск, ул. Ленина, д. 25, кв. 31",
+            passportSeries: "5019",
+            passportNumber: "669933",
+            passportIssueDate: new DateTime(1994, 2, 14),
+            passportIssuingAuthority: "ОВД г. Курска"
+        ));
+
+        // 20
+        patients.Add(new Patient(
+            lastName: "Соловьёва",
+            firstName: "Ангелина",
+            middleName: "Станиславовна",
+            birthDate: new DateTime(1998, 8, 25),
+            gender: GenderEnum.женский,
+            phoneNumber: "+7 (920) 123-45-67",
+            email: "soloveva@bk.ru",
+            address: "г. Рязань, ул. Есенина, д. 5, кв. 19",
+            passportSeries: "5020",
+            passportNumber: "771122",
+            passportIssueDate: new DateTime(2017, 9, 9),
+            passportIssuingAuthority: "УФМС по Рязанской области"
+        ));
+
+        return patients;
+    }
+}
+
+/*
 public static class PatientSeeder
 {
     /// <summary>
@@ -326,3 +660,4 @@ public static class PatientSeeder
         return patients;
     }
 }
+*/

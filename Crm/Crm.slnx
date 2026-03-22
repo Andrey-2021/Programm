@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="CreateDocuments/CreateDocuments.csproj" Id="3a6776b4-09c0-4a2c-9f58-242047cd5c87" />
   <Project Path="Crm/Crm.csproj" />
   <Project Path="DbLibrary/DbLibrary.csproj" Id="f0e4e36c-8d50-40bc-a877-760296468c3c" />
   <Project Path="Entities/Entities.csproj" />

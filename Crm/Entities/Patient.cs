@@ -16,6 +16,12 @@ public class Patient: BaseINotifyDataErrorInfo, IHaveId
     public int Id { get; set; }
 
     /// <summary>
+	/// Фамилия И.О.
+	/// </summary>
+	[NotMapped]
+    public string? FIO => LastName + " " + FirstName?[0] + "." + MiddleName?[0] + ".";
+
+    /// <summary>
     /// Фамилия
     /// </summary>
     [Required(ErrorMessage = "Введите фамилию")]

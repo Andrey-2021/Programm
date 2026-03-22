@@ -1,5 +1,4 @@
 ﻿using Entities.Enums;
-
 namespace ViewModels;
 
 public class AddContractViewModel : BaseAddEntityViewModel<Contract>
@@ -43,7 +42,8 @@ public class AddContractViewModel : BaseAddEntityViewModel<Contract>
 	/// <param name="serviceProvider"></param>
 	public AddContractViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
     {
-        Task.Run(() => LoadNecessaryDates());
+        var task = Task.Run(() => LoadNecessaryDates());
+        task.Wait();
     }
 
     /// <summary>
@@ -83,10 +83,13 @@ public class AddContractViewModel : BaseAddEntityViewModel<Contract>
                 + Environment.NewLine + "Exception:" + employeesResult.ex?.Message
                 + Environment.NewLine + "InnerException:" + employeesResult.ex?.InnerException?.Message;
         }
-
-
-
         IsBusy = false;
+    }
+
+    protected override void OperationBeforeSave()
+    {
+        MainEntity!.Patient = null;
+        MainEntity!.Employee = null;
     }
 }
 

@@ -1,4 +1,6 @@
-﻿namespace Entities;
+﻿using System.Xml.Linq;
+
+namespace Entities;
 
 /// <summary>
 /// Простой класс, представляющий запись таблицы "Сотрудники"
@@ -12,6 +14,12 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
     /// </summary>
     [Key]
     public int Id { get; set; }
+
+    /// <summary>
+	/// Фамилия И.О.
+	/// </summary>
+	[NotMapped]
+    public string? FIO => LastName + " " + FirstName?[0] + "." + MiddleName?[0] + ".";
 
     /// <summary>
     /// Фамилия

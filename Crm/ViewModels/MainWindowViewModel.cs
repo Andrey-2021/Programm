@@ -42,6 +42,12 @@ public class MainWindowViewModel
 	/// </summary>
 	public ICommand? ShowAllMedicalServicetypesCommand { get; private set; }
 
+    
+    /// <summary>
+    /// Команда "Информация о медицинской организации"
+    /// </summary>
+    public ICommand? ShowOrganizationInfoCommand { get; private set; }
+
     /// <summary>
 	/// Команда "показать услуги"
 	/// </summary>
@@ -83,6 +89,7 @@ public class MainWindowViewModel
         ShowAllMedicalServicesCommand = new RelayCommand(ShowAllMedicalServices);
         ShowAllMedicalServicetypesCommand = new RelayCommand(ShowAllMedicalServicetypes);
         ShowAllPositionsCommand = new RelayCommand(ShowAllPositionsServices);
+        ShowOrganizationInfoCommand = new RelayCommand(ShowOrganizationInfo);
 
         ShowAllContractsCommand = new RelayCommand(ShowAllContracts);
         AddContractCommand = new RelayCommand(AddContract);
@@ -165,6 +172,13 @@ public class MainWindowViewModel
         var view = container.GetRequiredService<IPositionsView>();
         view.ShowDialog();
     }
+    
+    private void ShowOrganizationInfo(object? parametr)
+    {
+        var view = container.GetRequiredService<IAddOrganizationInfoView>();
+        view.ShowDialog();
+    }
+
 
     private void ShowAllContracts(object? parametr)
     {

@@ -11,7 +11,8 @@ public class SqlDbContext : DbContext
     public DbSet<RegisteredUser> RegisteredUsers { get; set; }
     public DbSet<Position> Positions { get; set; }
     public DbSet<MedicalServiceType> MedicalServiceTypes { get; set; }
-    
+    public DbSet<OrganizationInfo> OrganizationInfos{ get; set; }
+
     public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options)
     {
     }

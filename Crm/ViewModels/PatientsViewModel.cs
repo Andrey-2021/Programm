@@ -1,6 +1,6 @@
 ﻿namespace ViewModels;
 
-public class PatientsViewModel : BaseAllEntitiesViewModel<Patient, IAddPatientView>
+public class PatientsViewModel : BaseImportExportDataViewModel<Patient, IAddPatientView>
 {
     public PatientsViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
     {

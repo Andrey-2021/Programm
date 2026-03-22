@@ -33,6 +33,8 @@
                 <Separator />
                 <MenuItem Header="Должности сотрудников" Command="{Binding ShowAllPositionsCommand}"></MenuItem>
                 <MenuItem Header="Виды медицинских услуг " Command="{Binding ShowAllMedicalServicetypesCommand}"></MenuItem>
+                <Separator />
+                <MenuItem Header="Реквизиты организации" Command="{Binding ShowOrganizationInfoCommand}"></MenuItem>
             </MenuItem>
 
             <MenuItem Header="Договора" >

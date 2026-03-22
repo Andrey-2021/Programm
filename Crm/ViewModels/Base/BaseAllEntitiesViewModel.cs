@@ -133,6 +133,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
             view.ViewModel.Parametr = "Ошибка при удалении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
                 + Environment.NewLine + "Exception:" + result.ex?.Message
                 + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+            view.ShowDialog();
         }
         else
         {
@@ -166,12 +167,13 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
     /// Загрузка сущностей из БД
     /// </summary>
     /// <returns></returns>
-    protected virtual async Task LoadNecessaryDates()
+    protected async Task LoadNecessaryDates()
     {
         IsBusy = true;
         var repository = this.serviceProvider.GetRequiredService<DbRepository>();
 
-        var result = await repository.GetEntitiesAsync<TEntity>();
+        //var result = await repository.GetEntitiesAsync<TEntity>();
+        var result = await LoadDataFromDb(repository);
 
         if (result.ex is null)
             Entities = new ObservableCollection<TEntity>(result.data);
@@ -185,6 +187,18 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
         }
         IsBusy = false;
     }
+
+    /// <summary>
+    /// Чтение данных из БД
+    /// </summary>
+    protected virtual async Task<(IEnumerable<TEntity> data, Exception? ex)> LoadDataFromDb(DbRepository repository)
+    {
+        var result = await repository.GetEntitiesAsync<TEntity>();
+        return result;
+    }
+
+
+
 
     //для реализации интерфейса INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;

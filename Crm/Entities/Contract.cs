@@ -55,7 +55,7 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
             Validate(value);
         }
     }
-    private DateTime contractDate;
+    private DateTime contractDate=DateTime.Now;
 
     /// <summary>
     /// Дата начала действия договора
@@ -75,7 +75,7 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
             Validate(value);
         }
     }
-    private DateTime startDate;
+    private DateTime startDate = DateTime.Now;
 
     /// <summary>
     /// Дата окончания действия договора
@@ -96,13 +96,13 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
             Validate(value);
         }
     }
-    private DateTime endDate;
+    private DateTime endDate = DateTime.Now.AddDays(10);
 
     /// <summary>
     /// Общая сумма договора
     /// </summary>
     [Required(ErrorMessage = "Введите общую сумму договора")]
-    [Range(0.01, 9999999999.99, ErrorMessage = "Сумма должна быть от 0.01 до 9 999 999 999.99")]
+    [Range(0, 500000, ErrorMessage = "Сумма должна быть от {1} до {2}")]
     [DataType(DataType.Currency)]
     [Comment("Общая сумма")]
     [DisplayName("Общая сумма")]
@@ -293,9 +293,13 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     /// <summary>
     /// ID пациента
     /// </summary>
+    /// <remarks>
+	/// Внешний ключ. Связь Один-Ко-Многим
+	///</remarks>
     [Required(ErrorMessage = "Не указан пациент")]
-    [ForeignKey(nameof(Patient))]
-    [Comment("Идентификатор пациента")]
+    [Range(1, int.MaxValue, ErrorMessage = "Не выбран пациент")]
+    //[ForeignKey(nameof(Patient))]
+    [Comment("ID пациента")]
     [DisplayName("ID пациента")]
     public int PatientId
     {
@@ -312,7 +316,9 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     /// <summary>
     /// Пациент
     /// </summary>
-    [Required(ErrorMessage = "Не указан пациент")]
+    /// <remarks>
+	/// Навигационное свойство. Связь один-ко-многим
+	///</remarks>
     [Comment("Пациент")]
     [DisplayName("Пациент")]
     public Patient? Patient
@@ -331,23 +337,26 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     private Patient? patient;
 
 
-    
 
-    
-    
 
-    
 
-    
-    
+
+
+
+
+
+
 
 
     /// <summary>
     /// ID ответственного сотрудника
     /// </summary>
+    /// <remarks>
+    /// Внешний ключ. Связь Один-Ко-Многим
+    ///</remarks>
     [Required(ErrorMessage = "Не указан ответственный сотрудник")]
-    [ForeignKey(nameof(Employee))]
-    [Comment("Идентификатор ответственного")]
+    [Range(1, int.MaxValue, ErrorMessage = "Не выбран ответственный сотрудник")]
+    [Comment("ID ответственного")]
     [DisplayName("ID ответственного")]
     public int EmployeeId
     {
@@ -364,7 +373,9 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     /// <summary>
     /// Ответственный сотрудник
     /// </summary>
-    [Required(ErrorMessage = "Не указан ответственный сотрудник")]
+    /// <remarks>
+	/// Навигационное свойство. Связь один-ко-многим
+	///</remarks>
     [Comment("Ответственный")]
     [DisplayName("Ответственный")]
     public Employee? Employee

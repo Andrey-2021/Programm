@@ -82,6 +82,8 @@ public partial class App : Application
         services.AddTransient<IAddPositionView, AddPositionWindow>();
         services.AddTransient<IPositionsView, PositionsWindow>();
 
+        services.AddTransient<IAddOrganizationInfoView, OrganizationInfoWindow>();
+        
 
 
 
@@ -116,5 +118,7 @@ public partial class App : Application
 
         services.AddTransient<AddPositionViewModel>();
         services.AddTransient<PositionsViewModel>();
+
+        services.AddTransient<AddOrganizationInfoViewModel>();
     }
 }

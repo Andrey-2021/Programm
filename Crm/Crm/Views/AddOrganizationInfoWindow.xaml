@@ -1,0 +1,132 @@
+﻿<Window x:Class="Crm.Views.OrganizationInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Crm.Views"
+        mc:Ignorable="d"
+        Title="Карточка организации" Height="1000" Width="550"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Введите данные организации" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+        <StackPanel Margin="5">
+        <!-- Основные реквизиты -->
+        <GroupBox Header="Общие сведения" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Полное наименование:"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="5,2" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Сокращённое наименование:"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="5,2" Text="{Binding ShortName, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Адрес:"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="5,2" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Телефон:"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Факс:"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2" Text="{Binding Fax, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Электронная почта:"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Margin="5,2" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="6" Grid.Column="0" Content="Банк получателя:"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Margin="5,2" Text="{Binding Bank, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="7" Grid.Column="0" Content="Расчётный счёт:"/>
+                <TextBox Grid.Row="7" Grid.Column="1" Margin="5,2" Text="{Binding CheckingAccount, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Банковские и регистрационные данные -->
+        <GroupBox Header="Банковские и регистрационные реквизиты" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="БИК:"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="5,2" Text="{Binding Bik, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="ИНН:"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="5,2" Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="ОГРН:"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="5,2" Text="{Binding Ogrn, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Свидетельство ЕГРЮЛ:"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2" Text="{Binding EgryulCertificate, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Выдано (МИФНС):"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2" Text="{Binding IssuedBy, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Серия свидетельства:"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Margin="5,2" Text="{Binding CertificateSeries, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Label Grid.Row="6" Grid.Column="0" Content="Номер свидетельства:"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Margin="5,2" Text="{Binding CertificateNumber, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </GroupBox>
+
+            <!-- Руководство -->
+            <GroupBox Header="Руководитель">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Должность руководителя:"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5,2" Text="{Binding HeadPosition, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Фамилия И.О. руководителя:"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="5,2" Text="{Binding HeadFullName, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </GroupBox>
+            
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="btnOk" Content="OK" Width="80" Height="30" Margin="5" />
+            <Button x:Name="btnCancel" Content="Отмена" Width="80" Height="30" Margin="5" />
+        </StackPanel>
+        
+    </Grid>
+</Window>
