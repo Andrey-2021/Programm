@@ -1,4 +1,5 @@
 ﻿using Entities.Interfaces;
+using System.Linq.Expressions;
 
 namespace DbLibrary;
 
@@ -227,5 +228,62 @@ public class DbRepository
             return (entity, ex);
         }
     }
+
+    public async Task<(TEntity? entity, Exception? ex)> GetFirstOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>>? predicate = null,
+                                                            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                                            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+                                                            TrackingType trackingType = TrackingType.NoTracking)
+    where TEntity : class
+    {
+        try
+        {
+            using var db = contextFactory.CreateDbContext();
+
+            var _dbSet = db.Set<TEntity>();
+
+            var query = trackingType switch
+            {
+                TrackingType.NoTracking => _dbSet.AsNoTracking(),
+                TrackingType.NoTrackingWithIdentityResolution => _dbSet.AsNoTrackingWithIdentityResolution(),
+                TrackingType.Tracking => _dbSet,
+                _ => throw new ArgumentOutOfRangeException(nameof(trackingType), trackingType, null)
+            };
+
+            if (include is not null)
+            {
+                query = include(query);
+            }
+
+            if (predicate is not null)
+            {
+                query = query.Where(predicate);
+            }
+
+            var rezult = orderBy is not null
+                ? await orderBy(query).FirstOrDefaultAsync()
+                : await query.FirstOrDefaultAsync();
+
+            return (rezult, null);
+        }
+        catch (Exception ex)
+        {
+            return (null, ex);
+        }
+
+    }
+
+
+    public async Task<(IEnumerable<Contract> data, Exception? ex)> GetAllInfoAboutContractsAsync()
+    {
+        var result = await GetEntitiesAsync<Contract>(include: x => x.Include(cont => cont.Patient) //Подгружаем данные о пациенте
+                                                                    .Include(cont=>cont.Payments)
+                                                                    .Include(cont=>cont.ContractItems)
+                                                                        .ThenInclude(ci=>ci.MedicalService)
+                                                                            .ThenInclude(ms=>ms.MedicalServiceType)
+                                                                    .Include(cont => cont.Employee), //Подгружаем данные о сотруднике
+                                                                             orderBy: x => x.OrderByDescending(contr => contr.ContractDate)); // Сортируем по дате заключения договора
+        return result;
+    }
+
 }
 

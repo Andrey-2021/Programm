@@ -148,4 +148,51 @@ internal class LengthConstants
     /// Максимальная длина Пароля
     /// </summary>
     public const int passwordMaxLength = 50;
+
+    /// <summary>
+    /// Максимальная Сумма платежа
+    /// </summary>
+    public const int paymentAmountMaxLength = 500_000;
+
+    /// <summary>
+    /// Максимальная Стоимость медицинской услуги
+    /// </summary>
+    public const int servicePriceMaxLength = 500_000;
+
+    /// <summary>
+    /// Максимальная цена оказанных однотипных услуг
+    /// </summary>
+    public const int medicalServicesPriceMaxLength = servicePriceMaxLength;
+
+    /// <summary>
+    /// Максимальная скидка
+    /// </summary>
+    public const int medicalServicesDiscountMaxLength = 10_000;
+
+    /// <summary>
+    /// Максимальная Общая сумма договора
+    /// </summary>
+    public const int totalAmountMaxLength = 1_500_000;
+
+
+    /// <summary>
+    /// Максимальная длина ID транзакции
+    /// </summary>
+    public const byte transactionIdMaxLength = 254;
+    /// <summary>
+    /// Минимальная длина ID транзакции
+    /// </summary>
+    public const byte transactionIdMinLength = 5;
+
+    /// <summary>
+    /// Максимальная длина - Примечания к платежу
+    /// </summary>
+    public const int paymentNotesMaxLength = 500;
+
+    /// <summary>
+    /// Максимальная количество оказанных однотипных услуг
+    /// </summary>
+    public const int medicalServicesQuantityMaxLength = 50;
+
+    
 }

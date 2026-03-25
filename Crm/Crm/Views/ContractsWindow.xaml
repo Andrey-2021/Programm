@@ -1,13 +1,12 @@
 ﻿<Window x:Class="Crm.Views.ContractsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
         Title="Договора" 
-        Height="650" Width="1300"
-        MinHeight="450" MinWidth="800"
+        Height="950" Width="1300"
+        MinHeight="550" MinWidth="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -16,13 +15,13 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30*"></RowDefinition>
 
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
 
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
 
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
@@ -46,7 +45,7 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn Binding="{Binding PatientId}" Header="Пациента" Width="5*"></DataGridTextColumn>-->
                 <DataGridTextColumn Binding="{Binding Path=Patient.FIO}" Header="Пациент" Width="5*"></DataGridTextColumn>
-                
+
                 <DataGridTextColumn Binding="{Binding ContractDate, StringFormat=\{0:dd.MM.yyyy\}}"
                                     Header="Дата заключения договора" Width="5*"></DataGridTextColumn>
 
@@ -60,8 +59,8 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
 
                 <DataGridTextColumn Binding="{Binding TotalAmount}" Header="Сумма" Width="5*"></DataGridTextColumn>
                 <!--<DataGridTextColumn Binding="{Binding TotalAmountText}" Header="Общая сумма" Width="5*"></DataGridTextColumn>-->
-                
-                
+
+
                 <DataGridTextColumn Binding="{Binding PaymentStatus}" Header="Статус оплаты" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding ContractStatus}" Header="Статус договора" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Notes}" Header="Примечание" Width="5*"></DataGridTextColumn>
@@ -78,33 +77,88 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
             <Button Command="{Binding RefreshCommand}">Обновить</Button>
 
             <Button Command="{Binding CreateContractCommand}">Договор</Button>
-            
+
         </StackPanel>
 
-        
-        
-        
-        
+
+
+
+        <!-- Услуги по договору -->
         <Label Grid.Column="0" Grid.Row="2">Услуги по договору</Label>
-        <Label Grid.Column="0" Grid.Row="3">Таблица:</Label>
+        <DataGrid MinHeight="150"
+  Grid.Column="0" Grid.Row="3"
+  IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+  SelectionMode="Single"
+  VerticalScrollBarVisibility="Auto"
+  AutoGenerateColumns="False"
+  CanUserReorderColumns="False"
+  Margin="10"
+  ItemsSource="{Binding SelectedEntity.ContractItems, Mode=TwoWay}"
+  SelectedItem="{Binding SelectedContractItem, Mode=OneWayToSource}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=MedicalService.ServiceName}" Header="Мед. услуга" Width="5*">
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Quantity}" Header="Кол.услуг" Width="5*">
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Price}" Header="Цена" Width="5*">
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Discount}" Header="Скидка" Width="5*">
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding ItemTotal}" Header="Сумма" Width="5*">
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
 
         <StackPanel Grid.Column="1" Grid.Row="3">
             <Button Command="{Binding AddMedicalServiceForContectCommand}">Дабавить</Button>
             <Button Command="{Binding EditMedicalServiceInContectCommand}">Редактировать</Button>
+            <Button Command="{Binding DeleteMedicalServiceInContectCommand}">Удалить</Button>
         </StackPanel>
-        
+
+        <!-- Оплаты пациентом -->
         <Label Grid.Column="0" Grid.Row="4">Оплаты пациентом</Label>
-        <Label Grid.Column="0" Grid.Row="5">Таблица</Label>
+        <DataGrid MinHeight="150"
+Grid.Column="0" Grid.Row="5"
+IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+SelectionMode="Single"
+VerticalScrollBarVisibility="Auto"
+AutoGenerateColumns="False"
+CanUserReorderColumns="False"
+Margin="10"
+ItemsSource="{Binding SelectedEntity.Payments, Mode=TwoWay}"
+SelectedItem="{Binding SelectedPayment, Mode=OneWayToSource}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding PaymentDate}" Header="Дата и время платежа" Width="5*">
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding PaymentMethod}" Header="Способ оплаты" Width="5*">
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding PaymentAmount}" Header="Сумма" Width="5*">
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding PaymentNotes}" Header="Примечание" Width="5*">
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
 
         <StackPanel Grid.Column="1" Grid.Row="5">
             <Button Command="{Binding AddPaymentCommand}">Дабавить</Button>
             <Button Command="{Binding EditPaymentCommand}">Редактировать</Button>
+            <Button Command="{Binding DeletePaymentCommand}">Удалить</Button>
         </StackPanel>
-        
-        
-        
-        
-        
+
+
+
+
+
         <StatusBar Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2">
             <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>

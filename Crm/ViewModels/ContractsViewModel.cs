@@ -1,9 +1,36 @@
 ﻿using CreateDocuments;
-
 namespace ViewModels;
 
 public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContractView>
 {
+    /// <summary>
+    /// Выбранная услуга из таблицы оказанных услуг
+    /// </summary>
+    public ContractItem? SelectedContractItem
+    {
+        get => selectedContractItem;
+        set
+        {
+            selectedContractItem = value;
+            OnPropertyChanged();
+        }
+    }
+    public ContractItem? selectedContractItem;
+
+    /// <summary>
+    /// Выбранный платёж из таблицы платежей
+    /// </summary>
+    public Payment? SelectedPayment
+    {
+        get => selectedPayment;
+        set
+        {
+            selectedPayment = value;
+            OnPropertyChanged();
+        }
+    }
+    public Payment? selectedPayment;
+
     /// <summary>
     /// Команда "Добавить платёж"
     /// </summary>
@@ -12,23 +39,32 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
     /// <summary>
     /// Команда "Добавить платёж"
     /// </summary>
-    public ICommand? AddPaymentCommand { private set; get; }
+    public RelayCommand? AddPaymentCommand { private set; get; }
 
     /// <summary>
     /// Команда "Редактировать платёж"
     /// </summary>
-    public ICommand? EditPaymentCommand { private set; get; }
+    public RelayCommand? EditPaymentCommand { private set; get; }
+
+    /// <summary>
+    /// Команда "Удалить платёж"
+    /// </summary>
+    public RelayCommand? DeletePaymentCommand { private set; get; }
 
     /// <summary>
     /// Команда "Добавить услугу"
     /// </summary>
-    public ICommand? AddMedicalServiceForContectCommand { private set; get; }
+    public RelayCommand? AddMedicalServiceForContectCommand { private set; get; }
 
     /// <summary>
     /// Команда "Редактировать услугу"
     /// </summary>
-    public ICommand? EditMedicalServiceInContectCommand { private set; get; }
+    public RelayCommand? EditMedicalServiceInContectCommand { private set; get; }
 
+    /// <summary>
+    /// Команда "Удалить услугу"
+    /// </summary>
+    public RelayCommand? DeleteMedicalServiceInContectCommand { private set; get; }
 
     /// <summary>
     /// Конструктор
@@ -40,9 +76,11 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
 
         AddPaymentCommand = new RelayCommand(AddPayment, CheckIsPossibleAddPayment);
         EditPaymentCommand = new RelayCommand(EditPayment, CheckIsPossibleEditPayment);
+        DeletePaymentCommand = new RelayCommand(DeletePaymentPayment, CheckIsPossibleDeletePayment);
 
         AddMedicalServiceForContectCommand = new RelayCommand(AddMedicalServiceForContect, CheckIsPossibleAddMedicalServiceForContect);
-        EditMedicalServiceInContectCommand = new RelayCommand(EditMedicalServiceInContect, CheckIsPossibleImportEditMedicalServiceInContect);
+        EditMedicalServiceInContectCommand = new RelayCommand(EditMedicalServiceInContect, CheckIsPossibleEditMedicalServiceInContect);
+        DeleteMedicalServiceInContectCommand = new RelayCommand(DeleteMedicalServiceInContect, CheckIsPossibleDeleteMedicalServiceInContect);
     }
 
     protected async void CreateContract(object? parametr)
@@ -53,7 +91,6 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
     { "!2!", "20.03.2026" },
     { "!3!", "№ 123-А" }
 };
-
         WordReplacer.ReplacePlaceholders(@"d:\1\dogovor.docx", replacements);
     }
 
@@ -64,57 +101,84 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
 
     protected virtual async void AddPayment(object? parametr)
     {
-        var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-        view.ViewModel.Parametr = "Добавить платёж";
+        var view = serviceProvider.GetRequiredService<IAddPaymentForContractView>();
+        view.ViewModel.Parametr = new Payment() { ContractId = SelectedEntity!.Id, Contract = SelectedEntity };
         view.ShowDialog();
+        await LoadNecessaryDates();
+        StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
-    protected virtual bool CheckIsPossibleAddPayment(object? parametr)
+    private bool CheckIsPossibleAddPayment(object? parametr)
     {
-        return Entities?.Count > 0;
+        return SelectedEntity != null;
     }
 
-    protected virtual async void EditPayment(object? parametr)
+    private async void EditPayment(object? parametr)
     {
-        var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-        view.ViewModel.Parametr = "Редактировать платёж";
+        var view = serviceProvider.GetRequiredService<IAddPaymentForContractView>();
+        view.ViewModel.Parametr = SelectedPayment;
         view.ShowDialog();
+        await LoadNecessaryDates();
+        StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
-    protected virtual bool CheckIsPossibleEditPayment(object? parametr)
+    private bool CheckIsPossibleEditPayment(object? parametr)
     {
-        return true;
+        return SelectedPayment != null;
+    }
+
+    private async void DeletePaymentPayment(object? parametr)
+    {
+        await Delete(SelectedPayment!);
+    }
+
+    private bool CheckIsPossibleDeletePayment(object? parametr)
+    {
+        return SelectedPayment != null;
     }
 
     protected virtual async void AddMedicalServiceForContect(object? parametr)
     {
-        var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-        view.ViewModel.Parametr = "Добавить услугу";
+        var view = serviceProvider.GetRequiredService<IAddMedicalServiceForContractView>();
+        view.ViewModel.Parametr = new ContractItem() { ContractId = SelectedEntity!.Id, Contract = SelectedEntity };
         view.ShowDialog();
+
+        await LoadNecessaryDates();
+        StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     protected virtual bool CheckIsPossibleAddMedicalServiceForContect(object? parametr)
     {
-        return Entities?.Count > 0;
+        return SelectedEntity != null;
     }
 
     protected virtual async void EditMedicalServiceInContect(object? parametr)
     {
-        var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-        view.ViewModel.Parametr = "Редактировать услугу";
+        var view = serviceProvider.GetRequiredService<IAddMedicalServiceForContractView>();
+        view.ViewModel.Parametr = SelectedContractItem;
         view.ShowDialog();
+        await LoadNecessaryDates();
+        StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
-    protected virtual bool CheckIsPossibleImportEditMedicalServiceInContect(object? parametr)
+    protected virtual bool CheckIsPossibleEditMedicalServiceInContect(object? parametr)
     {
-        return true;
+        return selectedContractItem != null;
+    }
+
+    protected virtual async void DeleteMedicalServiceInContect(object? parametr)
+    {
+        await Delete(selectedContractItem!);
+    }
+
+    protected virtual bool CheckIsPossibleDeleteMedicalServiceInContect(object? parametr)
+    {
+        return selectedContractItem != null;
     }
 
     protected override async Task<(IEnumerable<Contract> data, Exception? ex)> LoadDataFromDb(DbRepository repository)
     {
-        var result = await repository.GetEntitiesAsync<Contract>(include: x=>x.Include(cont=> cont.Patient) //Подгружаем данные о пациенте
-                                                                             .Include(cont => cont.Employee), //Подгружаем данные о сотруднике
-                                                                             orderBy:x=>x.OrderByDescending(contr=>contr.ContractDate)); // Сортируем по дате заключения договора
+        var result = await repository.GetAllInfoAboutContractsAsync();
         return result;
     }
 
@@ -122,5 +186,13 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
     {
         base.CheckCommands();
         CreateContractCommand?.RaiseCanExecuteChanged();
+
+        AddMedicalServiceForContectCommand?.RaiseCanExecuteChanged();
+        EditMedicalServiceInContectCommand?.RaiseCanExecuteChanged();
+        DeleteMedicalServiceInContectCommand?.RaiseCanExecuteChanged();
+
+        AddPaymentCommand?.RaiseCanExecuteChanged();
+        EditPaymentCommand?.RaiseCanExecuteChanged();
+        DeletePaymentCommand?.RaiseCanExecuteChanged();
     }
 }

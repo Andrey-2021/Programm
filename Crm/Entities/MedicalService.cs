@@ -97,7 +97,7 @@ public class MedicalService : BaseINotifyDataErrorInfo, IHaveId
     /// Стоимость услуги
     /// </summary>
     [Required(ErrorMessage = "Введите стоимость услуги")]
-    [Range(0, 200000, ErrorMessage = "Стоимость должна быть положительной и не превышать 9 999 999.99")]
+    [Range(0, (double)LengthConstants.servicePriceMaxLength, ErrorMessage = "Недопустимое значение. Должно быть от {1} до {2}")]
     [DataType(DataType.Currency)]
     //[Column(TypeName = "decimal(18, 2)")]
     [Comment("Стоимость услуги")]

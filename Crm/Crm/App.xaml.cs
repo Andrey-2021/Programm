@@ -40,7 +40,7 @@ public partial class App : Application
 
     private void ConfigureServices(ServiceCollection services)
     {
-        string connectionString = "Data Source = WIN10PC; Initial Catalog =MedicalCRM ; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        string connectionString = "Data Source = WIN10PC; Initial Catalog =2026MedicalCRM ; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         services.AddDbContextFactory<SqlDbContext>
                 (
                     options => options.UseSqlServer(connectionString
@@ -65,14 +65,17 @@ public partial class App : Application
         services.AddTransient<IMedicalServiceTypesView, MedicalServiceTypesWindow>();
         services.AddTransient<IAddMedicalServiceTypeView, AddMedicalServiceTypeWindow>();
 
-        services.AddTransient<IAddPaymentView, AddPaymentWindow>();
+        
 
         services.AddTransient<IAddEmployeesView, AddEmployeesWindow>();
         services.AddTransient<IEmployeesView, EmployeesWindow>();
 
         services.AddTransient<IContractsView, ContractsWindow>();
         services.AddTransient<IAddContractView, AddContractWindow>();
-        
+        services.AddTransient<IAddPaymentForContractView, AddPaymentForContractWindow>();
+        services.AddTransient<IAddMedicalServiceForContractView, AddMedicalServiceForContractWindow>();
+
+
         services.AddTransient<IPatientsView, PatientsWindow>();
         services.AddTransient<IAddPatientView, AddPatientWindow>();
 
@@ -103,6 +106,8 @@ public partial class App : Application
 
         services.AddTransient<ContractsViewModel>();
         services.AddTransient<AddContractViewModel>();
+        services.AddTransient<AddPaymentForContracViewModel>();
+        services.AddTransient<AddMedicalServiceForContractViewModel>();
 
         services.AddTransient<EmployeesViewModel>();
         services.AddTransient<AddEmployeeViewModel>();

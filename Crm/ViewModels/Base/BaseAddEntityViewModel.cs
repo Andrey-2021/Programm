@@ -52,29 +52,38 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 		//настраиваем команды
 		SaveCommand = new RelayCommand(Save, CheckIsPossibleSave);
 		CloseWindowCommand = new RelayCommand(CloseWindow, CheckIsPossibleCloseWindow);
-	}
 
-	//public void Dispose()
-	//{
-	//	if(MainEntity!=null)
-	//		MainEntity.PropertyChanged -= OnMainEntityPropertiesChanged;
-	//}
+        var task = Task.Run(() => LoadNecessaryDates());
+        task.Wait();
+    }
 
-	//protected void OnMainEntityPropertiesChanged(object? sender, PropertyChangedEventArgs e)
-	//{
-	//	OnPropertyChanged(nameof(MainEntity));
-	//}
+    protected virtual async Task LoadNecessaryDates()
+    {
+    }
 
 
-	/// <summary>
-	/// Приведение типов. Переданный параметр типа object приводим к типу TEntity
-	/// </summary>
-	/// <param name="parametr"></param>
-	/// <exception cref="ArgumentException"></exception>
-	protected virtual async void OnParametrSet(object? parametr)
+    //public void Dispose()
+    //{
+    //	if(MainEntity!=null)
+    //		MainEntity.PropertyChanged -= OnMainEntityPropertiesChanged;
+    //}
+
+    //protected void OnMainEntityPropertiesChanged(object? sender, PropertyChangedEventArgs e)
+    //{
+    //	OnPropertyChanged(nameof(MainEntity));
+    //}
+
+
+    /// <summary>
+    /// Приведение типов. Переданный параметр типа object приводим к типу TEntity
+    /// </summary>
+    /// <param name="parametr"></param>
+    /// <exception cref="ArgumentException"></exception>
+    protected virtual async void OnParametrSet(object? parametr)
 	{
 		var mainEntity = parametr as TEntity;
-		if (mainEntity == null) throw new ArgumentException("Неправильно задан тип параметра");//если не удалость привести, бросаем исключение
+		if (mainEntity == null) 
+			throw new ArgumentException("Неправильно задан тип параметра");//если не удалость привести, бросаем исключение
 		MainEntity = mainEntity;
 		await OperationsAfterSetParametrAsync(parametr);
 	}

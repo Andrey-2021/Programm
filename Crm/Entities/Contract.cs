@@ -102,7 +102,7 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     /// Общая сумма договора
     /// </summary>
     [Required(ErrorMessage = "Введите общую сумму договора")]
-    [Range(0, 500000, ErrorMessage = "Сумма должна быть от {1} до {2}")]
+    [Range(0, (double)LengthConstants.totalAmountMaxLength, ErrorMessage = "Недопустимое значение. Должно быть от {1} до {2}")]
     [DataType(DataType.Currency)]
     [Comment("Общая сумма")]
     [DisplayName("Общая сумма")]
@@ -187,18 +187,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     /*
     /// <summary>
     /// Статус договора
@@ -241,14 +229,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
 
 
 
-
-
-
-
-
-
-
-
     /// <summary>
     /// Дополнительные примечания к договору
     /// </summary>
@@ -266,24 +246,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private string notes = string.Empty;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -339,15 +301,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
 
 
 
-
-
-
-
-
-
-
-
-
     /// <summary>
     /// ID ответственного сотрудника
     /// </summary>
@@ -393,6 +346,27 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     }
     private Employee? employee;
 
+
+    /// <summary>
+    /// Оказанная услуга
+    /// </summary>
+    /// <remarks>
+    /// Навигационное свойство.
+    ///</remarks>
+    public List<ContractItem>? ContractItems { get; set; }
+
+    /// <summary>
+    /// Оплаты
+    /// </summary>
+    /// <remarks>
+    /// Навигационное свойство. Связь один-ко-многим.
+    ///</remarks>
+    public List<Payment>? Payments { get; set; }
+
+
+    /// <summary>
+    /// Конструктор
+    /// </summary>
     public Contract()
     { 
     }

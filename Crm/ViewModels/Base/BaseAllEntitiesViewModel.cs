@@ -122,10 +122,36 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
 
     protected virtual async void DelEntity(object? parametr)
     {
-        if (SelectedEntity == null) return;
+        //if (SelectedEntity == null) return;
+        //IsBusy = true;
+        //var repository = this.serviceProvider.GetRequiredService<DbRepository>();
+        //var result = await repository.DelEntityAsync<TEntity>(SelectedEntity);
+
+        //if (result.ex is not null)
+        //{
+        //    var view = serviceProvider.GetRequiredService<IMessageWindowView>();
+        //    view.ViewModel.Parametr = "Ошибка при удалении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
+        //        + Environment.NewLine + "Exception:" + result.ex?.Message
+        //        + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+        //    view.ShowDialog();
+        //}
+        //else
+        //{
+        //    StatusMessage = "Данные удалены. " + DateTime.Now;
+        //}
+
+        //await LoadNecessaryDates();
+        //IsBusy = false;
+        await Delete(SelectedEntity!);
+    }
+
+    protected async Task Delete<T>(T deletedEntity)
+        where T:class, IHaveId
+    {
+        if (deletedEntity == null) return;
         IsBusy = true;
         var repository = this.serviceProvider.GetRequiredService<DbRepository>();
-        var result = await repository.DelEntityAsync<TEntity>(SelectedEntity);
+        var result = await repository.DelEntityAsync<T>(deletedEntity);
 
         if (result.ex is not null)
         {
@@ -143,6 +169,9 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
         await LoadNecessaryDates();
         IsBusy = false;
     }
+
+
+
 
     protected virtual bool CheckIsPossibleDeleAddEntity(object? parametr)
     {
@@ -196,9 +225,6 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
         var result = await repository.GetEntitiesAsync<TEntity>();
         return result;
     }
-
-
-
 
     //для реализации интерфейса INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;

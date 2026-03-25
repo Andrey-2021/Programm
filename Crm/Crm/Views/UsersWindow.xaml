@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UniverApp.Views"
         mc:Ignorable="d"
         Title="Зарегистрированные пользователи" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"></ColumnDefinition>

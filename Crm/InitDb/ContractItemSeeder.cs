@@ -20,8 +20,7 @@ public static class ContractItemSeeder
             service: medicalServices[0],
             quantity: 1,
             price: 1500.00m,
-            discount: 0.00m,
-            itemTotal: 1500.00m
+            discount: 0.00m
         ));
 
         items.Add(new ContractItem(
@@ -29,8 +28,7 @@ public static class ContractItemSeeder
             service: medicalServices[1],
             quantity: 2,
             price: 800.00m,
-            discount: 5.00m,
-            itemTotal: 1520.00m
+            discount: 5.00m
         ));
 
         items.Add(new ContractItem(
@@ -38,8 +36,7 @@ public static class ContractItemSeeder
             service: medicalServices[2],
             quantity: 1,
             price: 1000.00m,
-            discount: 0.00m,
-            itemTotal: 1000.00m
+            discount: 0.00m
         ));
 
         items.Add(new ContractItem(
@@ -47,8 +44,7 @@ public static class ContractItemSeeder
             service: medicalServices[3],
             quantity: 1,
             price: 600.00m,
-            discount: 10.00m,
-            itemTotal: 540.00m
+            discount: 10.00m
         ));
 
         items.Add(new ContractItem(
@@ -56,8 +52,7 @@ public static class ContractItemSeeder
             service: medicalServices[4],
             quantity: 1,
             price: 500.00m,
-            discount: 0.00m,
-            itemTotal: 500.00m
+            discount: 0.00m
         ));
 
         items.Add(new ContractItem(
@@ -65,11 +60,8 @@ public static class ContractItemSeeder
             service: medicalServices[5],
             quantity: 1,
             price: 1200.00m,
-            discount: 15.00m,
-            itemTotal: 1020.00m
+            discount: 15.00m
         ));
-
         return items;
     }
-
 }

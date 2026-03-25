@@ -22,14 +22,13 @@ public class AddMedicalServiceViewModel : BaseAddEntityViewModel<MedicalService>
 	/// <param name="serviceProvider"></param>
 	public AddMedicalServiceViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
     {
-        Task.Run(() => LoadNecessaryDates());
     }
 
     /// <summary>
 	/// Загружаем список Групп из БД
 	/// </summary>
 	/// <returns></returns>
-	protected async Task LoadNecessaryDates()
+	protected override async Task LoadNecessaryDates()
     {
         IsBusy = true;
         var result = await repository.GetEntitiesAsync<MedicalServiceType>();

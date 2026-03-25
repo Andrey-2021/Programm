@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
-        Title="AboutProgrammWindow" Height="450" Width="800">
+                Title="О программе" 
+Height="600" Width="700"
+MinHeight="700" MinWidth="900"
+WindowStartupLocation="CenterScreen">
     <Grid>
         
     </Grid>
