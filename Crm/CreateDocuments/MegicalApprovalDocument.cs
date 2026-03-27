@@ -1,9 +1,9 @@
-﻿using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Entities;
+﻿using Entities;
 namespace CreateDocuments;
 
+/// <summary>
+/// Документы на согласие мед.процедур
+/// </summary>
 public class MegicalApprovalDocument
 {
     private const string soglasieFileName = "forma_soglasiia.docx";
@@ -11,23 +11,13 @@ public class MegicalApprovalDocument
 
     public static (bool result, Exception? ex) CreateDoc(Contract contract, OrganizationInfo organizationInfo, string folder)
     {
-
-        //        var replacements = new Dictionary<string, string>
-        //{
-        //    { "!1!", "Иванов Иван Иванович" },
-        //    { "!2!", "20.03.2026" },
-        //    { "!3!", "№ 123-А" }
-        //};
-        //        WordReplacer.ReplacePlaceholders(@"d:\1\dogovor.docx", replacements);
-        //WordReplacer.ReplacePlaceholders(@"d:\1\dogovor.docx", replacements);
-
-
-        // 1.Копируем документ в папку
-        //var path2 = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         try
         {
-            CopyDocument(folder);
-            ModifyWordDocument(contract, organizationInfo, folder);
+            CopyDocument(folder); // Копируем документ в папку
+            var dic = ReplacerDictionary.CreateTable(contract, organizationInfo);
+
+            DocKeyReplacer.ReplaceKeys(Path.Combine(folder, soglasieFileName), dic); // Модифицируем Word-документ
+            ExcelKeyReplacer.ReplaceKeys(Path.Combine(folder, dogovorFileName), new List<string> { "Договор", "Перечень", "Акт" }, dic); // Модифицируем Excel-документ
             return (true, null);
         }
         catch (Exception ex)
@@ -35,41 +25,6 @@ public class MegicalApprovalDocument
             return (false, ex);
         }
     }
-
-    private static void ModifyWordDocument(Contract contract, OrganizationInfo organizationInfo, string folder)
-    {
-        var filePath = Path.Combine(folder, soglasieFileName);
-
-        var replacements = new Dictionary<string, string?>
-        {
-            { "!1!", organizationInfo.FullName },
-            { "!2!", contract.Patient?.FullFIO},
-            { "!3!", contract.Patient?.BirthDate.Year.ToString() },
-            { "!4!", contract.Patient?.Address },
-            { "!5!", contract.ContractDate.ToShortDateString() }
-        };
-
-        using (WordprocessingDocument doc = WordprocessingDocument.Open(filePath, true))
-        {
-            // Находим все текстовые элементы в документе
-            var texts = doc.MainDocumentPart.Document.Descendants<Text>().ToList();
-
-            // Заменяем в каждом текстовом элементе
-            foreach (var text in texts)
-            {
-                if (text.Text != null && replacements.Keys.Any(key => text.Text.Contains(key)))
-                {
-                    string newText = text.Text;
-                    foreach (var kvp in replacements)
-                    {
-                        newText = newText.Replace(kvp.Key, kvp.Value);
-                    }
-                    text.Text = newText;
-                }
-            }
-        }
-    }
-
 
     /// <summary>
     /// Копируем исходные документы
