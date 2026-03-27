@@ -1,4 +1,5 @@
-﻿using Crm.Views;
+﻿using Crm.Services;
+using Crm.Views;
 using DbLibrary;
 using Microsoft.EntityFrameworkCore;
 using UniverApp.Views;
@@ -40,6 +41,8 @@ public partial class App : Application
 
     private void ConfigureServices(ServiceCollection services)
     {
+        services.AddSingleton<IDialogService, DialogService>();
+
         string connectionString = "Data Source = WIN10PC; Initial Catalog =2026MedicalCRM ; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         services.AddDbContextFactory<SqlDbContext>
                 (

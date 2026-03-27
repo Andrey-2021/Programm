@@ -8,7 +8,7 @@ public class AddPaymentForContracViewModel : BaseAddEntityViewModel<Payment>
     /// <summary>
 	/// Конструктор
 	/// </summary>
-	public AddPaymentForContracViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+	public AddPaymentForContracViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
     }
 

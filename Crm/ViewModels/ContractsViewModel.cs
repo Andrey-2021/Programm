@@ -70,7 +70,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
     /// Конструктор
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public ContractsViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+    public ContractsViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
         CreateContractCommand = new RelayCommand(CreateContract, CheckIsPossibleCreateContract);
 
@@ -85,13 +85,38 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
 
     protected async void CreateContract(object? parametr)
     {
-        var replacements = new Dictionary<string, string>
-{
-    { "!1!", "Иванов Иван Иванович" },
-    { "!2!", "20.03.2026" },
-    { "!3!", "№ 123-А" }
-};
-        WordReplacer.ReplacePlaceholders(@"d:\1\dogovor.docx", replacements);
+        var folder= dialogService.SelectFolder();
+        if (folder is null)
+            return;
+
+        IsBusy = true;
+        var repository = this.serviceProvider.GetRequiredService<DbRepository>();
+        var result = await repository.GetFirstOrDefaultAsync<OrganizationInfo>();
+
+        if (result.ex is not null)
+        {
+            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
+            view.ViewModel.Parametr = "Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
+                + Environment.NewLine + "Exception:" + result.ex?.Message
+                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+            view.ShowDialog();
+            return;
+        }
+
+        var createDocResult= MegicalApprovalDocument.CreateDoc(SelectedEntity!, result.entity!, folder);
+        if(createDocResult.ex is null)
+        {
+            dialogService.ShowInfo("Документы созданы");
+        }
+        else
+        {
+            var error= Environment.NewLine + "Exception:" + result.ex?.Message
+                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message; ;
+
+            dialogService.ShowInfo("Ошибка при создании документов: "+ error);
+        }
+
+        IsBusy = false;
     }
 
     protected bool CheckIsPossibleCreateContract(object? parametr)

@@ -11,7 +11,7 @@ public class AddPatientViewModel : BaseAddEntityViewModel<Patient>
     /// <summary>
 	/// Конструктор
 	/// </summary>
-	public AddPatientViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+	public AddPatientViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
 
     }

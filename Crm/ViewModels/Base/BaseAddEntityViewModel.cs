@@ -4,7 +4,7 @@
 /// Базовый класс для всех AddViewModel
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModelWithParametr //, IDisposable
+public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithParametr //, IDisposable
 	where TEntity : class, INotifyPropertyChanged, new()
 {
 	public bool IsBusy { get; set; }
@@ -28,11 +28,6 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	public RelayCommand? CloseWindowCommand { get; set; }
 	
 	/// <summary>
-	/// Контейнер
-	/// </summary>
-	protected IServiceProvider serviceProvider;
-	
-	/// <summary>
 	/// Репозиторий для работы с БД
 	/// </summary>
 	protected DbRepository repository;
@@ -41,12 +36,11 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	/// Конструктор
 	/// </summary>
 	/// <param name="serviceProvider"></param>
-	public BaseAddEntityViewModel(IServiceProvider serviceProvider)
+	public BaseAddEntityViewModel(IServiceProvider serviceProvider, IDialogService dialogService) :base(serviceProvider, dialogService)
 	{
 		MainEntity = new();
 		//MainEntity.PropertyChanged += OnMainEntityPropertiesChanged;
 
-		this.serviceProvider = serviceProvider;
 		repository = this.serviceProvider.GetRequiredService<DbRepository>(); //сразу создаём репозиторий для работы с БД
 
 		//настраиваем команды
@@ -217,20 +211,10 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	//	CloseWindowCommand?.RaiseCanExecuteChanged();
 	//}
 
-	public event PropertyChangedEventHandler? PropertyChanged;
-	public void OnPropertyChanged([CallerMemberName] string prop = "")
-	{
-		if (PropertyChanged != null)
-		{
-			PropertyChanged(this, new PropertyChangedEventArgs(prop));
-			CheckCommands();
-		}
-	}
-
 	/// <summary>
 	/// Проверка можно ли выполнить команды
 	/// </summary>
-	protected virtual void CheckCommands()
+	protected override void CheckCommands()
 	{
 		SaveCommand?.RaiseCanExecuteChanged();
 		CloseWindowCommand?.RaiseCanExecuteChanged();

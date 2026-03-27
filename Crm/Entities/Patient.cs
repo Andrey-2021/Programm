@@ -21,6 +21,10 @@ public class Patient: BaseINotifyDataErrorInfo, IHaveId
 	[NotMapped]
     public string? FIO => LastName + " " + FirstName?[0] + "." + MiddleName?[0] + ".";
 
+    [NotMapped]
+    public string? FullFIO => LastName + " " + FirstName + " " + MiddleName;
+
+
     /// <summary>
     /// Фамилия
     /// </summary>

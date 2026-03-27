@@ -76,7 +76,7 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
             <Button Command="{Binding DelCommand}">Удалить</Button>
             <Button Command="{Binding RefreshCommand}">Обновить</Button>
 
-            <Button Command="{Binding CreateContractCommand}">Договор</Button>
+            <Button Command="{Binding CreateContractCommand}">Договора</Button>
 
         </StackPanel>
 

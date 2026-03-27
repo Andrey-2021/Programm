@@ -5,7 +5,7 @@ public class AddOrganizationInfoViewModel : BaseAddEntityViewModel<OrganizationI
     /// <summary>
     /// Конструктор
     /// </summary>
-    public AddOrganizationInfoViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+    public AddOrganizationInfoViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
     }
 

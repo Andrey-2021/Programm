@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TEntity">Тип главной сущности</typeparam>
 /// <typeparam name="TAddView">Тип View (Окна) для добавления новой/редактирования сущности</typeparam>
-public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChanged, IViewModel
+public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IViewModel
     where TEntity : class, IHaveId, new()
     where TAddView : IViewWithViewModel
 {
@@ -27,14 +27,6 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
     /// Флаг занятости
     /// </summary>
     public bool IsBusy { get; set; }
-
-    /// <summary>
-    /// Контейнер. использовать внедрение зависимостей (dependency injection) 
-    /// </summary>
-    /// <remarks>
-	/// Используется для внедрения зависимостей (dependency injection) 
-	///</remarks>
-    protected IServiceProvider serviceProvider;
 
     /// <summary>
     /// Список сущностей из БД
@@ -88,9 +80,8 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
     /// Конструктор
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public BaseAllEntitiesViewModel(IServiceProvider serviceProvider)
+    public BaseAllEntitiesViewModel(IServiceProvider serviceProvider, IDialogService dialogService) :base(serviceProvider, dialogService)
     {
-        this.serviceProvider = serviceProvider;
         //настраиваем команды
         AddCompanyCommand = new RelayCommand(ShowAddEntityWindow, CheckIsPossibleShowAddEntityWindow);
         RefreshCommand = new RelayCommand(RefreshEntities);
@@ -226,21 +217,10 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : INotifyPropertyChange
         return result;
     }
 
-    //для реализации интерфейса INotifyPropertyChanged
-    public event PropertyChangedEventHandler? PropertyChanged;
-    public void OnPropertyChanged([CallerMemberName] string prop = "")
-    {
-        if (PropertyChanged != null)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            CheckCommands();
-        }
-    }
-
     /// <summary>
     /// Проверка можно ли выполнить команды
     /// </summary>
-    protected virtual void CheckCommands()
+    protected override void CheckCommands()
     {
         DelCommand?.RaiseCanExecuteChanged();
         EditCommand?.RaiseCanExecuteChanged();

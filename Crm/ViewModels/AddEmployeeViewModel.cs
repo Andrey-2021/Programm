@@ -20,7 +20,7 @@ public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
     /// Конструктор
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public AddEmployeeViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+    public AddEmployeeViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
         Task.Run(() => LoadNecessaryDates());
     }

@@ -40,7 +40,7 @@ public class AddContractViewModel : BaseAddEntityViewModel<Contract>
 	/// Конструктор
 	/// </summary>
 	/// <param name="serviceProvider"></param>
-	public AddContractViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+	public AddContractViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
         var task = Task.Run(() => LoadNecessaryDates());
         task.Wait();

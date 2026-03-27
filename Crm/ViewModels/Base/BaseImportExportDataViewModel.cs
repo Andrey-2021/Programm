@@ -18,7 +18,7 @@ public class BaseImportExportDataViewModel<TEntity, TAddView> : BaseAllEntitiesV
     /// Конструктор
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public BaseImportExportDataViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+    public BaseImportExportDataViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
         ExportDataCommand = new RelayCommand(ExportData, CheckIsPossibleExportData);
         ImportDataCommand = new RelayCommand(ImportData, CheckIsPossibleImportData);

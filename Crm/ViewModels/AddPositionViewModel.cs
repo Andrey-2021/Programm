@@ -6,7 +6,7 @@ public class AddPositionViewModel : BaseAddEntityViewModel<Position>
 	/// Конструктор
 	/// </summary>
 	/// <param name="serviceProvider"></param>
-	public AddPositionViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+	public AddPositionViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
 
     }

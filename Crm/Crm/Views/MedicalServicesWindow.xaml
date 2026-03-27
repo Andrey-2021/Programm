@@ -49,7 +49,7 @@
             <Button Command="{Binding DelCommand}">Удалить</Button>
             <Button Command="{Binding RefreshCommand}">Обновить</Button>
 
-            <Button Command="{Binding ExportDataCommand}">Экспорт данных</Button>
+            <Button Command="{Binding ExportDataCommand}">Экспорт в Excel</Button>
             <Button Command="{Binding ImportDataCommand}">Импорт данных</Button>
 
         </StackPanel>

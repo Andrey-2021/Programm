@@ -47,7 +47,7 @@ public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<Cont
     /// <summary>
 	/// Конструктор
 	/// </summary>
-	public AddMedicalServiceForContractViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+	public AddMedicalServiceForContractViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
     }
 

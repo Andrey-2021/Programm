@@ -52,7 +52,7 @@
             <Button Command="{Binding DelCommand}">Удалить</Button>
             <Button Command="{Binding RefreshCommand}">Обновить</Button>
 
-            <Button Command="{Binding ExportDataCommand}">Экспорт данных</Button>
+            <Button Command="{Binding ExportDataCommand}">Экспорт в Excel</Button>
             <Button Command="{Binding ImportDataCommand}">Импорт данных</Button>
         </StackPanel>
         <StatusBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">

@@ -7,8 +7,8 @@ public class AddUserViewModel : BaseAddEntityViewModel<RegisteredUser>
 
 	//public KeyValuePair<RoleEnum, string> SelectedRole{get;set;}
 
-	public AddUserViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
-	{
+	public AddUserViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
+    {
 		
 
 	}

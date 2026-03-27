@@ -6,7 +6,7 @@ public class AddMedicalServiceTypeViewModel : BaseAddEntityViewModel<MedicalServ
     /// Конструктор
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public AddMedicalServiceTypeViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+    public AddMedicalServiceTypeViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
     }
 }

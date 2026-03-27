@@ -20,7 +20,7 @@ public class AddMedicalServiceViewModel : BaseAddEntityViewModel<MedicalService>
 	/// Конструктор
 	/// </summary>
 	/// <param name="serviceProvider"></param>
-	public AddMedicalServiceViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+	public AddMedicalServiceViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
     }
 
