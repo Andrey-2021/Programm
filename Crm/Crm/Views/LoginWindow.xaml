@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
-        Title="Вход" Height="250" Width="500"
+        Title="Вход" 
+        Height="250" Width="500"
+        MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen">
     <Grid>
         

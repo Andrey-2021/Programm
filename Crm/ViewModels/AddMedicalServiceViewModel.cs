@@ -33,23 +33,18 @@ public class AddMedicalServiceViewModel : BaseAddEntityViewModel<MedicalService>
         IsBusy = true;
         var result = await repository.GetEntitiesAsync<MedicalServiceType>();
         if (result.ex == null)
-        {
             Entities = new ObservableCollection<MedicalServiceType>(result.data.OrderBy(x => x.Name));
-        }
         else
         {
             Entities?.Clear();
-
-            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-            view.ViewModel.Parametr = "Ошибка при чтении типов медицинских услуг из БД. Попробуйте выполнить операцию позже или обратитесь к администратору."
-                + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+            dialogService.ShowError("Ошибка при чтении типов медицинских услуг из БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         }
         IsBusy = false;
     }
 
-    protected override void OperationBeforeSave()
+    protected override async Task<bool> OperationBeforeSave()
     {
         MainEntity!.MedicalServiceType = null;
+        return true;
     }
 }

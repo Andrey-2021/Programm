@@ -49,8 +49,11 @@
 
             <MenuItem Header="Выход" Command="{Binding ExitCommand}"></MenuItem>
         </Menu>
-        
-        <StatusBar Grid.Row="2" Background="Azure" Padding="5">
+
+        <StatusBar Grid.Column="0" Grid.Row="2"
+                   Style="{StaticResource StatusBarStyle}">
+            <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>
+        
     </Grid>
 </Window>

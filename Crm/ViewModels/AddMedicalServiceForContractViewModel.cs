@@ -68,11 +68,7 @@ public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<Cont
         else
         {
             MedicalServices?.Clear();
-
-            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-            view.ViewModel.Parametr = "Ошибка при чтении медицинских услуг из БД. Попробуйте выполнить операцию позже или обратитесь к администратору."
-                + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+            dialogService.ShowError("Ошибка при чтении медицинских услуг из БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         }
         IsBusy = false;
     }
@@ -84,9 +80,10 @@ public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<Cont
     }
 
 
-    protected override void OperationBeforeSave()
+    protected override async Task<bool> OperationBeforeSave()
     {
         MainEntity!.Contract = null;
         MainEntity!.MedicalService = null;
+        return true;
     }
 }

@@ -12,8 +12,9 @@ public class AddPaymentForContracViewModel : BaseAddEntityViewModel<Payment>
     {
     }
 
-    protected override void OperationBeforeSave()
+    protected override async Task<bool> OperationBeforeSave()
     {
         MainEntity!.Contract = null;
+        return true;
     }
 }

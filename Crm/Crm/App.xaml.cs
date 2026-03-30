@@ -53,8 +53,6 @@ public partial class App : Application
                     );
 
         services.AddTransient<DbRepository>();
-        services.AddTransient<IMessageWindowView, MessageWindow>();
-
 
         // Регистрируем окна
         services.AddTransient<IMainWindowView, MainWindow>();

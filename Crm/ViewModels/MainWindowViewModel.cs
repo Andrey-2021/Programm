@@ -1,6 +1,6 @@
 ﻿namespace ViewModels;
 
-public class MainWindowViewModel
+public class MainWindowViewModel : BaseViewModel
 {
     /// <summary>
 	/// Команда "Создать новую БД"
@@ -74,12 +74,8 @@ public class MainWindowViewModel
     public ICommand? ExitCommand { get; private set; }
 
 
-    private IServiceProvider container;
-
-    public MainWindowViewModel(IServiceProvider serviceProvider)
+    public MainWindowViewModel(IServiceProvider serviceProvider, IDialogService dialogService):base(serviceProvider, dialogService)
     {
-        this.container = serviceProvider;
-
         CreateDbCommand = new RelayCommand(CreateNewDb);
         SaveDataInDbCommand = new RelayCommand(SaveDataInDb);
         ShowAllUsersCommand = new RelayCommand(ShowAllUsers);
@@ -106,17 +102,11 @@ public class MainWindowViewModel
 	/// <param name="parametr"></param>
 	private async void CreateNewDb(object? parametr)
     {
-        var repository = container.GetRequiredService<DbRepository>();
         var result = await repository.CreateNewDbAsync();
-
-        var view = container.GetRequiredService<IMessageWindowView>();
         if (result.operationResult == false) //если ошибка
-            view.ViewModel.Parametr = "Ошибка при создании новой БД. Попробуйте выполнить операцию позже или обратитесь к администратору."
-                + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine+ "InnerException:" + result.ex?.InnerException?.Message;
+            dialogService.ShowError("Ошибка при создании новой БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         else
-            view.ViewModel.Parametr = "БД создана";
-        view.ShowDialog();
+            dialogService.ShowInfo("БД создана");
     }
 
     /// <summary>
@@ -124,83 +114,76 @@ public class MainWindowViewModel
 	/// </summary>
 	private async void SaveDataInDb(object? parametr)
     {
-        var repository = container.GetRequiredService<DbRepository>();
         var result = await repository.SaveInitDataInDbAsync();
-
-        var view = container.GetRequiredService<IMessageWindowView>();
         if (result.operationResult == false) //если ошибка
-            view.ViewModel.Parametr = "Ошибка при записи данных а БД. Попробуйте выполнить операцию позже или обратитесь к администратору."
-                + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+            dialogService.ShowError("Ошибка при записи данных а БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         else
-            view.ViewModel.Parametr = "Данные записаны в БД";
-        view.ShowDialog();
+            dialogService.ShowInfo("Данные записаны в БД");
     }
 
     private void ShowAllUsers(object? parametr)
     {
-        var view = container.GetRequiredService<IUsersView>();
+        var view = serviceProvider.GetRequiredService<IUsersView>();
         view.ShowDialog();
     }
 
     private void ShowAllPatients(object? parametr)
     {
-        var view = container.GetRequiredService<IPatientsView>();
+        var view = serviceProvider.GetRequiredService<IPatientsView>();
         view.ShowDialog();
     }
 
     private void ShowAllEmployees(object? parametr)
     {
-        var view = container.GetRequiredService<IEmployeesView>();
+        var view = serviceProvider.GetRequiredService<IEmployeesView>();
         view.ShowDialog();
     }
 
     private void ShowAllMedicalServices(object? parametr)
     {
-        var view = container.GetRequiredService<IMedicalServicesView>();
+        var view = serviceProvider.GetRequiredService<IMedicalServicesView>();
         view.ShowDialog();
     }
 
     private void ShowAllMedicalServicetypes(object? parametr)
     {
-        var view = container.GetRequiredService<IMedicalServiceTypesView>();
+        var view = serviceProvider.GetRequiredService<IMedicalServiceTypesView>();
         view.ShowDialog();
     }
     
     private void ShowAllPositionsServices(object? parametr)
     {
-        var view = container.GetRequiredService<IPositionsView>();
+        var view = serviceProvider.GetRequiredService<IPositionsView>();
         view.ShowDialog();
     }
     
     private void ShowOrganizationInfo(object? parametr)
     {
-        var view = container.GetRequiredService<IAddOrganizationInfoView>();
+        var view = serviceProvider.GetRequiredService<IAddOrganizationInfoView>();
         view.ShowDialog();
     }
 
-
     private void ShowAllContracts(object? parametr)
     {
-        var view = container.GetRequiredService<IContractsView>();
+        var view = serviceProvider.GetRequiredService<IContractsView>();
         view.ShowDialog();
     }
 
     private void AddContract(object? parametr)
     {
-        var view = container.GetRequiredService<IAddContractView>();
+        var view = serviceProvider.GetRequiredService<IAddContractView>();
         view.ShowDialog();
     }
 
     private void ShowHelp(object? parametr)
     {
-        var view = container.GetRequiredService<IHelpView>();
+        var view = serviceProvider.GetRequiredService<IHelpView>();
         view.ShowDialog();
     }
 
     private async void ShowAboutProgramm(object? parametr)
     {
-        var view = container.GetRequiredService<IAboutProgrammView>();
+        var view = serviceProvider.GetRequiredService<IAboutProgrammView>();
         view.ShowDialog();
     }
 }

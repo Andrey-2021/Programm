@@ -26,9 +26,7 @@ public class BaseImportExportDataViewModel<TEntity, TAddView> : BaseAllEntitiesV
 
     protected virtual async void ExportData(object? parametr)
     {
-        var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-        view.ViewModel.Parametr = "Экспортировать данные";
-        view.ShowDialog();
+        dialogService.ShowInfo("Экспортировать данные");
     }
 
     protected virtual bool CheckIsPossibleExportData(object? parametr)
@@ -38,9 +36,7 @@ public class BaseImportExportDataViewModel<TEntity, TAddView> : BaseAllEntitiesV
 
     protected virtual async void ImportData(object? parametr)
     {
-        var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-        view.ViewModel.Parametr = "Импортировать данные";
-        view.ShowDialog();
+        dialogService.ShowInfo("Импортировать данные");
     }
 
     protected virtual bool CheckIsPossibleImportData(object? parametr)

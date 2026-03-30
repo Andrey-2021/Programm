@@ -18,12 +18,7 @@ public class AddOrganizationInfoViewModel : BaseAddEntityViewModel<OrganizationI
         if (result.ex is null)
             MainEntity = result.entity;
         else
-        {
-            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-            view.ViewModel.Parametr = "Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
-                + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
-        }
+            dialogService.ShowError("Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         IsBusy = false;
     }
 }

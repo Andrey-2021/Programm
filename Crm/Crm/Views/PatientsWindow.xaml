@@ -8,11 +8,12 @@
         Title="Пациенты" 
         Height="600" Width="1200"
         MinHeight="450" MinWidth="1000"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource ModernWindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"></ColumnDefinition>
-            <ColumnDefinition Width="30*" MaxWidth="200"></ColumnDefinition>
+            <ColumnDefinition Width="Auto" MaxWidth="200"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -20,9 +21,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" 
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Center">
+        <Label Style="{StaticResource TytletStyle}">
             Все пациенты
         </Label>
 
@@ -50,15 +49,23 @@
         </DataGrid>
 
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <Button Command="{Binding AddCompanyCommand}">Дабавить</Button>
-            <Button Command="{Binding EditCommand}">Редактировать</Button>
-            <Button Command="{Binding DelCommand}">Удалить</Button>
-            <Button Command="{Binding RefreshCommand}">Обновить</Button>
+            <Button Command="{Binding AddCompanyCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
+            <Button Command="{Binding EditCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Редактировать</Button>
+            <Button Command="{Binding DelCommand}"
+                    Style="{StaticResource WindowCloseButtonStyle}">Удалить</Button>
+            <Button Command="{Binding RefreshCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Обновить</Button>
 
-            <Button Command="{Binding ExportDataCommand}">Экспорт в Excel</Button>
-            <Button Command="{Binding ImportDataCommand}">Импорт данных</Button>
+            <Button Command="{Binding ExportDataCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Экспорт в Excel</Button>
+            <Button Command="{Binding ImportDataCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Импорт данных</Button>
         </StackPanel>
-        <StatusBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+        
+        <StatusBar Grid.Column="0" Grid.Row="2" 
+                   Style="{StaticResource StatusBarStyle}">
             <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>
     </Grid>

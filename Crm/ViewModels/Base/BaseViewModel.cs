@@ -1,6 +1,9 @@
 ﻿namespace ViewModels.Base;
 
-public class BaseViewModel: INotifyPropertyChanged
+/// <summary>
+/// Базовый класс ViewModel
+/// </summary>
+public class BaseViewModel : INotifyPropertyChanged, IViewModel
 {
     /// <summary>
     /// Контейнер. использовать внедрение зависимостей (dependency injection) 
@@ -8,9 +11,45 @@ public class BaseViewModel: INotifyPropertyChanged
     /// <remarks>
 	/// Используется для внедрения зависимостей (dependency injection) 
 	///</remarks>
-    protected IServiceProvider serviceProvider;
+    protected readonly IServiceProvider serviceProvider;
 
+    /// <summary>
+    /// Сервис диалоговых окон
+    /// </summary>
     protected readonly IDialogService dialogService;
+
+    /// <summary>
+	/// Репозиторий для работы с БД
+	/// </summary>
+	protected readonly DbRepository repository;
+
+    /// <summary>
+    /// Сообщение в строку статуса
+    /// </summary>
+    public string? StatusMessage
+    {
+        get => statusMessage;
+        set
+        {
+            statusMessage = value;
+            OnPropertyChanged();
+        }
+    }
+    private string? statusMessage;
+
+    /// <summary>
+    /// Флаг занятости
+    /// </summary>
+    public bool IsBusy
+    {
+        get => isBusy;
+        set
+        {
+            isBusy = value;
+            OnPropertyChanged();
+        }
+    }
+    private bool isBusy { get; set; }
 
     /// <summary>
     /// Конструктор
@@ -20,9 +59,10 @@ public class BaseViewModel: INotifyPropertyChanged
     {
         this.serviceProvider = serviceProvider;
         this.dialogService = dialogService;
+        this.repository = this.serviceProvider.GetRequiredService<DbRepository>(); //сразу создаём репозиторий для работы с БД
     }
 
-    //для реализации интерфейса INotifyPropertyChanged
+    #region Реализация интерфейса INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
     public void OnPropertyChanged([CallerMemberName] string prop = "")
     {
@@ -39,4 +79,6 @@ public class BaseViewModel: INotifyPropertyChanged
     protected virtual void CheckCommands()
     {
     }
+
+    #endregion
 }

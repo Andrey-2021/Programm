@@ -95,27 +95,15 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
 
         if (result.ex is not null)
         {
-            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-            view.ViewModel.Parametr = "Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
-                + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
-            view.ShowDialog();
+            dialogService.ShowError("Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
             return;
         }
 
         var createDocResult= MegicalApprovalDocument.CreateDoc(SelectedEntity!, result.entity!, folder);
         if(createDocResult.ex is null)
-        {
             dialogService.ShowInfo("Документы созданы");
-        }
         else
-        {
-            var error= Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message; ;
-
-            dialogService.ShowInfo("Ошибка при создании документов: "+ error);
-        }
-
+            dialogService.ShowError("Ошибка при создании документов: ", exception: createDocResult.ex);
         IsBusy = false;
     }
 

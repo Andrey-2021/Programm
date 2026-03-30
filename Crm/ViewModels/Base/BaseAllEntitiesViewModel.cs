@@ -5,29 +5,10 @@
 /// </summary>
 /// <typeparam name="TEntity">Тип главной сущности</typeparam>
 /// <typeparam name="TAddView">Тип View (Окна) для добавления новой/редактирования сущности</typeparam>
-public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IViewModel
+public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel  
     where TEntity : class, IHaveId, new()
     where TAddView : IViewWithViewModel
 {
-    /// <summary>
-    /// Сообщение в строку статуса
-    /// </summary>
-    public string? StatusMessage
-    {
-        get => statusMessage;
-        set
-        {
-            statusMessage = value;
-            OnPropertyChanged();
-        }
-    }
-    public string? statusMessage;
-
-    /// <summary>
-    /// Флаг занятости
-    /// </summary>
-    public bool IsBusy { get; set; }
-
     /// <summary>
     /// Список сущностей из БД
     /// </summary>
@@ -40,7 +21,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
             OnPropertyChanged();
         }
     }
-    public ObservableCollection<TEntity>? entities;
+    private ObservableCollection<TEntity>? entities;
 
     /// <summary>
     /// Выбранная сущность
@@ -54,7 +35,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
             OnPropertyChanged();
         }
     }
-    public TEntity? selectedEntity;
+    private TEntity? selectedEntity;
 
     /// <summary>
     /// Команда "Добавить"
@@ -79,7 +60,6 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
     /// <summary>
     /// Конструктор
     /// </summary>
-    /// <param name="serviceProvider"></param>
     public BaseAllEntitiesViewModel(IServiceProvider serviceProvider, IDialogService dialogService) :base(serviceProvider, dialogService)
     {
         //настраиваем команды
@@ -92,6 +72,9 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
         task.Wait();
     }
 
+    /// <summary>
+    /// Открыть окно добавления данных
+    /// </summary>
     protected virtual async void ShowAddEntityWindow(object? parametr)
     {
         var view = serviceProvider.GetRequiredService<TAddView>();
@@ -100,42 +83,46 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
         StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
+    /// <summary>
+    /// Проверка можно ли выполнить команду добавления данных
+    /// </summary>
     protected virtual bool CheckIsPossibleShowAddEntityWindow(object? parametr)
     {
         return true;
     }
 
+    /// <summary>
+    /// Обновить данные
+    /// </summary>
+    /// <param name="parametr"></param>
     protected virtual async void RefreshEntities(object? parametr)
     {
         await LoadNecessaryDates();
         StatusMessage = "Данные перепрочитаны. " + DateTime.Now;
     }
 
+    /// <summary>
+    /// Удалить сущность
+    /// </summary>
+    /// <param name="parametr"></param>
     protected virtual async void DelEntity(object? parametr)
     {
-        //if (SelectedEntity == null) return;
-        //IsBusy = true;
-        //var repository = this.serviceProvider.GetRequiredService<DbRepository>();
-        //var result = await repository.DelEntityAsync<TEntity>(SelectedEntity);
-
-        //if (result.ex is not null)
-        //{
-        //    var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-        //    view.ViewModel.Parametr = "Ошибка при удалении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
-        //        + Environment.NewLine + "Exception:" + result.ex?.Message
-        //        + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
-        //    view.ShowDialog();
-        //}
-        //else
-        //{
-        //    StatusMessage = "Данные удалены. " + DateTime.Now;
-        //}
-
-        //await LoadNecessaryDates();
-        //IsBusy = false;
         await Delete(SelectedEntity!);
     }
 
+    /// <summary>
+    /// Проверить можно ли выполнить команду удаления данных
+    /// </summary>
+    protected virtual bool CheckIsPossibleDeleAddEntity(object? parametr)
+    {
+        return SelectedEntity != null;
+    }
+
+    /// <summary>
+    /// Удалить данные
+    /// </summary>
+    /// <typeparam name="T">Удаляемый тип </typeparam>
+    /// <param name="deletedEntity">Удаляемая сущность</param>
     protected async Task Delete<T>(T deletedEntity)
         where T:class, IHaveId
     {
@@ -145,30 +132,17 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
         var result = await repository.DelEntityAsync<T>(deletedEntity);
 
         if (result.ex is not null)
-        {
-            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-            view.ViewModel.Parametr = "Ошибка при удалении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
-                + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
-            view.ShowDialog();
-        }
+            dialogService.ShowError("Ошибка при удалении данных. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         else
-        {
             StatusMessage = "Данные удалены. " + DateTime.Now;
-        }
 
         await LoadNecessaryDates();
         IsBusy = false;
     }
 
-
-
-
-    protected virtual bool CheckIsPossibleDeleAddEntity(object? parametr)
-    {
-        return SelectedEntity != null;
-    }
-
+    /// <summary>
+    /// Отредактировать сущность
+    /// </summary>
     protected virtual async void EditEntity(object? parametr)
     {
         var view = serviceProvider.GetRequiredService<TAddView>();
@@ -178,6 +152,9 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
         StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
+    /// <summary>
+    /// Можно ли выполнить команду редактирования данных
+    /// </summary>
     protected virtual bool CheckIsPossibleEditAddEntity(object? parametr)
     {
         return SelectedEntity != null;
@@ -186,13 +163,10 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
     /// <summary>
     /// Загрузка сущностей из БД
     /// </summary>
-    /// <returns></returns>
     protected async Task LoadNecessaryDates()
     {
         IsBusy = true;
         var repository = this.serviceProvider.GetRequiredService<DbRepository>();
-
-        //var result = await repository.GetEntitiesAsync<TEntity>();
         var result = await LoadDataFromDb(repository);
 
         if (result.ex is null)
@@ -200,10 +174,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
         else
         {
             Entities = null;
-            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-            view.ViewModel.Parametr = "Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору."
-                + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+            dialogService.ShowError("Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору");
         }
         IsBusy = false;
     }
@@ -224,5 +195,6 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel,  IView
     {
         DelCommand?.RaiseCanExecuteChanged();
         EditCommand?.RaiseCanExecuteChanged();
+        base.CheckCommands();
     }
 }

@@ -9,13 +9,13 @@ public enum RoleEnum
     /// Администратор
     /// </summary>
     [Description("Администратор")]
-    admin =1,
+    Админ =1,
 
     /// <summary>
     /// Менеджер
     /// </summary>
     [Description("Менеджер")]
-    manager =2
+    Пользователь =2
 }
 
 
@@ -27,8 +27,8 @@ public class TranslateRoleEnum
 		{
 			return new Dictionary<RoleEnum, string>()
 			{
-				[RoleEnum.admin] = "Администратор",
-				[RoleEnum.manager] = "Оператор"
+				[RoleEnum.Админ] = "Администратор",
+				[RoleEnum.Пользователь] = "Оператор"
 			};
 		}
 	}

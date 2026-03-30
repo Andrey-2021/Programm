@@ -8,7 +8,8 @@
         Title="Карточка организации" 
         Height="700" Width="1400"
         MinHeight="650" MinWidth="1000"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource ModernWindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"></ColumnDefinition>
@@ -20,7 +21,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Введите данные организации" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+        <Label Style="{StaticResource TytletStyle}">
+            Введите данные организации
+        </Label>
 
         <StackPanel Margin="5" Grid.Column="0" Grid.Row="1">
         <!-- Основные реквизиты -->

@@ -7,9 +7,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Мед.услуга" 
-Height="800" Width="1200"
-MinHeight="700" MinWidth="900"
-WindowStartupLocation="CenterOwner">
+        Height="800" Width="1200"
+        MinHeight="700" MinWidth="900"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"></ColumnDefinition>

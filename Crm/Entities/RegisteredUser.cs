@@ -1,5 +1,4 @@
 ﻿using Entities.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
 namespace Entities;
 
 /// <summary>
@@ -90,7 +89,9 @@ public class RegisteredUser : BaseINotifyDataErrorInfo, IHaveId
     /// <summary>
     /// Конструктор по умолчанию.
     /// </summary>
-    public RegisteredUser() { }
+    public RegisteredUser() 
+	{ 
+	}
 
     /// <summary>
     /// Конструктор с инициализацией.

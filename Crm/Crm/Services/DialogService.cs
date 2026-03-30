@@ -8,6 +8,23 @@ public class DialogService : IDialogService
         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
+    public void ShowError(string message, string title = "Ошибка", Exception? exception = null)
+    {
+#if DEBUG
+        message = message
+            + Environment.NewLine + "Exception: " + exception.Message +
+             (exception.InnerException == null ? "" : (Environment.NewLine + "InnerException: " + exception.InnerException.Message));
+#endif
+
+        MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    public void ShowWarning(string message, string title = "Внимание!")
+    {
+        MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+
     public bool Confirm(string message, string title = "Подтверждение")
     {
         return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
@@ -37,7 +54,7 @@ public class DialogService : IDialogService
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
-    public string? SelectFolder(string title = "Выбрать папку", string? path=null)
+    public string? SelectFolder(string title = "Выбрать папку", string? path = null)
     {
         if (path is null)
             path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -48,7 +65,7 @@ public class DialogService : IDialogService
             Multiselect = false
         };
 
-        
+
         if (dialog.ShowDialog() == true)
             return dialog.FolderName;
         return null;

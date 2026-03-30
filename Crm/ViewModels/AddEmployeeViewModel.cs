@@ -34,23 +34,18 @@ public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
         IsBusy = true;
         var result = await repository.GetEntitiesAsync<Position>();
         if (result.ex == null)
-        {
             Entities= new ObservableCollection<Position>(result.data.OrderBy(x => x.PositionName));
-        }
         else
         {
             Entities?.Clear();
-            
-            var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-            view.ViewModel.Parametr = "Ошибка при чтении должностей из БД. Попробуйте выполнить операцию позже или обратитесь к администратору."
-                + Environment.NewLine + "Exception:" + result.ex?.Message
-                + Environment.NewLine + "InnerException:" + result.ex?.InnerException?.Message;
+            dialogService.ShowError("Ошибка при чтении должностей из БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         }
         IsBusy = false;
     }
 
-    protected override void OperationBeforeSave()
+    protected override async Task<bool> OperationBeforeSave()
     {
         MainEntity!.Position = null;
+        return true;
     }
 }
