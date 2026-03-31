@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace Entities;
+﻿namespace Entities;
 
 /// <summary>
 /// Простой класс, представляющий запись таблицы "Сотрудники"
@@ -19,7 +17,9 @@ public class Employee : BaseINotifyDataErrorInfo, IHaveId
 	/// Фамилия И.О.
 	/// </summary>
 	[NotMapped]
-    public string? FIO => LastName + " " + FirstName?[0] + "." + MiddleName?[0] + ".";
+    public string? FIO => LastName + " " 
+        + (String.IsNullOrEmpty(FirstName)?null: FirstName[0] + ".")
+        + (String.IsNullOrEmpty(MiddleName) ? null : MiddleName[0] + ".");
 
     /// <summary>
     /// Фамилия

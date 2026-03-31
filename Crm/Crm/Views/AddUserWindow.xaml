@@ -55,13 +55,12 @@
 
         <Label Grid.Column="0" Grid.Row="4" Style="{StaticResource InputInfoStyle}">Роль:</Label>
         <Label Grid.Column="1" Grid.Row="4" Style="{StaticResource RequiredStyle}">*</Label>
+        
         <ComboBox Grid.Column="2" Grid.Row="4"
-                  Style="{StaticResource InputComboBoxStyle}"
-                  ItemsSource="{Binding RolesList, Mode=OneWay}"
-                  DisplayMemberPath="Value"
-                  SelectedValuePath="Key"
-                  SelectedValue="{Binding Path=MainEntity.Role, ValidatesOnNotifyDataErrors=True}"
-                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
+           Style="{StaticResource InputComboBoxStyle}"
+           ItemsSource="{Binding RoleEnumList, Mode=OneWay}"
+           SelectedValue="{Binding Path=MainEntity.Role, ValidatesOnNotifyDataErrors=True}"
+           Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
         </ComboBox>
 
         <StackPanel Grid.Column="0" Grid.Row="6" 

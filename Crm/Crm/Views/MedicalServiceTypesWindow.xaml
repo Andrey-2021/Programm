@@ -51,9 +51,8 @@
             <Button Command="{Binding RefreshCommand}"
                     Style="{StaticResource WindowButtonStyle}">Обновить</Button>
         </StackPanel>
-        <StatusBar Grid.Column="0" Grid.Row="2"
-                   Style="{StaticResource StatusBarStyle}">
-            <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
+        <StatusBar Grid.Column="0" Grid.Row="2" Style="{StaticResource StatusBarStyle}">
+            <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>
     </Grid>
 

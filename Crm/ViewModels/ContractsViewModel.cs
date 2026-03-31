@@ -118,7 +118,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         view.ViewModel.Parametr = new Payment() { ContractId = SelectedEntity!.Id, Contract = SelectedEntity };
         view.ShowDialog();
         await LoadNecessaryDates();
-        StatusMessage = "Данные прочитаны. " + DateTime.Now;
+        //StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     private bool CheckIsPossibleAddPayment(object? parametr)
@@ -132,7 +132,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         view.ViewModel.Parametr = SelectedPayment;
         view.ShowDialog();
         await LoadNecessaryDates();
-        StatusMessage = "Данные прочитаны. " + DateTime.Now;
+        //StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     private bool CheckIsPossibleEditPayment(object? parametr)
@@ -157,7 +157,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         view.ShowDialog();
 
         await LoadNecessaryDates();
-        StatusMessage = "Данные прочитаны. " + DateTime.Now;
+        //StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     protected virtual bool CheckIsPossibleAddMedicalServiceForContect(object? parametr)
@@ -171,7 +171,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         view.ViewModel.Parametr = SelectedContractItem;
         view.ShowDialog();
         await LoadNecessaryDates();
-        StatusMessage = "Данные прочитаны. " + DateTime.Now;
+        //StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     protected virtual bool CheckIsPossibleEditMedicalServiceInContect(object? parametr)

@@ -159,8 +159,8 @@ SelectedItem="{Binding SelectedPayment, Mode=OneWayToSource}">
 
 
 
-        <StatusBar Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2">
-            <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
+        <StatusBar Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource StatusBarStyle}">
+            <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>
     </Grid>
 

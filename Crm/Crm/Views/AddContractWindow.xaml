@@ -9,7 +9,8 @@
         Title="Договор" 
         Height="850" Width="1200"
         MinHeight="800" MinWidth="900"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource ModernWindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"></ColumnDefinition>
@@ -32,23 +33,18 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label x:Name="labelTitle"
-               Grid.Column="0" Grid.Row="0"
-               Margin="10"
-               Grid.ColumnSpan="2"
-               HorizontalContentAlignment="Center"
-               VerticalContentAlignment="Bottom">
+        <Label  Style="{StaticResource TytletStyle}">
             Введите данные о договоре:
         </Label>
 
-        <Label Grid.Column="0" Grid.Row="1">Номер договора:</Label>
-        <TextBox Grid.Column="1" Grid.Row="1"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="1">Номер договора:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="1"
                  Margin="20,10,20,10"
 Padding="10"
      Text="{Binding Path=MainEntity.ContractNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
      Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="2">Дата заключения договора:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="2">Дата заключения договора:</Label>
         <DatePicker Grid.Column="1" Grid.Row="2"
     MaxWidth="400" MinWidth="200"
     HorizontalAlignment="Left"
@@ -58,7 +54,7 @@ Padding="10"
     SelectedDate="{Binding Path=MainEntity.ContractDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
     Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="3">Дата начала действия договора:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="3">Дата начала действия договора:</Label>
         <DatePicker Grid.Column="1" Grid.Row="3"
 MaxWidth="400" MinWidth="200"
 HorizontalAlignment="Left"
@@ -69,7 +65,7 @@ SelectedDate="{Binding Path=MainEntity.StartDate, Mode=TwoWay, UpdateSourceTrigg
 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
 
-        <Label Grid.Column="0" Grid.Row="4">Дата окончания действия договора:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="4">Дата окончания действия договора:</Label>
         <DatePicker Grid.Column="1" Grid.Row="4"
 MaxWidth="400" MinWidth="200"
 HorizontalAlignment="Left"
@@ -80,7 +76,7 @@ SelectedDate="{Binding Path=MainEntity.EndDate, Mode=TwoWay, UpdateSourceTrigger
 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
 
-        <Label Grid.Column="0" Grid.Row="5">Общая сумма договора:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="5">Общая сумма договора:</Label>
         <xctk:DecimalUpDown Grid.Column="1" Grid.Row="5"
                     FormatString="C2" 
                     Value="{Binding MainEntity.TotalAmount, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
@@ -93,37 +89,39 @@ Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
                     HorizontalAlignment="Left"
                     Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="6">Общая сумма договора прописью:</Label>
-        <TextBox Grid.Column="1" Grid.Row="6"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="6">Общая сумма договора прописью:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="6"
                  Margin="20,10,20,10"
                  Padding="10"
                  Text="{Binding Path=MainEntity.TotalAmountText, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="7">Статус оплаты:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="7">Статус оплаты:</Label>
         <ComboBox Grid.Column="1" Grid.Row="7" 
                   Margin="20,10,20,10"
                   Padding="10"
                   ItemsSource="{Binding PaymentStatusList, Mode=OneWay}"
                   SelectedValue="{Binding Path=MainEntity.PaymentStatus}"
-                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
+                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"
+                  Style="{StaticResource InputComboBoxStyle}">
         </ComboBox>
 
-        <Label Grid.Column="0" Grid.Row="8">Статус договора:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="8">Статус договора:</Label>
         <ComboBox Grid.Column="1" Grid.Row="8" 
                   Margin="20,10,20,10"
                   Padding="10"
                   ItemsSource="{Binding ContractStatusList, Mode=OneWay}"
                   SelectedValue="{Binding Path=MainEntity.ContractStatus}"
-                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
+                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"
+                  Style="{StaticResource InputComboBoxStyle}">
         </ComboBox>
 
 
 
 
 
-        <Label Grid.Column="0" Grid.Row="9">Примечания к договору:</Label>
-        <TextBox Grid.Column="1" Grid.Row="9"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="9">Примечания к договору:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="9"
                  MinHeight="120" MinWidth="320" TextWrapping="Wrap"
                  Margin="20,10,20,10"
                 Padding="10"
@@ -137,7 +135,7 @@ Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
         
         
         
-        <Label Grid.Column="3" Grid.Row="1">Выберите пациента:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="3" Grid.Row="1">Выберите пациента:</Label>
         <DataGrid MinHeight="50"
            Grid.Column="3" Grid.Row="2" Grid.RowSpan="4"
            IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
@@ -161,7 +159,7 @@ Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
         
         
         
-        <Label Grid.Column="3" Grid.Row="6">Ответственный сотрудник:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="3" Grid.Row="6">Ответственный сотрудник:</Label>
         <DataGrid MinHeight="50"
            Grid.Column="3" Grid.Row="7" Grid.RowSpan="3"
            IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
@@ -203,7 +201,8 @@ Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Command="{Binding SaveCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource WindowButtonStyle}">
                 Сохранить
             </Button>
 
@@ -212,14 +211,16 @@ Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Command="{Binding CloseWindowCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource WindowCloseButtonStyle}">
                 Отмена
             </Button>
 
             <Button Margin="10,10,10,10" Padding="10"
         MinWidth="120"
         HorizontalAlignment="Right"
-        VerticalAlignment="Center">
+        VerticalAlignment="Center"
+                    Style="{StaticResource WindowButtonStyle}">
                 Очистить
             </Button>
         </StackPanel>

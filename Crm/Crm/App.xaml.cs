@@ -1,6 +1,7 @@
 ﻿using Crm.Services;
 using Crm.Views;
 using DbLibrary;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 using UniverApp.Views;
 namespace Crm;
@@ -21,18 +22,17 @@ public partial class App : Application
         //Disable shutdown when the dialog closes
         Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-        /*
-        var checkPasswordWindow = serviceProvider.GetRequiredService<ICheckLoginView>();
+        
+        var checkPasswordWindow = ServiceProvider.GetRequiredService<ICheckLoginView>();
         checkPasswordWindow.ShowDialog();
 
-        var loginUserService = serviceProvider.GetService<LiginUserService>();
+        var loginUserService = ServiceProvider.GetService<LiginUserService>();
         if (loginUserService!.RegisteredUser == null)
-        { //нет вошедшего пользователя, выходим из программы
+        { 
+            //нет вошедшего пользователя, выходим из программы
             Current.Shutdown(-1);
             return;
         }
-        */
-
 
         var mainWindow = ServiceProvider.GetRequiredService<IMainWindowView>();
         mainWindow.ShowDialog();
@@ -42,6 +42,7 @@ public partial class App : Application
     private void ConfigureServices(ServiceCollection services)
     {
         services.AddSingleton<IDialogService, DialogService>();
+        services.AddSingleton<LiginUserService>();
 
         string connectionString = "Data Source = WIN10PC; Initial Catalog =2026MedicalCRM ; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         services.AddDbContextFactory<SqlDbContext>
@@ -58,7 +59,7 @@ public partial class App : Application
         services.AddTransient<IMainWindowView, MainWindow>();
         services.AddTransient<IAboutProgrammView, AboutProgrammWindow>();
         services.AddTransient<IHelpView, HelpWindow>();
-        services.AddTransient<ILoginView, LoginWindow>();
+        services.AddTransient<ICheckLoginView, CheckLoginWindow>();
 
         services.AddTransient<IMedicalServicesView, MedicalServicesWindow>();
         services.AddTransient<IAddMedicalServiceView, AddMedicalServiceWindow>();
@@ -98,7 +99,7 @@ public partial class App : Application
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<AboutProgrammViewModel>();
         //services.AddTransient<HelpViewModel>();
-        services.AddTransient<LoginViewModel>();
+        services.AddTransient<CheckLoginViewModel>();
 
         services.AddTransient<PatientsViewModel>();
         services.AddTransient<AddPatientViewModel>();

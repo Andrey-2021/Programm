@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="Система управления клиентами" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:BooleanToCollapsedVisibilityConverter x:Key="BTVConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -16,11 +19,11 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        
 
         <Menu x:Name="myMenu" DockPanel.Dock="Top" Background="Beige" Padding="5">
 
-            <MenuItem Header="Администратор">
+            <MenuItem Header="Администратор"
+                      IsEnabled="{Binding IsAdmin}" Visibility="{Binding IsAdmin, Converter={StaticResource BTVConverter}}">
                 <MenuItem Header="Создать новую БД" Command="{Binding CreateDbCommand}"></MenuItem>
                 <MenuItem Header="Загрузить данные в БД" Command="{Binding SaveDataInDbCommand}"></MenuItem>
                 <MenuItem Header="Пользователи" Command="{Binding ShowAllUsersCommand}"></MenuItem>
@@ -50,9 +53,8 @@
             <MenuItem Header="Выход" Command="{Binding ExitCommand}"></MenuItem>
         </Menu>
 
-        <StatusBar Grid.Column="0" Grid.Row="2"
-                   Style="{StaticResource StatusBarStyle}">
-            <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
+        <StatusBar Grid.Column="0" Grid.Row="2" Style="{StaticResource StatusBarStyle}">
+            <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>
         
     </Grid>

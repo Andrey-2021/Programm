@@ -3,6 +3,9 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 namespace CreateDocuments;
 
+/// <summary>
+/// Экспорт данных
+/// </summary>
 public class PatientExcelExporter
 {
     public static async Task<(bool rezult, Exception? ex)> ExportToExcel(IEnumerable<Patient>? patients, string filePath)

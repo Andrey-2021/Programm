@@ -79,8 +79,9 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     {
         var view = serviceProvider.GetRequiredService<TAddView>();
         view.ShowDialog();
+        StatusService.Clea();
         await LoadNecessaryDates();
-        StatusMessage = "Данные прочитаны. " + DateTime.Now;
+        
     }
 
     /// <summary>
@@ -97,8 +98,8 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     /// <param name="parametr"></param>
     protected virtual async void RefreshEntities(object? parametr)
     {
+        StatusService.Clea();
         await LoadNecessaryDates();
-        StatusMessage = "Данные перепрочитаны. " + DateTime.Now;
     }
 
     /// <summary>
@@ -134,7 +135,8 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
         if (result.ex is not null)
             dialogService.ShowError("Ошибка при удалении данных. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         else
-            StatusMessage = "Данные удалены. " + DateTime.Now;
+            StatusService.SetMessage("Данные удалены.");
+        
 
         await LoadNecessaryDates();
         IsBusy = false;
@@ -148,8 +150,8 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
         var view = serviceProvider.GetRequiredService<TAddView>();
         view.ViewModel.Parametr = SelectedEntity;
         view.ShowDialog();
+        StatusService.Clea();
         await LoadNecessaryDates();
-        StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     /// <summary>
@@ -170,11 +172,15 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
         var result = await LoadDataFromDb(repository);
 
         if (result.ex is null)
+        {
             Entities = new ObservableCollection<TEntity>(result.data);
+            StatusService.AddMessage("Данные прочитаны.");
+        }
         else
         {
             Entities = null;
             dialogService.ShowError("Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору");
+            StatusService.AddMessage("Ошибка чтения данных.");
         }
         IsBusy = false;
     }

@@ -5,15 +5,15 @@
 /// </summary>
 public class AddUserViewModel : BaseAddEntityViewModel<RegisteredUser>
 {
-	public Dictionary<RoleEnum, string> RolesList => TranslateRoleEnum.Roles;
+    public IEnumerable<RoleEnum> RoleEnumList => Enum.GetValues(typeof(RoleEnum)).Cast<RoleEnum>();
 
-	public AddUserViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
+    public AddUserViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)
     {
 	}
 
     protected override async Task<bool> OperationBeforeSave()
     {
-		var entity = await repository.GetFirstOrDefaultAsync<RegisteredUser>(x => x.Login == MainEntity!.Login && x.Id!=MainEntity.Id);
+		var entity = await repository.GetFirstOrDefaultAsync<RegisteredUser>(x => x.Login.ToUpper() == MainEntity!.Login.ToUpper() && x.Id!=MainEntity.Id);
 
 		if (entity.ex != null)
 		{

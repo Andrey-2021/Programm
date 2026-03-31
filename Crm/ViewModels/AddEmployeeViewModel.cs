@@ -45,6 +45,23 @@ public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
 
     protected override async Task<bool> OperationBeforeSave()
     {
+        var entity = await repository.GetFirstOrDefaultAsync<Employee>(x=>x.LastName.ToUpper() == MainEntity!.LastName.ToUpper()
+        && x.FirstName.ToUpper() == MainEntity!.FirstName.ToUpper()
+        && x.MiddleName.ToUpper() == MainEntity!.MiddleName.ToUpper()
+        && x.Id != MainEntity.Id);
+
+        if (entity.ex != null)
+        {
+            dialogService.ShowError("Ошибка при проверке данных. Попробуйте выполнить операцию позже или обратитесь к администратору. " + entity.ex);
+            return false;
+        }
+
+        if (entity.entity != null)
+        {
+            dialogService.ShowWarning("Сотрудник с дакими ФИО уже есть в БД, добавление отменено.");
+            return false;
+        }
+
         MainEntity!.Position = null;
         return true;
     }

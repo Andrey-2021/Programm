@@ -42,8 +42,24 @@ public class AddMedicalServiceViewModel : BaseAddEntityViewModel<MedicalService>
         IsBusy = false;
     }
 
+
+
     protected override async Task<bool> OperationBeforeSave()
     {
+        var entity = await repository.GetFirstOrDefaultAsync<MedicalService>(x => x.ServiceName.ToUpper() == MainEntity!.ServiceName.ToUpper());
+
+        if (entity.ex != null)
+        {
+            dialogService.ShowError("Ошибка при проверке данных. Попробуйте выполнить операцию позже или обратитесь к администратору. " + entity.ex);
+            return false;
+        }
+
+        if (entity.entity != null)
+        {
+            dialogService.ShowWarning("Медицинская услуга с таким названием уже есть в БД, добавление отменено.");
+            return false;
+        }
+
         MainEntity!.MedicalServiceType = null;
         return true;
     }

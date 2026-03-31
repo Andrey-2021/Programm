@@ -9,7 +9,8 @@
         Title="Мед.услуга" 
         Height="800" Width="1200"
         MinHeight="700" MinWidth="900"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Style="{StaticResource ModernWindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"></ColumnDefinition>
@@ -29,32 +30,27 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label x:Name="labelTitle"
-       Grid.Column="0" Grid.Row="0"
-       Margin="10"
-       Grid.ColumnSpan="2"
-       HorizontalContentAlignment="Center"
-       VerticalContentAlignment="Bottom">
-            Введите данные о рказанной медицинской услуге:
+        <Label  Style="{StaticResource TytletStyle}">
+            Введите данные о указанной медицинской услуге:
         </Label>
 
-        <Label Grid.Column="0" Grid.Row="1">Номер договора:</Label>
-        <TextBox Grid.Column="1" Grid.Row="1"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="1">Номер договора:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="1"
          Margin="20,10,20,10"
          Padding="10"
          IsReadOnly="True"
          IsEnabled="False"
          Text="{Binding Path=MainEntity.Contract.ContractNumber,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row="2">Пациент:</Label>
-        <TextBox Grid.Column="1" Grid.Row="2"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="2">Пациент:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="2"
  Margin="20,10,20,10"
  Padding="10"
  IsReadOnly="True"
  IsEnabled="False"
  Text="{Binding Path=MainEntity.Contract.Patient.FIO, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row="3">Выберите медицинскую услугу:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="3">Выберите медицинскую услугу:</Label>
         <DataGrid Height="200"
           Grid.Column="1" Grid.Row="3"
           IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
@@ -90,8 +86,8 @@
         </DataGrid>
 
 
-        <Label Grid.Column="0" Grid.Row="4">Медицинская услуга:</Label>
-        <TextBox Grid.Column="1" Grid.Row="4"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="4">Медицинская услуга:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="4"
 Margin="20,10,20,10"
 Padding="10"
 IsReadOnly="True"
@@ -99,7 +95,7 @@ IsEnabled="False"
 Text="{Binding Path=MainEntity.MedicalService.ServiceName, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
         
 
-        <Label Grid.Column="0" Grid.Row="5">Количество услуг:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="5">Количество услуг:</Label>
         <xctk:IntegerUpDown Grid.Column="1" Grid.Row="5"
     FormatString="C2" 
     Value="{Binding MainEntity.Quantity, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
@@ -112,8 +108,8 @@ Text="{Binding Path=MainEntity.MedicalService.ServiceName, Mode=OneWay,UpdateSou
     HorizontalAlignment="Left"
     Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="6">Цена услуги:</Label>
-        <TextBox Grid.Column="1" Grid.Row="6"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="6">Цена услуги:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="6"
  Margin="20,10,20,10"
  Padding="10"
  IsReadOnly="True"
@@ -121,7 +117,7 @@ Text="{Binding Path=MainEntity.MedicalService.ServiceName, Mode=OneWay,UpdateSou
  Text="{Binding Path=MainEntity.Price,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Column="0" Grid.Row="7">Скидка (руб.):</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="7">Скидка (руб.):</Label>
         <xctk:DecimalUpDown Grid.Column="1" Grid.Row="7"
 FormatString="C2" 
 Value="{Binding MainEntity.Discount, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
@@ -135,8 +131,8 @@ HorizontalAlignment="Left"
 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
 
-        <Label Grid.Column="0" Grid.Row="8">Итого:</Label>
-        <TextBox Grid.Column="1" Grid.Row="8"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="8">Итого:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="8"
 Margin="20,10,20,10"
 Padding="10"
 IsReadOnly="True"
@@ -150,7 +146,8 @@ Text="{Binding Path=MainEntity.ItemTotal,Mode=OneWay,  UpdateSourceTrigger=Prope
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Command="{Binding SaveCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource WindowButtonStyle}">
                 Сохранить
             </Button>
 
@@ -159,14 +156,16 @@ Text="{Binding Path=MainEntity.ItemTotal,Mode=OneWay,  UpdateSourceTrigger=Prope
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Command="{Binding CloseWindowCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource WindowCloseButtonStyle}">
                 Отмена
             </Button>
 
             <Button Margin="10,10,10,10" Padding="10"
 MinWidth="120"
 HorizontalAlignment="Right"
-VerticalAlignment="Center">
+VerticalAlignment="Center"
+                    Style="{StaticResource WindowButtonStyle}">
                 Очистить
             </Button>
         </StackPanel>

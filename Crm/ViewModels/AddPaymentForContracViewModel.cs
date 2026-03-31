@@ -1,5 +1,4 @@
-﻿using Entities.Enums;
-namespace ViewModels;
+﻿namespace ViewModels;
 
 public class AddPaymentForContracViewModel : BaseAddEntityViewModel<Payment>
 {

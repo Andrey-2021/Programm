@@ -9,7 +9,8 @@
         Title="Договор" 
         Height="700" Width="1200"
         MinHeight="600" MinWidth="900"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource ModernWindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"></ColumnDefinition>
@@ -28,32 +29,27 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label x:Name="labelTitle"
-               Grid.Column="0" Grid.Row="0"
-               Margin="10"
-               Grid.ColumnSpan="2"
-               HorizontalContentAlignment="Center"
-               VerticalContentAlignment="Bottom">
+        <Label  Style="{StaticResource TytletStyle}">
             Введите данные о платеже:
         </Label>
 
-        <Label Grid.Column="0" Grid.Row="1">Номер договора:</Label>
-        <TextBox Grid.Column="1" Grid.Row="1"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="1">Номер договора:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="1"
                  Margin="20,10,20,10"
                  Padding="10"
                  IsReadOnly="True"
                  IsEnabled="False"
                  Text="{Binding Path=MainEntity.Contract.ContractNumber,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row="2">Пациент:</Label>
-        <TextBox Grid.Column="1" Grid.Row="2"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="2">Пациент:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="2"
          Margin="20,10,20,10"
          Padding="10"
          IsReadOnly="True"
          IsEnabled="False"
          Text="{Binding Path=MainEntity.Contract.Patient.FIO, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row="3">Дата и время платежа:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="3">Дата и время платежа:</Label>
         <DatePicker Grid.Column="1" Grid.Row="3"
 MaxWidth="400" MinWidth="200"
 HorizontalAlignment="Left"
@@ -63,16 +59,17 @@ VerticalAlignment="Center"
 SelectedDate="{Binding Path=MainEntity.PaymentDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="4">Способ оплаты:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="4">Способ оплаты:</Label>
         <ComboBox Grid.Column="1" Grid.Row="4" 
           Margin="20,10,20,10"
           Padding="10"
           ItemsSource="{Binding PaymentMethodList, Mode=OneWay}"
           SelectedValue="{Binding Path=MainEntity.PaymentMethod}"
-          Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
+          Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"
+                  Style="{StaticResource InputComboBoxStyle}">
         </ComboBox>
 
-        <Label Grid.Column="0" Grid.Row="5">Сумма платежа:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="5">Сумма платежа:</Label>
         <xctk:DecimalUpDown Grid.Column="1" Grid.Row="5"
             FormatString="C2" 
             Value="{Binding MainEntity.PaymentAmount, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
@@ -85,15 +82,15 @@ Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
             HorizontalAlignment="Left"
             Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="6">ID транзакции:</Label>
-        <TextBox Grid.Column="1" Grid.Row="6"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="6">ID транзакции:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="6"
                  Margin="20,10,20,10"
 Padding="10"
      Text="{Binding Path=MainEntity.TransactionId, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
      Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="7">Примечания к платежу:</Label>
-        <TextBox Grid.Column="1" Grid.Row="7"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="7">Примечания к платежу:</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="7"
             MinHeight="120" MinWidth="320" TextWrapping="Wrap"
             Margin="20,10,20,10"
            Padding="10"
@@ -106,7 +103,8 @@ Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Command="{Binding SaveCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource WindowButtonStyle}">
                 Сохранить
             </Button>
 
@@ -115,14 +113,16 @@ Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Command="{Binding CloseWindowCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource WindowCloseButtonStyle}">
                 Отмена
             </Button>
 
             <Button Margin="10,10,10,10" Padding="10"
 MinWidth="120"
 HorizontalAlignment="Right"
-VerticalAlignment="Center">
+VerticalAlignment="Center"
+                    Style="{StaticResource WindowButtonStyle}">
                 Очистить
             </Button>
         </StackPanel>

@@ -7,10 +7,12 @@
         Title="Пациент" 
         Height="950" Width="800"
         MinHeight="850" MinWidth="600"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource ModernWindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="70*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -31,111 +33,107 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label x:Name="labelTitle"
-               Grid.Column="0" Grid.Row="0"
-                Margin="10"
-                Grid.ColumnSpan="2"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Bottom">
+        <Label Style="{StaticResource TytletStyle}">
             Введите данные о пациенте:
         </Label>
 
-        <Label Grid.Column="0" Grid.Row="1">Фамилия:</Label>
-        <TextBox Grid.Column="1" Grid.Row="1"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="1">Фамилия:</Label>
+        <Label Grid.Column="1" Grid.Row="1"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="1"
                 Text="{Binding Path=MainEntity.LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="2">Имя:</Label>
-        <TextBox Grid.Column="1" Grid.Row="2"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="2">Имя:</Label>
+        <Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="2"
                 Text="{Binding Path=MainEntity.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="3">Отчество:</Label>
-        <TextBox Grid.Column="1" Grid.Row="3" 
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="3">Отчество:</Label>
+        <Label Grid.Column="1" Grid.Row="3"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="3" 
                  Text="{Binding Path=MainEntity.MiddleName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="4">Дата рождения:</Label>
-        <DatePicker Grid.Row="4" Grid.Column="1" 
-            MaxWidth="400" MinWidth="200"
-            HorizontalAlignment="Left"
-            Margin="20,10,20,10"
-            Padding="10"
-            VerticalAlignment="Center"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="4">Дата рождения:</Label>
+        <Label Grid.Column="1" Grid.Row="4"  Style="{StaticResource RequiredStyle}">*</Label>
+        <DatePicker Grid.Row="4" Grid.Column="2"
+                    Style="{StaticResource InputDatePickerStyle}"
             SelectedDate="{Binding Path=MainEntity.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="5">Пол:</Label>
-        <!--<TextBox Grid.Column="1" Grid.Row="5"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="5">Пол:</Label>
+        <Label Grid.Column="1" Grid.Row="5"  Style="{StaticResource RequiredStyle}">*</Label>
+        <!--<TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="5"
                  Text="{Binding Path=MainEntity.Gender, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>-->
-        <ComboBox Grid.Column="1" Grid.Row="5" 
-           Margin="5,5,5,5" Padding="5"
+        <ComboBox Grid.Column="2" Grid.Row="5" 
            ItemsSource="{Binding GendersList, Mode=OneWay}"
            SelectedValue="{Binding Path=MainEntity.Gender}"
-           Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
+           Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"
+                  Style="{StaticResource InputComboBoxStyle}">
         </ComboBox>
         
 
-        <Label Grid.Column="0" Grid.Row="6">Телефон:</Label>
-        <TextBox Grid.Column="1" Grid.Row="6"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="6">Телефон:</Label>
+        <Label Grid.Column="1" Grid.Row="6"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="6"
                  Text="{Binding Path=MainEntity.PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="7">e-mail:</Label>
-        <TextBox Grid.Column="1" Grid.Row="7" 
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="7">e-mail:</Label>
+        <Label Grid.Column="1" Grid.Row="7"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="7" 
                 Text="{Binding Path=MainEntity.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="8">Адрес проживания:</Label>
-        <TextBox Grid.Column="1" Grid.Row="8" 
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="8">Адрес проживания:</Label>
+        <Label Grid.Column="1" Grid.Row="8"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="8" 
                 Text="{Binding Path=MainEntity.Address, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="9">Серия паспорта:</Label>
-        <TextBox Grid.Column="1" Grid.Row="9" 
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="9">Серия паспорта:</Label>
+        <Label Grid.Column="1" Grid.Row="9"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="9" 
                 Text="{Binding Path=MainEntity.PassportSeries, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="10">Номер паспорта:</Label>
-        <TextBox Grid.Column="1" Grid.Row="10" 
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="10">Номер паспорта:</Label>
+        <Label Grid.Column="1" Grid.Row="10"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="10" 
                 Text="{Binding Path=MainEntity.PassportNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="11">Дата выдачи паспорта:</Label>
-        <DatePicker Grid.Row="11" Grid.Column="1"
-                    MaxWidth="400" MinWidth="200"
-	                HorizontalAlignment="Left"
-	                Margin="20,10,20,10"
-	                Padding="10"
-	                VerticalAlignment="Center"
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="11">Дата выдачи паспорта:</Label>
+        <Label Grid.Column="1" Grid.Row="11"  Style="{StaticResource RequiredStyle}">*</Label>
+        <DatePicker Grid.Row="11" Grid.Column="2"
+                    Style="{StaticResource InputDatePickerStyle}"
 	                SelectedDate="{Binding Path=MainEntity.PassportIssueDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="12">Орган, выдавший паспорт:</Label>
-        <TextBox Grid.Column="1" Grid.Row="12" 
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="12">Орган, выдавший паспорт:</Label>
+        <Label Grid.Column="1" Grid.Row="12"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="12" 
                 Text="{Binding Path=MainEntity.PassportIssuingAuthority, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
 
-        <StackPanel Grid.Column="1" Grid.Row="14" Orientation="Horizontal">
-            <Button Margin="10,10,10,10" Padding="10"
-                MinWidth="120"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Command="{Binding SaveCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-            Сохранить
-        </Button>
+        <StackPanel Grid.Column="0" Grid.Row="14" 
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Grid.ColumnSpan="3">
+            <Button Command="{Binding SaveCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+            Style="{StaticResource WindowButtonStyle}">
+                Сохранить
+            </Button>
 
-            <Button Margin="10,10,10,10" Padding="10"
-                MinWidth="120"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Command="{Binding CloseWindowCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-            Отмена
-        </Button>
+            <Button Command="{Binding CloseWindowCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+            Style="{StaticResource WindowCloseButtonStyle}">
+                Отмена
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

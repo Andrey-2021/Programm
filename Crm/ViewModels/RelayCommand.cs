@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-namespace ViewModels;
+﻿namespace ViewModels;
 
 public class RelayCommand : ICommand
 {

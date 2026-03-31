@@ -24,18 +24,18 @@ public class BaseViewModel : INotifyPropertyChanged, IViewModel
 	protected readonly DbRepository repository;
 
     /// <summary>
-    /// Сообщение в строку статуса
+    /// Сервис для статусной строки
     /// </summary>
-    public string? StatusMessage
+    public StatusService StatusService
     {
-        get => statusMessage;
+        get => statusService;
         set
         {
-            statusMessage = value;
+            statusService = value;
             OnPropertyChanged();
         }
     }
-    private string? statusMessage;
+    private StatusService statusService = new();
 
     /// <summary>
     /// Флаг занятости

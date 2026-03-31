@@ -63,7 +63,7 @@ internal class LengthConstants
     /// <summary>
     /// Минимальная длина Серия паспорта
     /// </summary>
-    public const byte passportSeriesMinLength = 5;
+    public const byte passportSeriesMinLength = 4;
 
     /// <summary>
     /// Максимальная длина - Номер паспорта
@@ -72,7 +72,7 @@ internal class LengthConstants
     /// <summary>
     /// Минимальная длина - Номер паспорта
     /// </summary>
-    public const byte passportNumberMinLength = 5;
+    public const byte passportNumberMinLength = 6;
 
     /// <summary>
     /// Максимальная длина - Орган, выдавший паспорт

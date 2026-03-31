@@ -67,13 +67,23 @@
         <Setter Property="Control.Padding" Value="12"></Setter>
     </Style>
 
-
     <Style x:Key="InputComboBoxStyle" TargetType="ComboBox" >
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
         <Setter Property="Control.Margin" Value="5 1 15 5"></Setter>
         <Setter Property="Control.Padding" Value="12"></Setter>
+    </Style>
+
+    <Style x:Key="InputDatePickerStyle" TargetType="DatePicker" >
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Control.Margin" Value="5 1 15 5"></Setter>
+        <Setter Property="Control.Padding" Value="12"></Setter>
+
+        <Setter Property="Control.MaxWidth" Value="400"></Setter>
+        <Setter Property="Control.MinWidth" Value="200"></Setter>
     </Style>
 
     <!-- Стиль кнопок управления окном -->

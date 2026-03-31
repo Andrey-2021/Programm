@@ -19,7 +19,9 @@ public class Patient: BaseINotifyDataErrorInfo, IHaveId
 	/// Фамилия И.О.
 	/// </summary>
 	[NotMapped]
-    public string? FIO => LastName + " " + FirstName?[0] + "." + MiddleName?[0] + ".";
+    public string? FIO => LastName + " "
+        + (String.IsNullOrEmpty(FirstName) ? null : FirstName[0] + ".")
+        + (String.IsNullOrEmpty(MiddleName) ? null : MiddleName[0] + ".");
 
     [NotMapped]
     public string? FullFIO => LastName + " " + FirstName + " " + MiddleName;
@@ -125,7 +127,6 @@ public class Patient: BaseINotifyDataErrorInfo, IHaveId
     [Phone(ErrorMessage = "Неверный формат телефона")]
     [Required(ErrorMessage = "Введите телефон")]
     [StringLength(LengthConstants.phonetMaxLength, MinimumLength = LengthConstants.phonetMinLength, ErrorMessage = "Длина номера телефона должна быть не менее {2} и не более {1} символов")]
-    //[MaxLength(LengthConstants.phonetMaxLength, ErrorMessage = "Длина № телефона должна быть не более {1} символов")]
     [Comment("Телефон")]
     [DisplayName("Телефон")]
     public string PhoneNumber
@@ -182,7 +183,7 @@ public class Patient: BaseINotifyDataErrorInfo, IHaveId
     /// Серия паспорта
     /// </summary>
     [Required(ErrorMessage = "Введите Серия паспорта")]
-    [StringLength(LengthConstants.passportSeriesMaxLength, MinimumLength = LengthConstants.passportSeriesMinLength, ErrorMessage = "Длина названия должна быть не менее {2} и не более {1} символов")]
+    [StringLength(LengthConstants.passportSeriesMaxLength, MinimumLength = LengthConstants.passportSeriesMinLength, ErrorMessage = "Длина серии должна быть не менее {2} и не более {1} символов")]
     [Comment("Серия паспорта")]
     [DisplayName("Серия паспорта")]
     public string PassportSeries
@@ -201,7 +202,7 @@ public class Patient: BaseINotifyDataErrorInfo, IHaveId
     /// Номер паспорта
     /// </summary>
     [Required(ErrorMessage = "Введите Номер паспорта")]
-    [StringLength(LengthConstants.passportNumberMaxLength, MinimumLength = LengthConstants.passportNumberMinLength, ErrorMessage = "Длина названия должна быть не менее {2} и не более {1} символов")]
+    [StringLength(LengthConstants.passportNumberMaxLength, MinimumLength = LengthConstants.passportNumberMinLength, ErrorMessage = "Длина номера должна быть не менее {2} и не более {1} символов")]
     [Comment("Номер паспорта")]
     [DisplayName("Номер паспорта")]
     public string PassportNumber

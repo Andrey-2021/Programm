@@ -8,7 +8,7 @@
         Title="Зарегистрированные пользователи" 
         Height="450" Width="700"
         MinHeight="400" MinWidth="600"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         Style="{StaticResource ModernWindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -41,6 +41,8 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Password}" Header="Пароль" Width="5*">
                 </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Role}" Header="Роль" Width="5*">
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -55,9 +57,10 @@
                     Style="{StaticResource WindowButtonStyle}">Обновить</Button>
         </StackPanel>
 
-        <StatusBar Grid.Column="0" Grid.Row="2"
-           Style="{StaticResource StatusBarStyle}">
-            <TextBlock Text="{Binding Path=StatusMessage, Mode=OneWay}"></TextBlock>
+      
+        <StatusBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource StatusBarStyle}">
+            <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>
+        
     </Grid>
 </Window>

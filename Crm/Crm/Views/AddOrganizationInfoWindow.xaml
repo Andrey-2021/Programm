@@ -31,7 +31,8 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="210"/>
-                    <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -44,36 +45,44 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="Полное наименование:"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.FullName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="0" Grid.Column="0" Content="Полное наименование:"/>
+                    <Label Grid.Column="1" Grid.Row="0"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="0" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.FullName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="Сокращённое наименование:"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.ShortName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="1" Grid.Column="0" Content="Сокращённое наименование:"/>
+                    <Label Grid.Column="1" Grid.Row="1"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="1" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.ShortName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Content="Адрес:"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.Address, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="2" Grid.Column="0" Content="Адрес:"/>
+                    <Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="2" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.Address, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Content="Телефон:"/>
-                    <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.Phone, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="3" Grid.Column="0" Content="Телефон:"/>
+                    <Label Grid.Column="1" Grid.Row="3"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="3" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.Phone, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="Факс:"/>
-                    <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.Fax, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="4" Grid.Column="0" Content="Факс:"/>
+                    <Label Grid.Column="1" Grid.Row="4"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="4" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.Fax, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Content="Электронная почта:"/>
-                    <TextBox Grid.Row="5" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="5" Grid.Column="0" Content="Электронная почта:"/>
+                    <Label Grid.Column="1" Grid.Row="5"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="5" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="6" Grid.Column="0" Content="Банк получателя:"/>
-                    <TextBox Grid.Row="6" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.Bank, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="6" Grid.Column="0" Content="Банк получателя:"/>
+                    <Label Grid.Column="1" Grid.Row="6"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="6" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.Bank, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="7" Grid.Column="0" Content="Расчётный счёт:"/>
-                    <TextBox Grid.Row="7" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.CheckingAccount, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="7" Grid.Column="0" Content="Расчётный счёт:"/>
+                    <Label Grid.Column="1" Grid.Row="7"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="7" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.CheckingAccount, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
             </Grid>
         </GroupBox>
@@ -85,6 +94,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="210"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -92,14 +102,16 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Content="Должность руководителя:"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" 
+                    <Label Style="{StaticResource InputInfoStyle}" Grid.Row="0" Grid.Column="0" Content="Должность руководителя:"/>
+                    <Label Grid.Column="1" Grid.Row="0"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="0" Grid.Column="2" 
                              Margin="5,2" 
                              Text="{Binding MainEntity.HeadPosition, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="Фамилия И.О. руководителя:"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" 
+                    <Label Style="{StaticResource InputInfoStyle}" Grid.Row="1" Grid.Column="0" Content="Фамилия И.О. руководителя:"/>
+                    <Label Grid.Column="1" Grid.Row="1"  Style="{StaticResource RequiredStyle}">*</Label>
+                    <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="1" Grid.Column="2" 
                              Margin="5,2" 
                              Text="{Binding MainEntity.HeadFullName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
@@ -117,6 +129,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -129,32 +142,39 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="БИК:"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.Bik, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="0" Grid.Column="0" Content="БИК:"/>
+                <Label Grid.Column="1" Grid.Row="0"  Style="{StaticResource RequiredStyle}">*</Label>
+                <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="0" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.Bik, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="ИНН:"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.Inn, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="1" Grid.Column="0" Content="ИНН:"/>
+                <Label Grid.Column="1" Grid.Row="1"  Style="{StaticResource RequiredStyle}">*</Label>
+                <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="1" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.Inn, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Content="ОГРН:"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.Ogrn, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="2" Grid.Column="0" Content="ОГРН:"/>
+                <Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>
+                <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="2" Grid.Column="3" Margin="5,2" Text="{Binding MainEntity.Ogrn, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Content="Свидетельство ЕГРЮЛ:"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.EgryulCertificate, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="3" Grid.Column="0" Content="Свидетельство ЕГРЮЛ:"/>
+                <Label Grid.Column="1" Grid.Row="3"  Style="{StaticResource RequiredStyle}">*</Label>
+                <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="3" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.EgryulCertificate, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="Выдано (МИФНС):"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.IssuedBy, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="4" Grid.Column="0" Content="Выдано (МИФНС):"/>
+                <Label Grid.Column="1" Grid.Row="4"  Style="{StaticResource RequiredStyle}">*</Label>
+                <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="4" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.IssuedBy, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Content="Серия свидетельства:"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.CertificateSeries, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="5" Grid.Column="0" Content="Серия свидетельства:"/>
+                <Label Grid.Column="1" Grid.Row="5"  Style="{StaticResource RequiredStyle}">*</Label>
+                <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="5" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.CertificateSeries, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-                <Label Grid.Row="6" Grid.Column="0" Content="Номер свидетельства:"/>
-                <TextBox Grid.Row="6" Grid.Column="1" Margin="5,2" Text="{Binding MainEntity.CertificateNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                <Label Style="{StaticResource InputInfoStyle}" Grid.Row="6" Grid.Column="0" Content="Номер свидетельства:"/>
+                <Label Grid.Column="1" Grid.Row="6"  Style="{StaticResource RequiredStyle}">*</Label>
+                <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Row="6" Grid.Column="2" Margin="5,2" Text="{Binding MainEntity.CertificateNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                          Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
             </Grid>
         </GroupBox>
@@ -168,7 +188,8 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Command="{Binding SaveCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource WindowButtonStyle}">
                 Сохранить
             </Button>
 
@@ -177,15 +198,9 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Command="{Binding CloseWindowCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource WindowCloseButtonStyle}">
                 Отмена
-            </Button>
-
-            <Button Margin="10,10,10,10" Padding="10"
-MinWidth="120"
-HorizontalAlignment="Right"
-VerticalAlignment="Center">
-                Очистить
             </Button>
         </StackPanel>
 

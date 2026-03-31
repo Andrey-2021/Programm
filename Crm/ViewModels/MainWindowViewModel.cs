@@ -73,9 +73,18 @@ public class MainWindowViewModel : BaseViewModel
     /// </summary>
     public ICommand? ExitCommand { get; private set; }
 
+    /// <summary>
+	/// Флаг что это администратор
+	/// </summary>
+	public bool IsAdmin { get; set; }
 
     public MainWindowViewModel(IServiceProvider serviceProvider, IDialogService dialogService):base(serviceProvider, dialogService)
     {
+        var loginUserService = serviceProvider.GetService<LiginUserService>();
+        if (loginUserService != null && loginUserService.RegisteredUser != null)
+            IsAdmin = loginUserService!.RegisteredUser?.Role == Entities.Enums.RoleEnum.Админ;
+
+
         CreateDbCommand = new RelayCommand(CreateNewDb);
         SaveDataInDbCommand = new RelayCommand(SaveDataInDb);
         ShowAllUsersCommand = new RelayCommand(ShowAllUsers);
@@ -94,6 +103,8 @@ public class MainWindowViewModel : BaseViewModel
         ShowHelpCommand = new RelayCommand(ShowHelp);
 
         ExitCommand = new RelayCommand( _=>Environment.Exit(0));
+
+        StatusService.SetMessage("Программа открыта.");
     }
 
     /// <summary>

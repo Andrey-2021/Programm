@@ -23,14 +23,15 @@ public class DbRepository
             using (var db = contextFactory.CreateDbContext())
             {
                 var dbAvailableResult = await db.Database.CanConnectAsync(); //Провеяем доступен ли сервер MSSQL
-
                 if (!dbAvailableResult)
-                    return (false, null) ;// throw new Exception("Сервер БД не доступен.");
+                    throw new Exception("Сервер БД недоступен");//return (false, null) ;
 
                 var result = db.Set<RegisteredUser>().Count();//проверяем что есть таблица в БД. Считаем, что если есть таблица, то есть и другие таблицы.
                 if (result >= 0)
                     return (true,null);
-                return (false, null);
+
+                throw new Exception("Не удалось подключиться к БД");//return (false, null) ;
+                //return (false, null);
             }
         }
         catch (Exception ex)
