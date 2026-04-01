@@ -1,4 +1,5 @@
 ﻿using Entities.Enums;
+using NickBuhro.NumToWords.Russian;
 
 namespace Entities;
 
@@ -98,6 +99,7 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     }
     private DateTime endDate = DateTime.Now.AddDays(10);
 
+    /*
     /// <summary>
     /// Общая сумма договора
     /// </summary>
@@ -113,11 +115,33 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         {
             totalAmount = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(TotalAmountText));
             Validate(value);
         }
     }
     private decimal totalAmount;
+    */
 
+
+    /// <summary>
+    /// Общая сумма договора
+    /// </summary>
+    [DataType(DataType.Currency)]
+    [Comment("Общая сумма")]
+    [DisplayName("Общая сумма")]
+    public decimal TotalAmount => ContractItems?.Sum(x => x.ItemTotal)??0;
+
+    /// <summary>
+    /// Общая сумма договора прописью
+    /// </summary>
+    [NotMapped]
+    [Comment("Сумма прописью")]
+    [DisplayName("Сумма прописью")]
+    public string TotalAmountText=> RussianConverter.FormatCurrency(TotalAmount);
+    
+
+
+    /*
     /// <summary>
     /// Общая сумма договора прописью
     /// </summary>
@@ -136,6 +160,7 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private string totalAmountText = string.Empty;
+    */
 
 
 
@@ -375,7 +400,7 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     /// Конструктор для инициализации всех свойств, кроме ContractId.
     /// </summary>
     public Contract(Patient patient, DateTime contractDate, string contractNumber, DateTime startDate,
-                    DateTime endDate, decimal totalAmount, string totalAmountText, PaymentStatusEnum paymentStatus,
+                    DateTime endDate, decimal totalAmount,  PaymentStatusEnum paymentStatus,
                     ContractStatusEnum contractStatus, string notes, Employee responsibleEmployee)
     {
         Patient = patient;
@@ -383,8 +408,7 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         ContractNumber = contractNumber;
         StartDate = startDate;
         EndDate = endDate;
-        TotalAmount = totalAmount;
-        TotalAmountText = totalAmountText;
+        //TotalAmount = totalAmount;
         PaymentStatus = paymentStatus;
         ContractStatus = contractStatus;
         Notes = notes;

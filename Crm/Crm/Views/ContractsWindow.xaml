@@ -7,7 +7,8 @@
         Title="Договора" 
         Height="950" Width="1300"
         MinHeight="550" MinWidth="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource ModernWindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"></ColumnDefinition>
@@ -26,9 +27,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" 
-     Grid.ColumnSpan="2"
-     HorizontalAlignment="Center">
+        <Label Style="{StaticResource TytletStyle}">
             Договора
         </Label>
 
@@ -71,12 +70,17 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
         </DataGrid>
 
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <Button Command="{Binding AddCompanyCommand}">Дабавить</Button>
-            <Button Command="{Binding EditCommand}">Редактировать</Button>
-            <Button Command="{Binding DelCommand}">Удалить</Button>
-            <Button Command="{Binding RefreshCommand}">Обновить</Button>
+            <Button Command="{Binding AddCompanyCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
+            <Button Command="{Binding EditCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Редактировать</Button>
+            <Button Command="{Binding DelCommand}"
+                    Style="{StaticResource WindowCloseButtonStyle}">Удалить</Button>
+            <Button Command="{Binding RefreshCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Обновить</Button>
 
-            <Button Command="{Binding CreateContractCommand}">Договора</Button>
+            <Button Command="{Binding CreateContractCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Договора</Button>
 
         </StackPanel>
 
@@ -84,7 +88,8 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
 
 
         <!-- Услуги по договору -->
-        <Label Grid.Column="0" Grid.Row="2">Услуги по договору</Label>
+        <Label Grid.Row="2" Style="{StaticResource TytletStyle}">
+        Услуги по договору</Label>
         <DataGrid MinHeight="150"
   Grid.Column="0" Grid.Row="3"
   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
@@ -105,6 +110,12 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
                 <DataGridTextColumn Binding="{Binding Price}" Header="Цена" Width="5*">
                 </DataGridTextColumn>
 
+                <DataGridTextColumn Binding="{Binding NdsPercent}" Header="НДС,%" Width="5*">
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding PriceWithNds}" Header="Цена с НДС" Width="5*">
+                </DataGridTextColumn>
+
                 <DataGridTextColumn Binding="{Binding Discount}" Header="Скидка" Width="5*">
                 </DataGridTextColumn>
 
@@ -116,13 +127,19 @@ SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
 
 
         <StackPanel Grid.Column="1" Grid.Row="3">
-            <Button Command="{Binding AddMedicalServiceForContectCommand}">Дабавить</Button>
-            <Button Command="{Binding EditMedicalServiceInContectCommand}">Редактировать</Button>
-            <Button Command="{Binding DeleteMedicalServiceInContectCommand}">Удалить</Button>
+            <Button Command="{Binding AddMedicalServiceForContectCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
+            <Button Command="{Binding EditMedicalServiceInContectCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Редактировать</Button>
+            <Button Command="{Binding DeleteMedicalServiceInContectCommand}"
+                    Style="{StaticResource WindowCloseButtonStyle}">Удалить</Button>
         </StackPanel>
 
         <!-- Оплаты пациентом -->
-        <Label Grid.Column="0" Grid.Row="4">Оплаты пациентом</Label>
+        <Label Grid.Row="4" Style="{StaticResource TytletStyle}">
+            Оплаты пациентом
+        </Label>
+        
         <DataGrid MinHeight="150"
 Grid.Column="0" Grid.Row="5"
 IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
@@ -150,14 +167,13 @@ SelectedItem="{Binding SelectedPayment, Mode=OneWayToSource}">
         </DataGrid>
 
         <StackPanel Grid.Column="1" Grid.Row="5">
-            <Button Command="{Binding AddPaymentCommand}">Дабавить</Button>
-            <Button Command="{Binding EditPaymentCommand}">Редактировать</Button>
-            <Button Command="{Binding DeletePaymentCommand}">Удалить</Button>
+            <Button Command="{Binding AddPaymentCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
+            <Button Command="{Binding EditPaymentCommand}"
+                    Style="{StaticResource WindowButtonStyle}">Редактировать</Button>
+            <Button Command="{Binding DeletePaymentCommand}"
+                    Style="{StaticResource WindowCloseButtonStyle}">Удалить</Button>
         </StackPanel>
-
-
-
-
 
         <StatusBar Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource StatusBarStyle}">
             <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>

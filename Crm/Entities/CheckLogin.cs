@@ -6,7 +6,7 @@
 public class CheckLogin : BaseINotifyDataErrorInfo
 {
 	/// <summary>
-	/// Login
+	/// Логин
 	/// </summary>
 	public string? Login
 	{

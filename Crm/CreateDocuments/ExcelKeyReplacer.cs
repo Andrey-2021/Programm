@@ -1,13 +1,20 @@
-﻿using OfficeOpenXml;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Entities;
+using OfficeOpenXml;
+using System.IO.Packaging;
 namespace CreateDocuments;
 
 internal class ExcelKeyReplacer
 {
+    private const string tableKey = "!301!";
     /// <summary>
     /// Заменяет ключи в указанном листе Excel файла (по имени листа).
     /// </summary>
-    public static bool ReplaceKeys(string filePath, List<string> sheetNames, Dictionary<string, string?> replacements)
+    public static bool ReplaceKeys(string filePath, Dictionary<string, string?> replacements, Contract contract)
     {
+        List<string> sheetNames = new List<string> { "Договор", "Перечень", "Акт" };
+
         if (string.IsNullOrEmpty(filePath))
             throw new ArgumentException("Путь к файлу не указан.", nameof(filePath));
         if (!File.Exists(filePath))
@@ -25,8 +32,6 @@ internal class ExcelKeyReplacer
             foreach (var item in sheetNames)
             {
                 var sheetName = item;
-
-
                 var worksheet = package.Workbook.Worksheets[sheetName];
                 if (worksheet == null)
                     throw new InvalidOperationException($"Лист с именем \"{sheetName}\" не найден.");
@@ -64,8 +69,100 @@ internal class ExcelKeyReplacer
                     }
                 }
             }
+
+            SetTableIn_Perechen(package, "Перечень", contract);
+            SetTableIn_Act(package, "Акт", contract);
             package.Save();
         }
         return true;
+    }
+
+    private static void SetTableIn_Perechen(ExcelPackage package, string sheetName, Contract contract)
+    {
+        var worksheet = package.Workbook.Worksheets[sheetName];
+        var dimension = worksheet.Dimension;
+        if (dimension == null)
+            return;
+
+        for (int row = dimension.Start.Row; row <= dimension.End.Row; row++)
+        {
+            var cell = worksheet.Cells[row, 1];
+            if (cell.Value is string cellValue && !string.IsNullOrEmpty(cellValue))
+            {
+                string newValue = cellValue;
+                if (newValue.Contains(tableKey))
+                {
+                    if (contract.ContractItems == null || contract.ContractItems.Count == 0)
+                    {
+                        //Удаляем пустую строку
+                        cell.Value = string.Empty;
+                        return;
+                    }
+
+                    for (int i = 0; i < contract.ContractItems.Count; i++)
+                    {
+                        var item = contract.ContractItems[i];
+                        worksheet.Cells[row+i, 1].Value = i + 1;
+                        worksheet.Cells[row + i, 2].Value = item.MedicalService?.ServiceName;
+                        worksheet.Cells[row + i, 3].Value = item.Quantity;
+                        worksheet.Cells[row + i, 4].Value = item.Price;
+                        worksheet.Cells[row + i, 5].Value = item.NdsPercent;
+                        worksheet.Cells[row + i, 6].Value = item.PriceWithNds;
+                        worksheet.Cells[row + i, 7].Value = item.Discount;
+                        worksheet.Cells[row + i, 8].Value = item.ItemTotal;
+
+                        worksheet.Cells[row + i, 9].Value = contract.StartDate.ToShortDateString()
+                            +" - "+ contract.EndDate.ToShortDateString();
+
+                        if (i != contract.ContractItems.Count - 1)
+                            worksheet.InsertRow(row + i + 1, 1); // сдвигает строку 4 и ниже вниз
+                    }
+                    worksheet.Cells[row+ contract.ContractItems.Count, 8].Value = contract.ContractItems.Sum(x=>x.ItemTotal);
+                }
+            }
+        }
+    }
+
+    private static void SetTableIn_Act(ExcelPackage package, string sheetName, Contract contract)
+    {
+        var worksheet = package.Workbook.Worksheets[sheetName];
+        var dimension = worksheet.Dimension;
+        if (dimension == null)
+            return;
+
+        for (int row = dimension.Start.Row; row <= dimension.End.Row; row++)
+        {
+            var cell = worksheet.Cells[row, 1];
+            if (cell.Value is string cellValue && !string.IsNullOrEmpty(cellValue))
+            {
+                string newValue = cellValue;
+                if (newValue.Contains(tableKey))
+                {
+                    if (contract.ContractItems == null || contract.ContractItems.Count == 0)
+                    {
+                        //Удаляем пустую строку
+                        cell.Value = string.Empty;
+                        return;
+                    }
+
+                    for (int i = 0; i < contract.ContractItems.Count; i++)
+                    {
+                        var item = contract.ContractItems[i];
+                        worksheet.Cells[row + i, 1].Value = i + 1;
+                        worksheet.Cells[row + i, 2].Value = item.MedicalService?.ServiceName;
+                        worksheet.Cells[row + i, 3].Value = item.Quantity;
+                        worksheet.Cells[row + i, 4].Value = item.Price;
+                        worksheet.Cells[row + i, 5].Value = item.PriceWithNds;
+                        worksheet.Cells[row + i, 6].Value = item.Discount;
+                        worksheet.Cells[row + i, 7].Value = item.ItemTotal;
+
+                        if (i != contract.ContractItems.Count - 1)
+                            worksheet.InsertRow(row + i + 1, 1); // сдвигает строку 4 и ниже вниз
+                    }
+                    worksheet.Cells[row + contract.ContractItems.Count, 7].Value = contract.ContractItems.Sum(x => x.ItemTotal);
+                }
+            }
+        }
+
     }
 }

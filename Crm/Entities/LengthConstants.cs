@@ -178,7 +178,7 @@ internal class LengthConstants
     /// <summary>
     /// Максимальная длина ID транзакции
     /// </summary>
-    public const byte transactionIdMaxLength = 254;
+    public const byte transactionIdMaxLength = 50;
     /// <summary>
     /// Минимальная длина ID транзакции
     /// </summary>

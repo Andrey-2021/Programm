@@ -24,9 +24,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 1, 15),
             endDate: new DateTime(2023, 12, 31),
             totalAmount: 15000.00m,
-            totalAmountText: "Пятнадцать тысяч рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Ежегодное обслуживание",
             responsibleEmployee: employees[0]
         ));
@@ -38,9 +37,8 @@ public static class ContractSeeder
            startDate: new DateTime(2023, 2, 10),
            endDate: new DateTime(2023, 5, 10),
            totalAmount: 8500.00m,
-           totalAmountText: "Восемь тысяч пятьсот рублей 00 копеек",
-           paymentStatus: PaymentStatusEnum.partiallyPaid,
-           contractStatus: ContractStatusEnum.works,
+           paymentStatus: PaymentStatusEnum.Оплачен_частично,
+           contractStatus: ContractStatusEnum.Действует,
            notes: "Лечебный курс",
            responsibleEmployee: employees[1]
        ));
@@ -52,9 +50,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 3, 5),
             endDate: new DateTime(2023, 4, 5),
             totalAmount: 3200.00m,
-            totalAmountText: "Три тысячи двести рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.unpaid,
-            contractStatus: ContractStatusEnum.terminated,
+            paymentStatus: PaymentStatusEnum.Не_оплачен,
+            contractStatus: ContractStatusEnum.Расторгнут,
             notes: "Отказ пациента",
             responsibleEmployee: employees[2]
         ));
@@ -66,9 +63,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 4, 12),
             endDate: new DateTime(2024, 4, 11),
             totalAmount: 45000.00m,
-            totalAmountText: "Сорок пять тысяч рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Годовой абонемент",
             responsibleEmployee: employees[3]
         ));
@@ -80,9 +76,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 5, 20),
             endDate: new DateTime(2023, 8, 20),
             totalAmount: 12400.00m,
-            totalAmountText: "Двенадцать тысяч четыреста рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Комплексное обследование",
             responsibleEmployee: employees[4]
         ));
@@ -97,9 +92,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 6, 1),
             endDate: new DateTime(2023, 7, 1),
             totalAmount: 5600.00m,
-            totalAmountText: "Пять тысяч шестьсот рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.completed,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Завершён,
             notes: "Физиотерапия",
             responsibleEmployee: employees[5]
         ));
@@ -111,9 +105,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 7, 8),
             endDate: new DateTime(2023, 10, 8),
             totalAmount: 21000.00m,
-            totalAmountText: "Двадцать одна тысяча рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.unpaid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Не_оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Стоматология",
             responsibleEmployee: employees[5]
         ));
@@ -125,9 +118,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 8, 15),
             endDate: new DateTime(2024, 2, 15),
             totalAmount: 37500.00m,
-            totalAmountText: "Тридцать семь тысяч пятьсот рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.partiallyPaid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен_частично,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Ортодонтия",
             responsibleEmployee: employees[6]
         ));
@@ -139,9 +131,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 9, 5),
             endDate: new DateTime(2023, 12, 5),
             totalAmount: 9300.00m,
-            totalAmountText: "Девять тысяч триста рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Массаж",
             responsibleEmployee: employees[7]
         ));
@@ -153,9 +144,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 10, 1),
             endDate: new DateTime(2024, 10, 1),
             totalAmount: 60000.00m,
-            totalAmountText: "Шестьдесят тысяч рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Ведение беременности",
             responsibleEmployee: employees[7]
         ));
@@ -167,9 +157,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 11, 12),
             endDate: new DateTime(2024, 5, 12),
             totalAmount: 28000.00m,
-            totalAmountText: "Двадцать восемь тысяч рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.unpaid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Не_оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Реабилитация",
             responsibleEmployee: employees[8]
         ));
@@ -181,9 +170,8 @@ public static class ContractSeeder
             startDate: new DateTime(2023, 12, 3),
             endDate: new DateTime(2024, 3, 3),
             totalAmount: 7400.00m,
-            totalAmountText: "Семь тысяч четыреста рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Лабораторные анализы",
             responsibleEmployee: employees[8]
         ));
@@ -195,9 +183,8 @@ public static class ContractSeeder
             startDate: new DateTime(2024, 1, 20),
             endDate: new DateTime(2024, 4, 20),
             totalAmount: 15200.00m,
-            totalAmountText: "Пятнадцать тысяч двести рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.partiallyPaid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен_частично,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Кардиологическое обследование",
             responsibleEmployee: employees[9]
         ));
@@ -209,9 +196,8 @@ public static class ContractSeeder
             startDate: new DateTime(2024, 2, 14),
             endDate: new DateTime(2024, 5, 14),
             totalAmount: 6300.00m,
-            totalAmountText: "Шесть тысяч триста рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Дерматология",
             responsibleEmployee: employees[10]
         ));
@@ -223,9 +209,8 @@ public static class ContractSeeder
             startDate: new DateTime(2024, 3, 1),
             endDate: new DateTime(2024, 9, 1),
             totalAmount: 44000.00m,
-            totalAmountText: "Сорок четыре тысячи рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.unpaid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Не_оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Хирургическое вмешательство",
             responsibleEmployee: employees[10]
         ));
@@ -237,9 +222,8 @@ public static class ContractSeeder
             startDate: new DateTime(2024, 3, 10),
             endDate: new DateTime(2024, 4, 10),
             totalAmount: 2900.00m,
-            totalAmountText: "Две тысячи девятьсот рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.completed,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Завершён,
             notes: "Приём офтальмолога",
             responsibleEmployee: employees[11]
         ));
@@ -251,9 +235,8 @@ public static class ContractSeeder
             startDate: new DateTime(2024, 4, 5),
             endDate: new DateTime(2024, 7, 5),
             totalAmount: 18500.00m,
-            totalAmountText: "Восемнадцать тысяч пятьсот рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Курс физиотерапии",
             responsibleEmployee: employees[12]
         ));
@@ -265,9 +248,8 @@ public static class ContractSeeder
             startDate: new DateTime(2024, 5, 15),
             endDate: new DateTime(2024, 8, 15),
             totalAmount: 9700.00m,
-            totalAmountText: "Девять тысяч семьсот рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.unpaid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Не_оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "УЗИ-диагностика",
             responsibleEmployee: employees[12]
         ));
@@ -279,9 +261,8 @@ public static class ContractSeeder
             startDate: new DateTime(2024, 6, 1),
             endDate: new DateTime(2025, 6, 1),
             totalAmount: 120000.00m,
-            totalAmountText: "Сто двадцать тысяч рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.partiallyPaid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен_частично,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Имплантация зубов",
             responsibleEmployee: employees[12]
         ));
@@ -293,9 +274,8 @@ public static class ContractSeeder
             startDate: new DateTime(2024, 6, 15),
             endDate: new DateTime(2024, 9, 15),
             totalAmount: 5100.00m,
-            totalAmountText: "Пять тысяч сто рублей 00 копеек",
-            paymentStatus: PaymentStatusEnum.paid,
-            contractStatus: ContractStatusEnum.works,
+            paymentStatus: PaymentStatusEnum.Оплачен,
+            contractStatus: ContractStatusEnum.Действует,
             notes: "Вакцинация",
             responsibleEmployee: employees[13]
         ));

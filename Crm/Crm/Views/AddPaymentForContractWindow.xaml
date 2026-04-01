@@ -7,14 +7,15 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Договор" 
-        Height="700" Width="1200"
-        MinHeight="600" MinWidth="900"
+        Height="700" Width="800"
+        MinHeight="620" MinWidth="600"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource ModernWindowStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"></ColumnDefinition>
-            <ColumnDefinition Width="60*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="70*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -23,7 +24,7 @@
             <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
             <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
             <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
-            <RowDefinition Height="Auto" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*" ></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -34,35 +35,32 @@
         </Label>
 
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="1">Номер договора:</Label>
-        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="1"
-                 Margin="20,10,20,10"
-                 Padding="10"
+        <Label Grid.Column="1" Grid.Row="1"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" 
+                 Grid.Column="2" Grid.Row="1"
                  IsReadOnly="True"
                  IsEnabled="False"
                  Text="{Binding Path=MainEntity.Contract.ContractNumber,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="2">Пациент:</Label>
-        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="2"
-         Margin="20,10,20,10"
-         Padding="10"
+        <Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" 
+                 Grid.Column="2" Grid.Row="2"
          IsReadOnly="True"
          IsEnabled="False"
          Text="{Binding Path=MainEntity.Contract.Patient.FIO, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="3">Дата и время платежа:</Label>
-        <DatePicker Grid.Column="1" Grid.Row="3"
-MaxWidth="400" MinWidth="200"
-HorizontalAlignment="Left"
-Margin="20,10,20,10"
-Padding="10"
+        <Label Grid.Column="1" Grid.Row="3"  Style="{StaticResource RequiredStyle}">*</Label>
+        <DatePicker Grid.Column="2" Grid.Row="3"
+                    Style="{StaticResource InputDatePickerStyle}"
 VerticalAlignment="Center"
 SelectedDate="{Binding Path=MainEntity.PaymentDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="4">Способ оплаты:</Label>
-        <ComboBox Grid.Column="1" Grid.Row="4" 
-          Margin="20,10,20,10"
-          Padding="10"
+        <Label Grid.Column="1" Grid.Row="4"  Style="{StaticResource RequiredStyle}">*</Label>
+        <ComboBox Grid.Column="2" Grid.Row="4" 
           ItemsSource="{Binding PaymentMethodList, Mode=OneWay}"
           SelectedValue="{Binding Path=MainEntity.PaymentMethod}"
           Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"
@@ -70,60 +68,48 @@ Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
         </ComboBox>
 
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="5">Сумма платежа:</Label>
-        <xctk:DecimalUpDown Grid.Column="1" Grid.Row="5"
-            FormatString="C2" 
-            Value="{Binding MainEntity.PaymentAmount, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
-            Minimum="0"
-            Maximum="1000000"
-            Increment="0.01"
-            Width="200"
-            Margin="20,10,20,10"
-            Padding="10"
-            HorizontalAlignment="Left"
-            Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+        <Label Grid.Column="1" Grid.Row="5"  Style="{StaticResource RequiredStyle}">*</Label>
+        <xctk:DecimalUpDown Grid.Column="2" Grid.Row="5"
+                            Style="{StaticResource InputDecimalUpDownStyle}" 
+                            Value="{Binding MainEntity.PaymentAmount, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                            Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+        <!--FormatString="C2" 
+Minimum="0"
+Maximum="1000000"
+Increment="0.01"
+HorizontalAlignment="Left"-->
+
+
 
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="6">ID транзакции:</Label>
-        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="6"
-                 Margin="20,10,20,10"
-Padding="10"
-     Text="{Binding Path=MainEntity.TransactionId, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+        <Label Grid.Column="1" Grid.Row="6"  Style="{StaticResource RequiredStyle}">*</Label>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" 
+                 Grid.Column="2" Grid.Row="6"
+                 Text="{Binding Path=MainEntity.TransactionId, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
      Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="7">Примечания к платежу:</Label>
-        <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="1" Grid.Row="7"
-            MinHeight="120" MinWidth="320" TextWrapping="Wrap"
-            Margin="20,10,20,10"
-           Padding="10"
-Text="{Binding Path=MainEntity.PaymentNotes, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
-Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+        <TextBox Style="{StaticResource InputTextBoxStyle}" 
+                 Grid.Column="2" Grid.Row="7"
+                 MinHeight="120" MinWidth="320" TextWrapping="Wrap"
+                 
+                 Text="{Binding Path=MainEntity.PaymentNotes, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <StackPanel Grid.Column="1" Grid.Row="9" Orientation="Horizontal">
-            <Button Margin="10,10,10,10" Padding="10"
-            MinWidth="120"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Command="{Binding SaveCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+        <StackPanel Grid.Column="0" Grid.Row="9" 
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Grid.ColumnSpan="3">
+            <Button Command="{Binding SaveCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Style="{StaticResource WindowButtonStyle}">
                 Сохранить
             </Button>
 
-            <Button Margin="10,10,10,10" Padding="10"
-            MinWidth="120"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Command="{Binding CloseWindowCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+            <Button Command="{Binding CloseWindowCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Style="{StaticResource WindowCloseButtonStyle}">
                 Отмена
-            </Button>
-
-            <Button Margin="10,10,10,10" Padding="10"
-MinWidth="120"
-HorizontalAlignment="Right"
-VerticalAlignment="Center"
-                    Style="{StaticResource WindowButtonStyle}">
-                Очистить
             </Button>
         </StackPanel>
     </Grid>

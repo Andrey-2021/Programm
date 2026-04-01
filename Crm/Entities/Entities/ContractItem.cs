@@ -3,6 +3,8 @@
 /// <summary>
 /// Выбранная медицинская услуга для договора
 /// </summary>
+[Comment("Медицинская услуга для договора")]
+[Index(nameof(ContractId), IsUnique = false)] // Индекс
 public class ContractItem : BaseINotifyDataErrorInfo, IHaveId
 {
     /// <summary>
@@ -41,7 +43,18 @@ public class ContractItem : BaseINotifyDataErrorInfo, IHaveId
     ///</remarks>
     [Comment("Договор")]
     [DisplayName("Договор")]
-    public Contract? Contract { get; set; }
+    public Contract? Contract
+    {
+        get => contract;
+        set
+        {
+            contract = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    private Contract? contract;
+
 
     /// <summary>
     /// Id мед. услуги
@@ -61,7 +74,26 @@ public class ContractItem : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private int medicalServiceId;
-    public MedicalService? MedicalService { get; set; }
+
+    /// <summary>
+    /// Мед. услуга
+    /// </summary>
+    /// <remarks>
+    /// Навигационное свойство
+    /// </remarks>
+    [Comment("Мед. услуга")]
+    [DisplayName("Мед. услуга")]
+    public MedicalService? MedicalService
+    {
+        get => medicalService;
+        set
+        {
+            medicalService = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    private MedicalService? medicalService;
 
     /// <summary>
     /// Количество услуг
@@ -89,7 +121,6 @@ public class ContractItem : BaseINotifyDataErrorInfo, IHaveId
     [Required(ErrorMessage = "Введите цену")]
     [Range(0, (double)LengthConstants.medicalServicesPriceMaxLength, ErrorMessage = "Недопустимое значение. Должно быть от {1} до {2}")]
     [DataType(DataType.Currency)]
-    //[Column(TypeName = "decimal(18, 2)")]
     [Comment("Цена услуги")]
     [DisplayName("Цена услуги")]
     public decimal Price
@@ -99,6 +130,7 @@ public class ContractItem : BaseINotifyDataErrorInfo, IHaveId
         {
             price = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(PriceWithNds));
             OnPropertyChanged(nameof(ItemTotal));
             Validate(value);
         }
@@ -106,11 +138,35 @@ public class ContractItem : BaseINotifyDataErrorInfo, IHaveId
     private decimal price = default!;
 
     /// <summary>
+    /// НДС, %
+    /// </summary>
+    [Required(ErrorMessage = "Введите НДС, %")]
+    [Range(0, (double)100, ErrorMessage = "Недопустимое значение. Должно быть от {1} до {2}")]
+    [Comment("НДС, %")]
+    [DisplayName("НДС, %")]
+    public uint NdsPercent
+    {
+        get => ndsPercent;
+        set
+        {
+            ndsPercent = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(ItemTotal));
+            OnPropertyChanged(nameof(PriceWithNds));
+            Validate(value);
+        }
+    }
+    private uint ndsPercent = default!;
+
+    [NotMapped]
+    public decimal PriceWithNds => Price * (100 + NdsPercent) / 100.0m;
+
+    /// <summary>
     /// Скидка
     /// </summary>
     [Required(ErrorMessage = "Введите скидку")]
     [Range(0, (double)LengthConstants.medicalServicesDiscountMaxLength, ErrorMessage = "Недопустимое значение. Должно быть от {1} до {2}")]
-    [Column(TypeName = "decimal(8, 2)")]
+    [DataType(DataType.Currency)]
     [Comment("Скидка")]
     [DisplayName("Скидка")]
     public decimal Discount
@@ -130,7 +186,9 @@ public class ContractItem : BaseINotifyDataErrorInfo, IHaveId
     /// Итого
     /// </summary>
     [NotMapped]
-    public decimal ItemTotal => Quantity*Price - Discount;
+    [Comment("Итого")]
+    [DisplayName("Итого")]
+    public decimal ItemTotal => Quantity* PriceWithNds - Discount;
 
     /// <summary>
     /// Конструктор

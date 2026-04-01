@@ -5,6 +5,8 @@ using System;
 /// <summary>
 /// Платежи
 /// </summary>
+[Comment("Платежи по договору")]
+[Index(nameof(ContractId), IsUnique = false)] // Индекс
 public class Payment : BaseINotifyDataErrorInfo, IHaveId
 {
     /// <summary>
@@ -43,7 +45,17 @@ public class Payment : BaseINotifyDataErrorInfo, IHaveId
     ///</remarks>
     [Comment("Договор")]
     [DisplayName("Договор")]
-    public Contract? Contract { get; set; }
+    public Contract? Contract
+    {
+        get => contract;
+        set
+        {
+            contract = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    private Contract? contract;
 
     /// <summary>
     /// Дата платежа
@@ -52,14 +64,24 @@ public class Payment : BaseINotifyDataErrorInfo, IHaveId
     [Comment("Дата платежа")]
     [DisplayName("Дата платежа")]
     [Range(typeof(DateTime), "1/1/1900", "1/1/2035", ErrorMessage = "Дата платежа вне диапазона")]
-    public DateTime PaymentDate { get; set; }=DateTime.Now;
+    public DateTime PaymentDate
+    {
+        get => paymentDate;
+        set
+        {
+            paymentDate = value;
+            OnPropertyChanged();
+            Validate(value);
+        }
+    }
+    public DateTime paymentDate = DateTime.Now;
 
     /// <summary>
     /// Способ оплаты
     /// </summary>
-    [Required(ErrorMessage = "Введите статус оплаты")]
-    [Comment("Статус оплаты")]
-    [DisplayName("Статус оплаты")]
+    [Required(ErrorMessage = "Введите способ оплаты")]
+    [Comment("Способ оплаты")]
+    [DisplayName("Способ оплаты")]
     public PaymentMethodEnum? PaymentMethod
     {
         get => paymentMethod;
@@ -78,7 +100,6 @@ public class Payment : BaseINotifyDataErrorInfo, IHaveId
     [Required(ErrorMessage = "Введите сумму платежа")]
     [Range(0, (double)LengthConstants.paymentAmountMaxLength, ErrorMessage = "Недопустимое значение. Должно быть от {1} до {2}")]
     [DataType(DataType.Currency)]
-    //[Column(TypeName = "decimal(18, 2)")]
     [Comment("Сумма платежа")]
     [DisplayName("Сумма платежа")]
     public decimal PaymentAmount
@@ -131,7 +152,8 @@ public class Payment : BaseINotifyDataErrorInfo, IHaveId
     private string? paymentNotes = default!;
 
     public Payment()
-    { }
+    { 
+    }
 
     /// <summary>
     /// Конструктор для инициализации всех свойств, кроме PaymentId.

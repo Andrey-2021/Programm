@@ -10,4 +10,9 @@ public partial class AddContractWindow : Window, IAddContractView
         ViewModel = viewModel;
         DataContext = viewModel;
     }
+
+    private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+
+    }
 }

@@ -23,7 +23,9 @@
             <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
             <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
             <RowDefinition Height="20*" MaxHeight="50"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -68,10 +70,18 @@
                             HorizontalAlignment="Left"
                             Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="4">Вид услуги:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="4">НДС (%):</Label>
         <Label Grid.Column="1" Grid.Row="4"  Style="{StaticResource RequiredStyle}">*</Label>
+        <xctk:IntegerUpDown Grid.Column="2" Grid.Row="4"
+                            Style="{StaticResource InputIntegerUpDownStyle}"
+                            Value="{Binding MainEntity.NdsPercent, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                            HorizontalAlignment="Left"
+                            Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+        
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="5">Вид услуги:</Label>
+        <Label Grid.Column="1" Grid.Row="5"  Style="{StaticResource RequiredStyle}">*</Label>
         <DataGrid MinHeight="50"
-                  Grid.Column="2" Grid.Row="4"
+                  Grid.Column="2" Grid.Row="5"
                   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
                   SelectionMode="Single"
                   VerticalScrollBarVisibility="Auto"
@@ -93,13 +103,14 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Column="0" Grid.Row="6" 
+        <StackPanel Grid.Column="0" Grid.Row="7" 
             Orientation="Horizontal"
             HorizontalAlignment="Center"
             Grid.ColumnSpan="3">
+            
             <Button Command="{Binding SaveCommand}"
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-            Style="{StaticResource WindowButtonStyle}">
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource WindowButtonStyle}">
                 Сохранить
             </Button>
 

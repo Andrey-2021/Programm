@@ -16,8 +16,8 @@ public class MegicalApprovalDocument
             CopyDocument(folder); // Копируем документ в папку
             var dic = ReplacerDictionary.CreateTable(contract, organizationInfo);
 
-            DocKeyReplacer.ReplaceKeys(Path.Combine(folder, soglasieFileName), dic); // Модифицируем Word-документ
-            ExcelKeyReplacer.ReplaceKeys(Path.Combine(folder, dogovorFileName), new List<string> { "Договор", "Перечень", "Акт" }, dic); // Модифицируем Excel-документ
+            DocKeyReplacer.ReplaceKeys(Path.Combine(folder, soglasieFileName), dic, contract); // Модифицируем Word-документ
+            ExcelKeyReplacer.ReplaceKeys(Path.Combine(folder, dogovorFileName),  dic, contract); // Модифицируем Excel-документ
             return (true, null);
         }
         catch (Exception ex)

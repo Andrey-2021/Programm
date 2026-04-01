@@ -109,22 +109,48 @@ public class MedicalService : BaseINotifyDataErrorInfo, IHaveId
         {
             servicePrice = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(PriceWithNds));
             Validate(value);
         }
     }
     private decimal servicePrice = default!;
 
+    /// <summary>
+    /// НДС, %
+    /// </summary>
+    [Required(ErrorMessage = "Введите НДС, %")]
+    [Range(0, (double)100, ErrorMessage = "Недопустимое значение. Должно быть от {1} до {2}")]
+    [Comment("НДС, %")]
+    [DisplayName("НДС, %")]
+    public uint NdsPercent
+    {
+        get => ndsPercent;
+        set
+        {
+            ndsPercent = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(PriceWithNds));
+            Validate(value);
+        }
+    }
+    private uint ndsPercent = default!;
+    
+    [NotMapped]
+    public decimal PriceWithNds => ServicePrice * (100 + NdsPercent) / 100.0m;
+
     public MedicalService()
-    { }
+    { 
+    }
 
     /// <summary>
     /// Конструктор для инициализации свойств (без ServiceId).
     /// </summary>
-    public MedicalService(string serviceName, MedicalServiceType serviceType, string serviceCode, decimal servicePrice)
+    public MedicalService(string serviceName, MedicalServiceType serviceType, string serviceCode, decimal servicePrice, uint ndsPercent=0)
     {
         ServiceName = serviceName;
         MedicalServiceType = serviceType;
         ServiceCode = serviceCode;
         ServicePrice = servicePrice;
+        NdsPercent = ndsPercent;
     }
 }

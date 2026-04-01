@@ -19,6 +19,7 @@ public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<Cont
             MainEntity.MedicalService = selectedMedicalService;
             MainEntity.Quantity = 1;
             MainEntity.Price = selectedMedicalService.ServicePrice;
+            MainEntity.NdsPercent = selectedMedicalService.NdsPercent;
             MainEntity.Discount = 0;
             OnPropertyChanged();
         }

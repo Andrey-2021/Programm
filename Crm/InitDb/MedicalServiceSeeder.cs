@@ -19,28 +19,32 @@ public static class MedicalServiceSeeder
             serviceName: "Приём терапевта первичный",
             serviceType: medicalServiceTypes[0],
             serviceCode: "CONS_THER_01",
-            servicePrice: 1500.00m
+            servicePrice: 1500.00m,
+            10
         ));
 
         services.Add(new MedicalService(
             serviceName: "Приём терапевта повторный",
             serviceType: medicalServiceTypes[1],
             serviceCode: "CONS_THER_02",
-            servicePrice: 1000.00m
+            servicePrice: 1000.00m,
+            10
         ));
 
         services.Add(new MedicalService(
             serviceName: "ЭКГ",
             serviceType: medicalServiceTypes[2],
             serviceCode: "DIAG_CARD_01",
-            servicePrice: 800.00m
+            servicePrice: 800.00m,
+            22
         ));
 
         services.Add(new MedicalService(
             serviceName: "УЗИ брюшной полости",
             serviceType: medicalServiceTypes[3],
             serviceCode: "DIAG_US_01",
-            servicePrice: 2500.00m
+            servicePrice: 2500.00m,
+            22
         ));
 
         services.Add(new MedicalService(
@@ -89,28 +93,31 @@ public static class MedicalServiceSeeder
             serviceName: "Снятие швов",
             serviceType: medicalServiceTypes[0],
             serviceCode: "PROC_SUT_01",
-            servicePrice: 700.00m
+            servicePrice: 700.00m,10
         ));
 
         services.Add(new MedicalService(
             serviceName: "Физиотерапия (1 сеанс)",
             serviceType: medicalServiceTypes[1],
             serviceCode: "PROC_PHYS_01",
-            servicePrice: 850.00m
+            servicePrice: 850.00m,
+            10
         ));
 
         services.Add(new MedicalService(
             serviceName: "Приём офтальмолога",
             serviceType: medicalServiceTypes[2],
             serviceCode: "CONS_OPHT_01",
-            servicePrice: 1400.00m
+            servicePrice: 1400.00m,
+            22
         ));
 
         services.Add(new MedicalService(
             serviceName: "Подбор очков",
             serviceType: medicalServiceTypes[3],
             serviceCode: "CONS_OPHT_02",
-            servicePrice: 1100.00m
+            servicePrice: 1100.00m,
+            22
         ));
 
         services.Add(new MedicalService(
@@ -124,28 +131,32 @@ public static class MedicalServiceSeeder
             serviceName: "Стоматология: удаление зуба",
             serviceType: medicalServiceTypes[5],
             serviceCode: "DENT_EXTR_01",
-            servicePrice: 2800.00m
+            servicePrice: 2800.00m,
+            10
         ));
 
         services.Add(new MedicalService(
             serviceName: "Кардиограмма с нагрузкой",
             serviceType: medicalServiceTypes[6],
             serviceCode: "DIAG_CARD_02",
-            servicePrice: 2000.00m
+            servicePrice: 2000.00m,
+            10
         ));
 
         services.Add(new MedicalService(
             serviceName: "Рентген грудной клетки",
             serviceType: medicalServiceTypes[7],
             serviceCode: "DIAG_XRAY_02",
-            servicePrice: 1100.00m
+            servicePrice: 1100.00m,
+            22
         ));
 
         services.Add(new MedicalService(
             serviceName: "Гастроскопия",
             serviceType: medicalServiceTypes[8],
             serviceCode: "DIAG_END_01",
-            servicePrice: 4000.00m
+            servicePrice: 4000.00m,
+            22
         ));
 
         services.Add(new MedicalService(

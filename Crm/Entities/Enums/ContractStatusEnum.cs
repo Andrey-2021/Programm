@@ -9,18 +9,18 @@ public enum ContractStatusEnum
     /// Действует
     /// </summary>
     [Description("Действует")]
-    works = 1,
+    Действует = 1,
 
     /// <summary>
     /// Расторгнут
     /// </summary>
     [Description("Расторгнут")]
-    terminated = 2,
+    Расторгнут = 2,
 
     /// <summary>
     /// Завершён
     /// </summary>
     [Description("Завершён")]
-    completed = 3
+    Завершён = 3
 }
 
