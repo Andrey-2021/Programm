@@ -35,7 +35,7 @@
               CanUserReorderColumns="False"
               Margin="10"
               ItemsSource="{Binding Entities, Mode=TwoWay}"
-              SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
+              SelectedItem="{Binding SelectedEntity}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Название" Width="5*"></DataGridTextColumn>
             </DataGrid.Columns>

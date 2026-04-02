@@ -79,9 +79,9 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     {
         var view = serviceProvider.GetRequiredService<TAddView>();
         view.ShowDialog();
+        SelectedEntity=view.ViewModel.Parametr as TEntity; // Чтобы выделить сохранённый объект после перезагрузки данных
         StatusService.Clea();
         await LoadNecessaryDates();
-        
     }
 
     /// <summary>
@@ -137,7 +137,6 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
         else
             StatusService.SetMessage("Данные удалены.");
         
-
         await LoadNecessaryDates();
         IsBusy = false;
     }
@@ -168,13 +167,14 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     protected async Task LoadNecessaryDates()
     {
         IsBusy = true;
-        var repository = this.serviceProvider.GetRequiredService<DbRepository>();
+        var selectedId = SelectedEntity?.Id; // Для восстановления выбранного объекта
         var result = await LoadDataFromDb(repository);
 
         if (result.ex is null)
         {
             Entities = new ObservableCollection<TEntity>(result.data);
             StatusService.AddMessage("Данные прочитаны.");
+            SelectedEntity = Entities.FirstOrDefault(x => x.Id == selectedId); // Восстанавливаем выбранный объект
         }
         else
         {
@@ -190,8 +190,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     /// </summary>
     protected virtual async Task<(IEnumerable<TEntity> data, Exception? ex)> LoadDataFromDb(DbRepository repository)
     {
-        var result = await repository.GetEntitiesAsync<TEntity>();
-        return result;
+        return await repository.GetEntitiesAsync<TEntity>();
     }
 
     /// <summary>

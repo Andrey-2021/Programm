@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Spreadsheet;
 using Entities;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System.IO.Packaging;
 namespace CreateDocuments;
 
@@ -111,6 +112,12 @@ internal class ExcelKeyReplacer
                         worksheet.Cells[row + i, 7].Value = item.Discount;
                         worksheet.Cells[row + i, 8].Value = item.ItemTotal;
 
+                        // задаём границы
+                        SetBorder(worksheet.Cells[row + i, 1, row + i, 9]);
+                        // Число с двумя десятичными знаками
+                        worksheet.Cells[row + i, 4, row + i, 8].Style.Numberformat.Format = "0.00";
+
+
                         worksheet.Cells[row + i, 9].Value = contract.StartDate.ToShortDateString()
                             +" - "+ contract.EndDate.ToShortDateString();
 
@@ -147,22 +154,43 @@ internal class ExcelKeyReplacer
 
                     for (int i = 0; i < contract.ContractItems.Count; i++)
                     {
+                        
+
                         var item = contract.ContractItems[i];
                         worksheet.Cells[row + i, 1].Value = i + 1;
                         worksheet.Cells[row + i, 2].Value = item.MedicalService?.ServiceName;
-                        worksheet.Cells[row + i, 3].Value = item.Quantity;
-                        worksheet.Cells[row + i, 4].Value = item.Price;
-                        worksheet.Cells[row + i, 5].Value = item.PriceWithNds;
-                        worksheet.Cells[row + i, 6].Value = item.Discount;
-                        worksheet.Cells[row + i, 7].Value = item.ItemTotal;
+                        worksheet.Cells[row + i, 6].Value = item.Quantity;
+                        worksheet.Cells[row + i, 7].Value = item.Price;
+                        worksheet.Cells[row + i, 8].Value = item.PriceWithNds;
+                        worksheet.Cells[row + i, 9].Value = item.Discount;
+                        worksheet.Cells[row + i, 10].Value = item.ItemTotal;
+
+                        // задаём границы
+                        SetBorder(worksheet.Cells[row + i, 2, row + i, 5], true, true, false, false);
+                        SetBorder(worksheet.Cells[row + i, 1]);
+                        SetBorder(worksheet.Cells[row + i, 6, row + i, 10]);
+                        // Число с двумя десятичными знаками
+                        worksheet.Cells[row + i, 7, row + i, 10].Style.Numberformat.Format = "0.00";
 
                         if (i != contract.ContractItems.Count - 1)
-                            worksheet.InsertRow(row + i + 1, 1); // сдвигает строку 4 и ниже вниз
+                            worksheet.InsertRow(row + i + 1, 1); // сдвигает строку ниже вниз
                     }
-                    worksheet.Cells[row + contract.ContractItems.Count, 7].Value = contract.ContractItems.Sum(x => x.ItemTotal);
+                    worksheet.Cells[row + contract.ContractItems.Count, 10].Value = contract.ContractItems.Sum(x => x.ItemTotal);
                 }
             }
         }
-
     }
+
+    private static void SetBorder(ExcelRange cells, bool isTop=true, bool isBottom=true, bool isLeft=true, bool isRight=true)
+    {
+        if(isTop) cells.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+        if (isBottom) cells.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+        if (isLeft) cells.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+        if (isRight) cells.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+        // задать цвет границы
+        //cell.Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);
+    }
+
+
+
 }

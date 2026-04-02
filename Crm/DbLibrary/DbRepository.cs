@@ -186,7 +186,7 @@ public class DbRepository
 	/// <typeparam name="TEntity"></typeparam>
 	/// <param name="entity"></param>
 	/// <returns></returns>
-	public async Task<Exception?> UpdateEntityAsync<TEntity>(TEntity entity)
+	public async Task<(TEntity? entety,Exception? ex)> UpdateEntityAsync<TEntity>(TEntity entity)
     where TEntity : class
     {
         try
@@ -194,11 +194,11 @@ public class DbRepository
             using var db = contextFactory.CreateDbContext();
             var result = db.Update<TEntity>(entity);
             var n = await db.SaveChangesAsync();
-            return null;
+            return (result.Entity, null);
         }
         catch (Exception ex)
         {
-            return ex;
+            return (null, ex);
         }
     }
 

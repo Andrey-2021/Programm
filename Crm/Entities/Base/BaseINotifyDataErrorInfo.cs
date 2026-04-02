@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 namespace Entities.Base;
 
@@ -43,12 +42,6 @@ public class BaseINotifyDataErrorInfo: BaseNotifyPropertyChanged, INotifyDataErr
 		ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
 	}
 
-//	public void Validate()
-//	{
-//		Validate(this, null);
-//	}
-
-
 	/// <summary>
 	/// Проверка есть ли ошибки в сущности
 	/// </summary>
@@ -72,13 +65,5 @@ public class BaseINotifyDataErrorInfo: BaseNotifyPropertyChanged, INotifyDataErr
 		}
 
 		return isHAsError;
-	}
-}
-
-
-public static class BaseINotifyDataErrorInfoExtension
-{
-	public static void CharCount(this BaseINotifyDataErrorInfo str)
-	{
 	}
 }

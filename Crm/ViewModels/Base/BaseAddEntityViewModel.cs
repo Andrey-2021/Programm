@@ -4,15 +4,25 @@
 /// Базовый класс для всех AddViewModel
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithParametr //, IDisposable
+public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithParametr
 	where TEntity : class, INotifyPropertyChanged, new()
 {
-	public object? Parametr { set => OnParametrSet(value); }
+	public object? Parametr 
+	{
+		get => parametr;
 
-	/// <summary>
-	/// Главная сущность/объект
-	/// </summary>
-	public TEntity? MainEntity { get=> mainEntity; set { mainEntity = value; OnPropertyChanged(); } }
+		set
+		{
+			parametr = value;
+            OnParametrSet(value);
+		}
+	}
+	private object? parametr;
+
+    /// <summary>
+    /// Главная сущность/объект
+    /// </summary>
+    public TEntity? MainEntity { get=> mainEntity; set { mainEntity = value; OnPropertyChanged(); } }
 	private TEntity? mainEntity;
 
 	/// <summary>
@@ -80,12 +90,13 @@ public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithPara
 			return;
 
         var result = await SaveDataToDb();
-        if (result!=null) //если ошибка
+        if (result.ex != null) //если ошибка
 		{
-			dialogService.ShowError("Ошибка при выполнении операции сохранения данных. Попробуйте выполнить операцию позже или обратитесь к администратору", exception: result);
+			dialogService.ShowError("Ошибка при выполнении операции сохранения данных. Попробуйте выполнить операцию позже или обратитесь к администратору", exception: result.ex);
 			return;
 		}
-		CloseWindow(parametr);//всё хорошо, закрываем  окно
+		Parametr = result.entety; // сохранённая сущность. Чтобы можно было её найти в других VModel
+        CloseWindow(parametr);//всё хорошо, закрываем  окно
 	}
 
 	/// <summary>
@@ -100,7 +111,7 @@ public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithPara
 	/// Записать данные в БД
 	/// </summary>
 	/// <returns></returns>
-	protected virtual async Task<Exception?> SaveDataToDb()
+	protected virtual async Task<(TEntity? entety, Exception? ex)> SaveDataToDb()
 	{
         return await repository.UpdateEntityAsync(MainEntity!);
     }

@@ -40,7 +40,7 @@ AutoGenerateColumns="False"
 CanUserReorderColumns="False"
 Margin="10"
 ItemsSource="{Binding Entities, Mode=TwoWay}"
-SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}">
+SelectedItem="{Binding SelectedEntity}">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn Binding="{Binding PatientId}" Header="Пациента" Width="5*"></DataGridTextColumn>-->
                 <DataGridTextColumn Binding="{Binding Path=Patient.FIO}" Header="Пациент" Width="5*"></DataGridTextColumn>

@@ -3,9 +3,19 @@
 public class MessageViewModel: IViewModelWithParametr
 {
 	public bool IsBusy { get; set; }
-	public object? Parametr { set => OnParametrSet(value); }
+    public object? Parametr
+    {
+        get => parametr;
 
-	public string? Message { get; set; }
+        set
+        {
+            parametr = value;
+            OnParametrSet(value);
+        }
+    }
+    private object? parametr;
+
+    public string? Message { get; set; }
 
 	protected void OnParametrSet(object? parametr)
 	{

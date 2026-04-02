@@ -58,7 +58,7 @@ public class PatientsViewModel : BaseImportExportDataViewModel<Patient, IAddPati
                 }
 
                 var saveResult= await repository.UpdateEntityAsync(item!);
-                if (saveResult != null)
+                if (saveResult.ex != null)
                     error++;
                 else
                     added++;

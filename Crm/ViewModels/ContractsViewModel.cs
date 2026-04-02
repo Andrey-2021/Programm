@@ -118,7 +118,6 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         view.ViewModel.Parametr = new Payment() { ContractId = SelectedEntity!.Id, Contract = SelectedEntity };
         view.ShowDialog();
         await LoadNecessaryDates();
-        //StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     private bool CheckIsPossibleAddPayment(object? parametr)
@@ -132,7 +131,6 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         view.ViewModel.Parametr = SelectedPayment;
         view.ShowDialog();
         await LoadNecessaryDates();
-        //StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     private bool CheckIsPossibleEditPayment(object? parametr)
@@ -155,9 +153,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         var view = serviceProvider.GetRequiredService<IAddMedicalServiceForContractView>();
         view.ViewModel.Parametr = new ContractItem() { ContractId = SelectedEntity!.Id, Contract = SelectedEntity };
         view.ShowDialog();
-
         await LoadNecessaryDates();
-        //StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     protected virtual bool CheckIsPossibleAddMedicalServiceForContect(object? parametr)
@@ -171,7 +167,6 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         view.ViewModel.Parametr = SelectedContractItem;
         view.ShowDialog();
         await LoadNecessaryDates();
-        //StatusMessage = "Данные прочитаны. " + DateTime.Now;
     }
 
     protected virtual bool CheckIsPossibleEditMedicalServiceInContect(object? parametr)
@@ -191,8 +186,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
 
     protected override async Task<(IEnumerable<Contract> data, Exception? ex)> LoadDataFromDb(DbRepository repository)
     {
-        var result = await repository.GetAllInfoAboutContractsAsync();
-        return result;
+        return await repository.GetAllInfoAboutContractsAsync();
     }
 
     protected override void CheckCommands()

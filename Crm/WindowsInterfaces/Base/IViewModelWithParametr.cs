@@ -8,6 +8,6 @@ public interface IViewModelWithParametr : IViewModel
 	/// <summary>
 	/// Параметр
 	/// </summary>
-	public object? Parametr { set; }
+	public object? Parametr { get; set; }
 }
 
