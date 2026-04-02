@@ -30,7 +30,7 @@ public class AddMedicalServiceViewModel : BaseAddEntityViewModel<MedicalService>
 	/// <returns></returns>
 	protected override async Task LoadNecessaryDates()
     {
-        IsBusy = true;
+        IsPrgBusy = true;
         var result = await repository.GetEntitiesAsync<MedicalServiceType>();
         if (result.ex == null)
             Entities = new ObservableCollection<MedicalServiceType>(result.data.OrderBy(x => x.Name));
@@ -39,7 +39,7 @@ public class AddMedicalServiceViewModel : BaseAddEntityViewModel<MedicalService>
             Entities?.Clear();
             dialogService.ShowError("Ошибка при чтении типов медицинских услуг из БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         }
-        IsBusy = false;
+        IsPrgBusy = false;
     }
 
 

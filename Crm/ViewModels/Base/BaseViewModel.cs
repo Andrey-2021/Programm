@@ -40,16 +40,16 @@ public class BaseViewModel : INotifyPropertyChanged, IViewModel
     /// <summary>
     /// Флаг занятости
     /// </summary>
-    public bool IsBusy
+    public bool IsPrgBusy
     {
-        get => isBusy;
+        get => isPrgBusy;
         set
         {
-            isBusy = value;
+            isPrgBusy = value;
             OnPropertyChanged();
         }
     }
-    private bool isBusy { get; set; }
+    private bool isPrgBusy { get; set; }
 
     /// <summary>
     /// Конструктор

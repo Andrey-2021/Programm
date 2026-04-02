@@ -8,5 +8,5 @@ public interface IViewModel
 	/// <summary>
 	/// Выполняется "длинная/долгая" операция
 	/// </summary>
-	public bool IsBusy { get; set; }
+	public bool IsPrgBusy { get; set; }
 }

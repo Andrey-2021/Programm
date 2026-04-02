@@ -58,7 +58,7 @@ public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<Cont
 	/// <returns></returns>
 	protected override async Task LoadNecessaryDates()
     {
-        IsBusy = true;
+        IsPrgBusy = true;
         var result = await repository.GetEntitiesAsync<MedicalService>();
         if (result.ex == null)
         {
@@ -71,7 +71,7 @@ public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<Cont
             MedicalServices?.Clear();
             dialogService.ShowError("Ошибка при чтении медицинских услуг из БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         }
-        IsBusy = false;
+        IsPrgBusy = false;
     }
 
     protected override async Task OperationsAfterSetParametrAsync(object? parametr)

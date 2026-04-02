@@ -31,7 +31,7 @@ public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
 	/// <returns></returns>
 	protected async Task LoadNecessaryDates()
     {
-        IsBusy = true;
+        IsPrgBusy = true;
         var result = await repository.GetEntitiesAsync<Position>();
         if (result.ex == null)
             Entities= new ObservableCollection<Position>(result.data.OrderBy(x => x.PositionName));
@@ -40,7 +40,7 @@ public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
             Entities?.Clear();
             dialogService.ShowError("Ошибка при чтении должностей из БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         }
-        IsBusy = false;
+        IsPrgBusy = false;
     }
 
     protected override async Task<bool> OperationBeforeSave()

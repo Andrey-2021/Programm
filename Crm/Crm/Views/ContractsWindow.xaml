@@ -3,155 +3,160 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        
         mc:Ignorable="d"
         Title="Договора" 
         Height="950" Width="1300"
         MinHeight="550" MinWidth="800"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource ModernWindowStyle}">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70*"></ColumnDefinition>
-            <ColumnDefinition Width="30*" MaxWidth="200"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
+    <xctk:BusyIndicator IsBusy="{Binding IsPrgBusy}"
+                BusyContent="Минутку..."
+                Margin="0,10,0,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70*"></ColumnDefinition>
+                <ColumnDefinition Width="30*" MaxWidth="200"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
 
-            <!--Фильтр-->
-            <RowDefinition Height="Auto"></RowDefinition>
-            <!--Таблица-->
-            <RowDefinition Height="30*"></RowDefinition>
+                <!--Фильтр-->
+                <RowDefinition Height="Auto"></RowDefinition>
+                <!--Таблица-->
+                <RowDefinition Height="30*"></RowDefinition>
 
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="20*"></RowDefinition>
 
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="20*"></RowDefinition>
 
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <Label Style="{StaticResource TytletStyle}">
-            Договора
-        </Label>
+            <Label Style="{StaticResource TytletStyle}">
+                Договора
+            </Label>
 
-        <StackPanel Grid.Column="0" Grid.Row="1"
+            <StackPanel Grid.Column="0" Grid.Row="1"
                     Margin="10"
                     Background="AliceBlue">
-            <Border BorderBrush="#BDC3C7" 
+                <Border BorderBrush="#BDC3C7" 
             BorderThickness="0,0,0,1" 
             Background="#F4F6F7"
             Padding="1" Margin="5">
-                <StackPanel>
-                    <!-- Заголовок фильтров -->
-                    <TextBlock Text="Фильтры" 
+                    <StackPanel>
+                        <!-- Заголовок фильтров -->
+                        <TextBlock Text="Фильтры" 
                        FontSize="16" 
                        FontWeight="Bold" 
                        Margin="5,0,0,5"/>
 
-                </StackPanel>
-            </Border>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto" MinWidth="200"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+                    </StackPanel>
+                </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" MinWidth="200"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <TextBlock Text="Дата заключения:" 
+                    <TextBlock Text="Дата заключения:" 
                            Grid.Row="0" Grid.Column="0" 
                            VerticalAlignment="Center" 
                            Margin="5"/>
-                <StackPanel Grid.Row="0" Grid.Column="1" 
+                    <StackPanel Grid.Row="0" Grid.Column="1" 
                             Orientation="Horizontal" 
                             Margin="5">
-                    <DatePicker x:Name="DateFromPicker" 
+                        <DatePicker x:Name="DateFromPicker" 
                                 Width="120" 
                                 SelectedDate="{Binding Path=FilterData.DateFrom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="—" VerticalAlignment="Center" Margin="5,0"/>
-                    <DatePicker x:Name="DateToPicker" 
+                        <TextBlock Text="—" VerticalAlignment="Center" Margin="5,0"/>
+                        <DatePicker x:Name="DateToPicker" 
                                 Width="120"
                                 SelectedDate="{Binding Path=FilterData.DateTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <!-- Статус договора -->
-                <TextBlock Text="Статус договора:" 
+                    <!-- Статус договора -->
+                    <TextBlock Text="Статус договора:" 
                            Grid.Row="0" Grid.Column="2" 
                            VerticalAlignment="Top" 
                            Margin="10,5,0,0"/>
-                <ComboBox x:Name="ContractStatusComboBox" 
+                    <ComboBox x:Name="ContractStatusComboBox" 
                           Grid.Row="0" Grid.Column="3" 
                           Width="150" 
                           Margin="7,5,8,5"
                           ItemsSource="{Binding ContractStatusList, Mode=OneWay}"
                           SelectedValue="{Binding Path=FilterData.ContractStatus}">
-                </ComboBox>
+                    </ComboBox>
 
-                <!-- Номер договора -->
-                <TextBlock Text="Номер договора:" 
+                    <!-- Номер договора -->
+                    <TextBlock Text="Номер договора:" 
                            Grid.Row="0" Grid.Column="4" 
                            VerticalAlignment="Center" 
                            Margin="5"/>
-                <TextBox Grid.Row="0" Grid.Column="5" 
+                    <TextBox Grid.Row="0" Grid.Column="5" 
                          Width="150" Margin="5"
                          VerticalContentAlignment="Center"
                          Text="{Binding Path=FilterData.ContractNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
 
 
-                <!-- Строка 2 -->
+                    <!-- Строка 2 -->
 
-                <!-- Ответственный сотрудник -->
-                <TextBlock Text="Ответственный:" 
+                    <!-- Ответственный сотрудник -->
+                    <TextBlock Text="Ответственный:" 
                            Grid.Row="1" Grid.Column="0" 
                            VerticalAlignment="Center" 
                            Margin="5"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" 
+                    <ComboBox Grid.Row="1" Grid.Column="1" 
                           Width="260" Margin="5"
                           ItemsSource="{Binding Employees, Mode=TwoWay}"
                           DisplayMemberPath="FIO"
                           SelectedValuePath="Id"
                           SelectedValue="{Binding Path=FilterData.EmployeeId, ValidatesOnNotifyDataErrors=True}">
-                </ComboBox>
+                    </ComboBox>
 
 
-                <!-- Статус оплаты -->
-                <TextBlock Text="Статус оплаты:" 
+                    <!-- Статус оплаты -->
+                    <TextBlock Text="Статус оплаты:" 
                            Grid.Row="1" Grid.Column="2" 
                            VerticalAlignment="Center" 
                            Margin="5"/>
-                <ComboBox x:Name="PaymentStatusComboBox" 
+                    <ComboBox x:Name="PaymentStatusComboBox" 
                           Grid.Row="1" Grid.Column="3" 
                           Width="150" Margin="5"
                           ItemsSource="{Binding PaymentStatusList, Mode=OneWay}"
                           SelectedValue="{Binding Path=FilterData.PaymentStatus}">
-                </ComboBox>
+                    </ComboBox>
 
 
-                <!-- Кнопки управления фильтрами -->
-                <StackPanel Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" 
+                    <!-- Кнопки управления фильтрами -->
+                    <StackPanel Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" 
                             Orientation="Horizontal" 
                             HorizontalAlignment="Right">
-                    <Button Content="Применить" 
+                        <Button Content="Применить" 
                             Width="80" Margin="5"
                             Command="{Binding FilterCommand}"/>
-                    <Button Content="Сбросить" 
+                        <Button Content="Сбросить" 
                             Width="80" 
                             Margin="5"
                             Command="{Binding ClearFilterCommand}"/>
-                </StackPanel>
+                    </StackPanel>
 
-            </Grid>
-        </StackPanel>
+                </Grid>
+            </StackPanel>
 
 
-        <DataGrid MinHeight="150"
+            <DataGrid MinHeight="150"
 Grid.Column="0" Grid.Row="2"
 IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
 SelectionMode="Single"
@@ -161,58 +166,60 @@ CanUserReorderColumns="False"
 Margin="10"
 ItemsSource="{Binding Entities, Mode=TwoWay}"
 SelectedItem="{Binding SelectedEntity}">
-            <DataGrid.Columns>
-                <!--<DataGridTextColumn Binding="{Binding PatientId}" Header="Пациента" Width="5*"></DataGridTextColumn>-->
-                <DataGridTextColumn Binding="{Binding Path=Patient.FIO}" Header="Пациент" Width="5*"></DataGridTextColumn>
+                <DataGrid.Columns>
+                    <!--<DataGridTextColumn Binding="{Binding PatientId}" Header="Пациента" Width="5*"></DataGridTextColumn>-->
+                    <DataGridTextColumn Binding="{Binding Path=Patient.FIO}" Header="Пациент" Width="5*"></DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding ContractDate, StringFormat=\{0:dd.MM.yyyy\}}"
+                    <DataGridTextColumn Binding="{Binding ContractDate, StringFormat=\{0:dd.MM.yyyy\}}"
                                     Header="Дата заключения договора" Width="5*"></DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding ContractNumber}" Header="Номер договора" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding ContractNumber}" Header="Номер договора" Width="5*"></DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy\}}"
+                    <DataGridTextColumn Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy\}}"
                                     Header="Дата начала действия договора" Width="5*"></DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy\}}"
+                    <DataGridTextColumn Binding="{Binding EndDate, StringFormat=\{0:dd.MM.yyyy\}}"
                                     Header="Дата окончания действия договора" Width="5*"></DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding TotalAmount}" Header="Сумма" Width="5*"></DataGridTextColumn>
-                <!--<DataGridTextColumn Binding="{Binding TotalAmountText}" Header="Общая сумма" Width="5*"></DataGridTextColumn>-->
+                    <DataGridTextColumn Binding="{Binding TotalAmount}" Header="Сумма" Width="5*"></DataGridTextColumn>
+                    <!--<DataGridTextColumn Binding="{Binding TotalAmountText}" Header="Общая сумма" Width="5*"></DataGridTextColumn>-->
 
 
-                <DataGridTextColumn Binding="{Binding PaymentStatus}" Header="Статус оплаты" Width="5*"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding ContractStatus}" Header="Статус договора" Width="5*"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Notes}" Header="Примечание" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding PaymentStatus}" Header="Статус оплаты" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding ContractStatus}" Header="Статус договора" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Notes}" Header="Примечание" Width="5*"></DataGridTextColumn>
 
-                <!--<DataGridTextColumn Binding="{Binding EmployeeId}" Header="Ответственный сотрудник" Width="5*"></DataGridTextColumn>-->
-                <DataGridTextColumn Binding="{Binding Path=Employee.FIO}" Header="Ответственный сотрудник" Width="5*"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                    <!--<DataGridTextColumn Binding="{Binding EmployeeId}" Header="Ответственный сотрудник" Width="5*"></DataGridTextColumn>-->
+                    <DataGridTextColumn Binding="{Binding Path=Employee.FIO}" Header="Ответственный сотрудник" Width="5*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
-        <StackPanel Grid.Column="1" Grid.Row="2">
-            <Button Command="{Binding AddCompanyCommand}"
+            <StackPanel Grid.Column="1" Grid.Row="2">
+                <Button Command="{Binding AddCompanyCommand}"
                     Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
-            <Button Command="{Binding EditCommand}"
+                <Button Command="{Binding EditCommand}"
                     Style="{StaticResource WindowButtonStyle}">Редактировать</Button>
-            <Button Command="{Binding DelCommand}"
+                <Button Command="{Binding DelCommand}"
                     Style="{StaticResource WindowCloseButtonStyle}">Удалить</Button>
-            <Button Command="{Binding RefreshCommand}"
+                <Button Command="{Binding RefreshCommand}"
                     Style="{StaticResource WindowButtonStyle}">Обновить</Button>
 
-            <Button Command="{Binding CreateContractCommand}"
+                <Button Command="{Binding CreateContractCommand}"
                     Style="{StaticResource WindowButtonStyle}">Договора</Button>
 
-        </StackPanel>
+            </StackPanel>
+
+            <!-- Услуги по договору -->
+            <StackPanel Grid.Row="3">
+                <Label Grid.Row="3" Style="{StaticResource TytletStyle}">
+                    Услуги по договору
+                </Label>
 
 
+            </StackPanel>
 
 
-        <!-- Услуги по договору -->
-        <Label Grid.Row="3" Style="{StaticResource TytletStyle}">
-            Услуги по договору
-        </Label>
-
-        <DataGrid MinHeight="150"
+            <DataGrid MinHeight="150"
   Grid.Column="0" Grid.Row="4"
   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
   SelectionMode="Single"
@@ -222,47 +229,47 @@ SelectedItem="{Binding SelectedEntity}">
   Margin="10"
   ItemsSource="{Binding SelectedEntity.ContractItems, Mode=TwoWay}"
   SelectedItem="{Binding SelectedContractItem, Mode=OneWayToSource}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=MedicalService.ServiceName}" Header="Мед. услуга" Width="5*">
-                </DataGridTextColumn>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=MedicalService.ServiceName}" Header="Мед. услуга" Width="5*">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding Quantity}" Header="Кол.услуг" Width="5*">
-                </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Quantity}" Header="Кол.услуг" Width="5*">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding Price}" Header="Цена" Width="5*">
-                </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Price}" Header="Цена" Width="5*">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding NdsPercent}" Header="НДС,%" Width="5*">
-                </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding NdsPercent}" Header="НДС,%" Width="5*">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding PriceWithNds}" Header="Цена с НДС" Width="5*">
-                </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding PriceWithNds}" Header="Цена с НДС" Width="5*">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding Discount}" Header="Скидка" Width="5*">
-                </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Discount}" Header="Скидка" Width="5*">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding ItemTotal}" Header="Сумма" Width="5*">
-                </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding ItemTotal}" Header="Сумма" Width="5*">
+                    </DataGridTextColumn>
 
-            </DataGrid.Columns>
-        </DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
 
 
-        <StackPanel Grid.Column="1" Grid.Row="4">
-            <Button Command="{Binding AddMedicalServiceForContectCommand}"
+            <StackPanel Grid.Column="1" Grid.Row="4">
+                <Button Command="{Binding AddMedicalServiceForContectCommand}"
                     Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
-            <Button Command="{Binding EditMedicalServiceInContectCommand}"
+                <Button Command="{Binding EditMedicalServiceInContectCommand}"
                     Style="{StaticResource WindowButtonStyle}">Редактировать</Button>
-            <Button Command="{Binding DeleteMedicalServiceInContectCommand}"
+                <Button Command="{Binding DeleteMedicalServiceInContectCommand}"
                     Style="{StaticResource WindowCloseButtonStyle}">Удалить</Button>
-        </StackPanel>
+            </StackPanel>
 
-        <!-- Оплаты пациентом -->
-        <Label Grid.Row="5" Style="{StaticResource TytletStyle}">
-            Оплаты пациентом
-        </Label>
+            <!-- Оплаты пациентом -->
+            <Label Grid.Row="5" Style="{StaticResource TytletStyle}">
+                Оплаты пациентом
+            </Label>
 
-        <DataGrid MinHeight="150"
+            <DataGrid MinHeight="150"
 Grid.Column="0" Grid.Row="6"
 IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
 SelectionMode="Single"
@@ -272,34 +279,34 @@ CanUserReorderColumns="False"
 Margin="10"
 ItemsSource="{Binding SelectedEntity.Payments, Mode=TwoWay}"
 SelectedItem="{Binding SelectedPayment, Mode=OneWayToSource}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding PaymentDate}" Header="Дата и время платежа" Width="5*">
-                </DataGridTextColumn>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding PaymentDate}" Header="Дата и время платежа" Width="5*">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding PaymentMethod}" Header="Способ оплаты" Width="5*">
-                </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding PaymentMethod}" Header="Способ оплаты" Width="5*">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding PaymentAmount}" Header="Сумма" Width="5*">
-                </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding PaymentAmount}" Header="Сумма" Width="5*">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding PaymentNotes}" Header="Примечание" Width="5*">
-                </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding PaymentNotes}" Header="Примечание" Width="5*">
+                    </DataGridTextColumn>
 
-            </DataGrid.Columns>
-        </DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
 
-        <StackPanel Grid.Column="1" Grid.Row="6">
-            <Button Command="{Binding AddPaymentCommand}"
+            <StackPanel Grid.Column="1" Grid.Row="6">
+                <Button Command="{Binding AddPaymentCommand}"
                     Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
-            <Button Command="{Binding EditPaymentCommand}"
+                <Button Command="{Binding EditPaymentCommand}"
                     Style="{StaticResource WindowButtonStyle}">Редактировать</Button>
-            <Button Command="{Binding DeletePaymentCommand}"
+                <Button Command="{Binding DeletePaymentCommand}"
                     Style="{StaticResource WindowCloseButtonStyle}">Удалить</Button>
-        </StackPanel>
+            </StackPanel>
 
-        <StatusBar Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Style="{StaticResource StatusBarStyle}">
-            <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>
-        </StatusBar>
-    </Grid>
-
+            <StatusBar Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Style="{StaticResource StatusBarStyle}">
+                <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>
+            </StatusBar>
+        </Grid>
+    </xctk:BusyIndicator>
 </Window>

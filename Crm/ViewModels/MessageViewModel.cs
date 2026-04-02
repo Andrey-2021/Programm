@@ -2,7 +2,7 @@
 
 public class MessageViewModel: IViewModelWithParametr
 {
-	public bool IsBusy { get; set; }
+	public bool IsPrgBusy { get; set; }
     public object? Parametr
     {
         get => parametr;

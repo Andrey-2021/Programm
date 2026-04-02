@@ -8,22 +8,24 @@ public class CheckLoginViewModel : BaseAddEntityViewModel<CheckLogin>
 
 	protected override async void Save(object? parametr)
 	{
-		 var loginUserService = serviceProvider.GetService<LiginUserService>();
+		IsPrgBusy = true;
+		var loginUserService = serviceProvider.GetService<LiginUserService>();
 		var connectionError = await repository.DbAvailableAsync();
-		
-		if(connectionError.ex != null || connectionError.checkResult==false) //ошибка соединения с БД
+        IsPrgBusy = false;
+
+        if (connectionError.ex != null || connectionError.checkResult==false) //ошибка соединения с БД
 		{
 			if ( MainEntity.Login== LiginUserService.DefaultAdminLogin && MainEntity!.Password == LiginUserService.DefaultAdminPassword)
 			{
 				dialogService.ShowWarning("БД недоступна/отсутствует. Вам предоставляется доступ в программу, создайте новую БД и смените пароли по умолчанию.");
 				loginUserService!.CreateAdmin();
 				CloseWindow(parametr);
-				return;
+                return;
 			}
 
 			dialogService.ShowError("БД недоступна. Неправильно ввели пароль или логин по умолчанию!");
-			//CloseWindow(parametr);
-			return;
+            //CloseWindow(parametr);
+            return;
 		}
 
 		var find= await repository.GetEntitiesAsync<RegisteredUser>(x => x.Password == MainEntity.Password && x.Login == MainEntity.Login);
@@ -31,10 +33,10 @@ public class CheckLoginViewModel : BaseAddEntityViewModel<CheckLogin>
 		{
 			dialogService.ShowWarning("Неправильно ввели пароль или логин!");
             //CloseWindow(parametr);
-			return;
+            return;
 		}
 
 		loginUserService!.SetUser(find.data.First());
-		CloseWindow(parametr);//всё хорошо, закрываем  окно
+        CloseWindow(parametr);//всё хорошо, закрываем  окно
 	}
 }

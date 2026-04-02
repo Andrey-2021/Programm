@@ -166,7 +166,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         if (folder is null)
             return;
 
-        IsBusy = true;
+        IsPrgBusy = true;
         var repository = this.serviceProvider.GetRequiredService<DbRepository>();
         var result = await repository.GetFirstOrDefaultAsync<OrganizationInfo>();
 
@@ -181,7 +181,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
             dialogService.ShowInfo("Документы созданы");
         else
             dialogService.ShowError("Ошибка при создании документов: ", exception: createDocResult.ex);
-        IsBusy = false;
+        IsPrgBusy = false;
     }
 
     protected bool CheckIsPossibleCreateContract(object? parametr)
@@ -289,7 +289,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
 	/// </summary>
 	protected async Task LoadEmployees()
     {
-        IsBusy = true;
+        IsPrgBusy = true;
         var employeesResult = await repository.GetEntitiesAsync<Employee>();
         if (employeesResult.ex == null)
             Employees = new ObservableCollection<Employee>(employeesResult.data.OrderBy(x => x.LastName));
@@ -298,6 +298,6 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
             Employees?.Clear();
             dialogService.ShowError("Ошибка при чтении сотрудников из БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: employeesResult.ex);
         }
-        IsBusy = false;
+        IsPrgBusy = false;
     }
 }

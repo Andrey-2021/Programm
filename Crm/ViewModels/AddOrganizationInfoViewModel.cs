@@ -11,7 +11,7 @@ public class AddOrganizationInfoViewModel : BaseAddEntityViewModel<OrganizationI
 
     protected override async Task LoadNecessaryDates()
     {
-        IsBusy = true;
+        IsPrgBusy = true;
         var repository = this.serviceProvider.GetRequiredService<DbRepository>();
         var result = await repository.GetFirstOrDefaultAsync<OrganizationInfo>();
 
@@ -19,6 +19,6 @@ public class AddOrganizationInfoViewModel : BaseAddEntityViewModel<OrganizationI
             MainEntity = result.entity;
         else
             dialogService.ShowError("Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
-        IsBusy = false;
+        IsPrgBusy = false;
     }
 }

@@ -51,7 +51,7 @@ public class AddContractViewModel : BaseAddEntityViewModel<Contract>
 	/// <returns></returns>
 	protected async Task LoadNecessaryDates()
     {
-        IsBusy = true;
+        IsPrgBusy = true;
         var patientsResult = await repository.GetEntitiesAsync<Patient>();
         if (patientsResult.ex == null)
             Patients = new ObservableCollection<Patient>(patientsResult.data.OrderBy(x => x.LastName));
@@ -69,7 +69,7 @@ public class AddContractViewModel : BaseAddEntityViewModel<Contract>
             Employees?.Clear();
             dialogService.ShowError("Ошибка при чтении сотрудников из БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: employeesResult.ex);
         }
-        IsBusy = false;
+        IsPrgBusy = false;
     }
 
     protected override async Task<bool> OperationBeforeSave()

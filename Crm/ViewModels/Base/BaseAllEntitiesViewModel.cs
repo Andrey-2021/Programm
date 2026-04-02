@@ -128,7 +128,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
         where T:class, IHaveId
     {
         if (deletedEntity == null) return;
-        IsBusy = true;
+        IsPrgBusy = true;
         var repository = this.serviceProvider.GetRequiredService<DbRepository>();
         var result = await repository.DelEntityAsync<T>(deletedEntity);
 
@@ -138,7 +138,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
             StatusService.SetMessage("Данные удалены.");
         
         await LoadNecessaryDates();
-        IsBusy = false;
+        IsPrgBusy = false;
     }
 
     /// <summary>
@@ -166,7 +166,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     /// </summary>
     protected virtual async Task LoadNecessaryDates()
     {
-        IsBusy = true;
+        IsPrgBusy = true;
         var selectedId = SelectedEntity?.Id; // Для восстановления выбранного объекта
         var result = await LoadDataFromDb(repository);
 
@@ -182,7 +182,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
             dialogService.ShowError("Ошибка при чтении данных. Попробуйте выполнить операцию позже или обратитесь к администратору");
             StatusService.AddMessage("Ошибка чтения данных.");
         }
-        IsBusy = false;
+        IsPrgBusy = false;
     }
 
     /// <summary>
