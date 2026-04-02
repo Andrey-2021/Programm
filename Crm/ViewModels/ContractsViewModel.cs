@@ -4,6 +4,37 @@ namespace ViewModels;
 public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContractView>
 {
     /// <summary>
+    /// Фильтр
+    /// </summary>
+    public FilterData FilterData
+    {
+        get => filterData;
+        set
+        {
+            filterData = value;
+            OnPropertyChanged();
+        }
+    }
+    private FilterData filterData = new();
+
+    public IEnumerable<PaymentStatusEnum> PaymentStatusList => Enum.GetValues(typeof(PaymentStatusEnum)).Cast<PaymentStatusEnum>();
+    public IEnumerable<ContractStatusEnum> ContractStatusList => Enum.GetValues(typeof(ContractStatusEnum)).Cast<ContractStatusEnum>();
+
+    /// <summary>
+    /// Сотрудники
+    /// </summary>
+    public ObservableCollection<Employee>? Employees
+    {
+        get => employees;
+        set
+        {
+            employees = value;
+            OnPropertyChanged();
+        }
+    }
+    private ObservableCollection<Employee>? employees;
+
+    /// <summary>
     /// Выбранная услуга из таблицы оказанных услуг
     /// </summary>
     public ContractItem? SelectedContractItem
@@ -15,7 +46,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
             OnPropertyChanged();
         }
     }
-    public ContractItem? selectedContractItem;
+    private ContractItem? selectedContractItem;
 
     /// <summary>
     /// Выбранный платёж из таблицы платежей
@@ -29,7 +60,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
             OnPropertyChanged();
         }
     }
-    public Payment? selectedPayment;
+    private Payment? selectedPayment;
 
     /// <summary>
     /// Команда "Добавить платёж"
@@ -67,6 +98,16 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
     public RelayCommand? DeleteMedicalServiceInContectCommand { private set; get; }
 
     /// <summary>
+    /// Команда "Очистить фильтр"
+    /// </summary>
+    public RelayCommand? ClearFilterCommand { private set; get; }
+
+    /// <summary>
+    /// Команда "Отфильровать"
+    /// </summary>
+    public RelayCommand? FilterCommand { private set; get; }
+
+    /// <summary>
     /// Конструктор
     /// </summary>
     /// <param name="serviceProvider"></param>
@@ -81,11 +122,47 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         AddMedicalServiceForContectCommand = new RelayCommand(AddMedicalServiceForContect, CheckIsPossibleAddMedicalServiceForContect);
         EditMedicalServiceInContectCommand = new RelayCommand(EditMedicalServiceInContect, CheckIsPossibleEditMedicalServiceInContect);
         DeleteMedicalServiceInContectCommand = new RelayCommand(DeleteMedicalServiceInContect, CheckIsPossibleDeleteMedicalServiceInContect);
+
+        ClearFilterCommand = new RelayCommand(ClearFilter, CheckIsPossibleClearFilter);
+        FilterCommand = new RelayCommand(ToFilter, CheckIsPossibleToFilter);
+
+        var task = Task.Run(() => LoadEmployees());
+        task.Wait();
+    }
+
+    /// <summary>
+    /// Очистить фильтр
+    /// </summary>
+    protected async void ClearFilter(object? parametr)
+    {
+        FilterData = new();
+        await LoadNecessaryDates();
+    }
+
+    protected bool CheckIsPossibleClearFilter(object? parametr)
+    {
+        return true;
+    }
+
+    /// <summary>
+    /// Отфильтровать
+    /// </summary>
+    protected async void ToFilter(object? parametr)
+    {
+        await LoadNecessaryDates();
+    }
+
+    /// <summary>
+    /// Можно ли выполнить команду
+    /// </summary>
+    protected bool CheckIsPossibleToFilter(object? parametr)
+    {
+        return true;
     }
 
     protected async void CreateContract(object? parametr)
     {
-        var folder= dialogService.SelectFolder();
+        var folder = dialogService.SelectFolder();
         if (folder is null)
             return;
 
@@ -99,8 +176,8 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
             return;
         }
 
-        var createDocResult= MegicalApprovalDocument.CreateDoc(SelectedEntity!, result.entity!, folder);
-        if(createDocResult.ex is null)
+        var createDocResult = MegicalApprovalDocument.CreateDoc(SelectedEntity!, result.entity!, folder);
+        if (createDocResult.ex is null)
             dialogService.ShowInfo("Документы созданы");
         else
             dialogService.ShowError("Ошибка при создании документов: ", exception: createDocResult.ex);
@@ -186,7 +263,8 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
 
     protected override async Task<(IEnumerable<Contract> data, Exception? ex)> LoadDataFromDb(DbRepository repository)
     {
-        return await repository.GetAllInfoAboutContractsAsync();
+        var filter = FilterData?.GetFilter();
+        return await repository.GetAllInfoAboutContractsAsync(filter);
     }
 
     protected override void CheckCommands()
@@ -201,5 +279,25 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         AddPaymentCommand?.RaiseCanExecuteChanged();
         EditPaymentCommand?.RaiseCanExecuteChanged();
         DeletePaymentCommand?.RaiseCanExecuteChanged();
+
+        ClearFilterCommand?.RaiseCanExecuteChanged();
+        FilterCommand?.RaiseCanExecuteChanged();
+    }
+
+    /// <summary>
+	/// Загружаем сотрудников из БД
+	/// </summary>
+	protected async Task LoadEmployees()
+    {
+        IsBusy = true;
+        var employeesResult = await repository.GetEntitiesAsync<Employee>();
+        if (employeesResult.ex == null)
+            Employees = new ObservableCollection<Employee>(employeesResult.data.OrderBy(x => x.LastName));
+        else
+        {
+            Employees?.Clear();
+            dialogService.ShowError("Ошибка при чтении сотрудников из БД. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: employeesResult.ex);
+        }
+        IsBusy = false;
     }
 }

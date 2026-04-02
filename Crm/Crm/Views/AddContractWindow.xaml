@@ -128,7 +128,9 @@
 
 
 
-        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="3" Grid.Row="1">Выберите пациента:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="3" Grid.Row="1"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom">Выберите пациента:</Label>
         <DataGrid MinHeight="50"
            Grid.Column="3" Grid.Row="2" Grid.RowSpan="4"
            IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
@@ -152,7 +154,9 @@
 
 
 
-        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="3" Grid.Row="6">Ответственный сотрудник:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="3" Grid.Row="6"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom">Ответственный сотрудник:</Label>
         <DataGrid MinHeight="50"
            Grid.Column="3" Grid.Row="7" Grid.RowSpan="3"
            IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"

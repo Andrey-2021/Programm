@@ -5,11 +5,305 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm.Views"
         mc:Ignorable="d"
-                Title="Помощь" 
-Height="600" Width="700"
-MinHeight="700" MinWidth="900"
-WindowStartupLocation="CenterScreen">
+                Title="Помощь"
+        Height="650" Width="800"
+        MinHeight="500" MinWidth="600"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        Background="#F9F9F9">
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <Border Grid.Row="0" Background="LightBlue" Padding="15">
+            <TextBlock Text="Справка по программе «Медицинская информационная система MedSoft»"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="Black"
+                       HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- Основное содержимое с прокруткой -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="25">
+
+                <!-- Содержание -->
+                <TextBlock Text="Содержание"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#2980B9"
+                           Margin="0,10,0,10"/>
+
+                <WrapPanel Margin="10,0,0,15" Width="700">
+                    <Button Content="1. Администратор" 
+                            Style="{StaticResource HelpLinkButton}"
+                            Click="ScrollToAdminSection"/>
+                    <Button Content="2. Справочники" 
+                            Style="{StaticResource HelpLinkButton}"
+                            Click="ScrollToDirectoriesSection"/>
+                    <Button Content="3. Договора" 
+                            Style="{StaticResource HelpLinkButton}"
+                            Click="ScrollToContractsSection"/>
+                    <Button Content="4. Справка" 
+                            Style="{StaticResource HelpLinkButton}"
+                            Click="ScrollToHelpSection"/>
+                    <Button Content="5. Выход" 
+                            Style="{StaticResource HelpLinkButton}"
+                            Click="ScrollToExitSection"/>
+                    <Button Content="6. Панель инструментов" 
+                            Style="{StaticResource HelpLinkButton}"
+                            Click="ScrollToToolbarSection"/>
+                    <Button Content="7. Строка состояния" 
+                            Style="{StaticResource HelpLinkButton}"
+                            Click="ScrollToStatusBarSection"/>
+                </WrapPanel>
+
+                <Separator Margin="0,5,0,15"/>
+
+                <!-- ============ 1. АДМИНИСТРАТОР ============ -->
+                <TextBlock x:Name="AdminSection" 
+                           Text="1. Администратор"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#2980B9"
+                           Margin="0,15,0,10"/>
+
+                <Border Background="#ECF0F1" Padding="15" CornerRadius="5" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="Создать новую БД"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"/>
+                        <TextBlock Text="Создаёт новую базу данных. Внимание: при создании новой БД все несохранённые данные будут потеряны."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,10"/>
+
+                        <TextBlock Text="Загрузить данные в БД"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"
+                                   Margin="0,10,0,0"/>
+                        <TextBlock Text="Загружает ранее сохранённые данные из файла в базу данных."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,10"/>
+
+                        <TextBlock Text="Пользователи"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"
+                                   Margin="0,10,0,0"/>
+                        <TextBlock Text="Управление пользователями системы: добавление, редактирование, удаление, назначение прав доступа."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,0"/>
+
+                        <TextBlock Text="Примечание: данный раздел доступен только пользователям с правами администратора."
+                                   FontStyle="Italic"
+                                   Foreground="#7F8C8D"
+                                   Margin="10,10,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ 2. СПРАВОЧНИКИ ============ -->
+
+                <TextBlock x:Name="DirectoriesSection" 
+                           Text="2. Справочники"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#2980B9"
+                           Margin="0,15,0,10"/>
+
+                <Border Background="#ECF0F1" Padding="15" CornerRadius="5" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="Пациенты"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"/>
+                        <TextBlock Text="Ведение карточек пациентов: добавление, редактирование, удаление, поиск. Хранится информация: ФИО, дата рождения, контактные данные."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,10"/>
+
+                        <TextBlock Text="Медицинские услуги"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"/>
+                        <TextBlock Text="Справочник медицинских услуг: наименование, стоимость, категория, код услуги."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,10"/>
+
+                        <TextBlock Text="Сотрудники"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"/>
+                        <TextBlock Text="Информация о сотрудниках: ФИО, должность, специализация, контакты."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,10"/>
+
+                        <TextBlock Text="Должности сотрудников"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"
+                                   Margin="0,10,0,0"/>
+                        <TextBlock Text="Справочник должностей: названия должностей."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,10"/>
+
+                        <TextBlock Text="Виды медицинских услуг"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"
+                                   Margin="0,10,0,0"/>
+                        <TextBlock Text="Категории услуг: названия категорий услуг."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,10"/>
+
+                        <TextBlock Text="Реквизиты организации"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"
+                                   Margin="0,10,0,0"/>
+                        <TextBlock Text="Просмотр и редактирование реквизитов медицинской организации: название, ИНН, КПП, ОГРН, юридический адрес, банковские реквизиты."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ 3. ДОГОВОРА ============ -->
+
+                <TextBlock x:Name="ContractsSection" 
+                           Text="3. Договора"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#2980B9"
+                           Margin="0,15,0,10"/>
+
+                <Border Background="#ECF0F1" Padding="15" CornerRadius="5" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="Оформление договора"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"/>
+                        <TextBlock Text="Создание нового договора с клиентом. Выбор пациента, медицинских услуг, ответственного сотрудника."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,10"/>
+
+                        <TextBlock Text="Все договора"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"/>
+                        <TextBlock Text="Просмотр всех заключённых договоров. Возможности: фильтрация по дате, статусу, ответственному сотруднику; поиск по номеру; редактирование и печать договоров."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ 4. СПРАВКА ============ -->
+
+                <TextBlock x:Name="HelpSection" 
+                           Text="4. Справка"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#2980B9"
+                           Margin="0,15,0,10"/>
+
+                <Border Background="#ECF0F1" Padding="15" CornerRadius="5" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="О программе"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"/>
+                        <TextBlock Text="Информация о версии программы, разработчике, функционале и контактах поддержки."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,10"/>
+
+                        <TextBlock Text="Помощь"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Foreground="#2C3E50"/>
+                        <TextBlock Text="Открывает данную справочную систему с подробным описанием всех функций программы."
+                                   TextWrapping="Wrap"
+                                   Margin="10,5,0,0"/>
+                    </StackPanel>
+                </Border>
+                <!-- ============ 5. ВЫХОД ============ -->
+                <TextBlock x:Name="ExitSection" 
+                           Text="5. Выход"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#2980B9"
+                           Margin="0,15,0,10"/>
+
+                <Border Background="#ECF0F1" Padding="15" CornerRadius="5" Margin="0,0,0,15">
+                    <TextBlock Text="Завершение работы программы."
+                               TextWrapping="Wrap"/>
+                </Border>
+
+                <!-- ============ 6. ПАНЕЛЬ ИНСТРУМЕНТОВ ============ -->
+                <TextBlock x:Name="ToolbarSection" 
+                           Text="6. Панель инструментов (ToolBar)"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#2980B9"
+                           Margin="0,15,0,10"/>
+
+                <Border Background="#ECF0F1" Padding="15" CornerRadius="5" Margin="0,0,0,15">
+                    <StackPanel>
+
+                        <TextBlock Text="Быстрый доступ к основным функциям программы:"
+                                   Margin="0,0,0,10"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,2">
+                            <Image Height="25" Width="25" MaxHeight="25" Source="/images/patient.png" Stretch="Fill" />
+                            <TextBlock Text="Пациенты — переход к справочнику пациентов" Margin="10,2"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,2">
+                        <Image Height="25" Width="25" MaxHeight="25" Source="/images/medical-services.png" Stretch="Fill" />
+                            <TextBlock Text="Медицинские услуги — переход к справочнику услуг" Margin="10,2"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,2">
+                        <Image Height="25" Width="25" MaxHeight="25" Source="/images/employee.png" Stretch="Fill" />
+                            <TextBlock Text="Сотрудники — переход к справочнику сотрудников" Margin="10,2"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,2">
+                        <Image Height="25" Width="25" MaxHeight="25" Source="/images/hospital.png" Stretch="Fill" />
+                            <TextBlock Text="Реквизиты — просмотр реквизитов организации" Margin="10,2"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,2">
+                        <Image Height="25" Width="25" MaxHeight="25" Source="/images/contract.png" Stretch="Fill" />
+                            <TextBlock Text="Договора — переход к списку договоров" Margin="10,2"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ 7. СТРОКА СОСТОЯНИЯ ============ -->
+                <TextBlock x:Name="StatusBarSection" 
+                           Text="7. Строка состояния"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#2980B9"
+                           Margin="0,15,0,10"/>
+
+                <Border Background="#ECF0F1" Padding="15" CornerRadius="5" Margin="0,0,0,15">
+                    <TextBlock Text="Отображает текущие сообщения системы: статус операций, результаты загрузки/сохранения данных, ошибки, подсказки по выполнению действий."
+                               TextWrapping="Wrap"/>
+                </Border>
+
+                <!-- Копирайт -->
+                <TextBlock Text="©2026 Медицинская информационная система."
+                           FontStyle="Italic"
+                           HorizontalAlignment="Center"
+                           Foreground="#7F8C8D"
+                           Margin="0,30,0,15"/>
+            </StackPanel>
+        </ScrollViewer>
+
     </Grid>
 </Window>

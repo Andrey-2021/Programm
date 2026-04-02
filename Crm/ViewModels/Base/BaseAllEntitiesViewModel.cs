@@ -164,7 +164,7 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     /// <summary>
     /// Загрузка сущностей из БД
     /// </summary>
-    protected async Task LoadNecessaryDates()
+    protected virtual async Task LoadNecessaryDates()
     {
         IsBusy = true;
         var selectedId = SelectedEntity?.Id; // Для восстановления выбранного объекта

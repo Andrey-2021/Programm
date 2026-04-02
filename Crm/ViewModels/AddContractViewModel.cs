@@ -46,7 +46,7 @@ public class AddContractViewModel : BaseAddEntityViewModel<Contract>
     }
 
     /// <summary>
-	/// Загружаем список Групп из БД
+	/// Загружаем данных из БД
 	/// </summary>
 	/// <returns></returns>
 	protected async Task LoadNecessaryDates()

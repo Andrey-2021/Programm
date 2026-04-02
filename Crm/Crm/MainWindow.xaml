@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crm"
         mc:Ignorable="d"
-        Title="Система управления клиентами" Height="450" Width="800"
+        Title="Медицинская информационная система MedSoft"
+        Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:BooleanToCollapsedVisibilityConverter x:Key="BTVConverter"/>
@@ -15,6 +16,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -52,8 +54,29 @@
 
             <MenuItem Header="Выход" Command="{Binding ExitCommand}"></MenuItem>
         </Menu>
+        <ToolBar Grid.Row="1">
+            <Button Command="{Binding ShowAllPatientsCommand}" ToolTip="Пациенты">
+                <Image Height="25" MaxHeight="25" Source="images/patient.png" Stretch="Fill" />
+            </Button>
+            <Button Command="{Binding ShowAllMedicalServicesCommand}" ToolTip="Медицинские услуги">
+                <Image Height="25" MaxHeight="25" Source="/images/medical-services.png" Stretch="Fill" />
+            </Button>
+            <Button Command="{Binding ShowAllEmployeesCommand}" ToolTip="Сотрудники">
+                <Image Height="25" MaxHeight="25" Source="/images/employee.png" Stretch="Fill" />
+            </Button>
 
-        <StatusBar Grid.Column="0" Grid.Row="2" Style="{StaticResource StatusBarStyle}">
+            <Separator />
+            <Button Command="{Binding ShowOrganizationInfoCommand}" ToolTip="Реквизиты">
+                <Image Height="25" MaxHeight="25" Source="/images/hospital.png" Stretch="Fill" />
+            </Button>
+            
+            <Separator />
+            <Button Command="{Binding ShowAllContractsCommand}" ToolTip="Договора">
+                <Image Height="25" MaxHeight="25" Source="/images/contract.png" Stretch="Fill" />
+            </Button>
+        </ToolBar>
+
+        <StatusBar Grid.Column="0" Grid.Row="3" Style="{StaticResource StatusBarStyle}">
             <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>
         

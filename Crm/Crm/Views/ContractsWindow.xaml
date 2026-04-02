@@ -16,9 +16,13 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+
+            <!--Фильтр-->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!--Таблица-->
             <RowDefinition Height="30*"></RowDefinition>
 
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
 
             <RowDefinition Height="Auto"></RowDefinition>
@@ -31,8 +35,124 @@
             Договора
         </Label>
 
+        <StackPanel Grid.Column="0" Grid.Row="1"
+                    Margin="10"
+                    Background="AliceBlue">
+            <Border BorderBrush="#BDC3C7" 
+            BorderThickness="0,0,0,1" 
+            Background="#F4F6F7"
+            Padding="1" Margin="5">
+                <StackPanel>
+                    <!-- Заголовок фильтров -->
+                    <TextBlock Text="Фильтры" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       Margin="5,0,0,5"/>
+
+                </StackPanel>
+            </Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto" MinWidth="200"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Дата заключения:" 
+                           Grid.Row="0" Grid.Column="0" 
+                           VerticalAlignment="Center" 
+                           Margin="5"/>
+                <StackPanel Grid.Row="0" Grid.Column="1" 
+                            Orientation="Horizontal" 
+                            Margin="5">
+                    <DatePicker x:Name="DateFromPicker" 
+                                Width="120" 
+                                SelectedDate="{Binding Path=FilterData.DateFrom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="—" VerticalAlignment="Center" Margin="5,0"/>
+                    <DatePicker x:Name="DateToPicker" 
+                                Width="120"
+                                SelectedDate="{Binding Path=FilterData.DateTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!-- Статус договора -->
+                <TextBlock Text="Статус договора:" 
+                           Grid.Row="0" Grid.Column="2" 
+                           VerticalAlignment="Top" 
+                           Margin="10,5,0,0"/>
+                <ComboBox x:Name="ContractStatusComboBox" 
+                          Grid.Row="0" Grid.Column="3" 
+                          Width="150" 
+                          Margin="7,5,8,5"
+                          ItemsSource="{Binding ContractStatusList, Mode=OneWay}"
+                          SelectedValue="{Binding Path=FilterData.ContractStatus}">
+                </ComboBox>
+
+                <!-- Номер договора -->
+                <TextBlock Text="Номер договора:" 
+                           Grid.Row="0" Grid.Column="4" 
+                           VerticalAlignment="Center" 
+                           Margin="5"/>
+                <TextBox Grid.Row="0" Grid.Column="5" 
+                         Width="150" Margin="5"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding Path=FilterData.ContractNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
+
+
+                <!-- Строка 2 -->
+
+                <!-- Ответственный сотрудник -->
+                <TextBlock Text="Ответственный:" 
+                           Grid.Row="1" Grid.Column="0" 
+                           VerticalAlignment="Center" 
+                           Margin="5"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" 
+                          Width="260" Margin="5"
+                          ItemsSource="{Binding Employees, Mode=TwoWay}"
+                          DisplayMemberPath="FIO"
+                          SelectedValuePath="Id"
+                          SelectedValue="{Binding Path=FilterData.EmployeeId, ValidatesOnNotifyDataErrors=True}">
+                </ComboBox>
+
+
+                <!-- Статус оплаты -->
+                <TextBlock Text="Статус оплаты:" 
+                           Grid.Row="1" Grid.Column="2" 
+                           VerticalAlignment="Center" 
+                           Margin="5"/>
+                <ComboBox x:Name="PaymentStatusComboBox" 
+                          Grid.Row="1" Grid.Column="3" 
+                          Width="150" Margin="5"
+                          ItemsSource="{Binding PaymentStatusList, Mode=OneWay}"
+                          SelectedValue="{Binding Path=FilterData.PaymentStatus}">
+                </ComboBox>
+
+
+                <!-- Кнопки управления фильтрами -->
+                <StackPanel Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Right">
+                    <Button Content="Применить" 
+                            Width="80" Margin="5"
+                            Command="{Binding FilterCommand}"/>
+                    <Button Content="Сбросить" 
+                            Width="80" 
+                            Margin="5"
+                            Command="{Binding ClearFilterCommand}"/>
+                </StackPanel>
+
+            </Grid>
+        </StackPanel>
+
+
         <DataGrid MinHeight="150"
-Grid.Column="0" Grid.Row="1"
+Grid.Column="0" Grid.Row="2"
 IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
 SelectionMode="Single"
 VerticalScrollBarVisibility="Auto"
@@ -69,7 +189,7 @@ SelectedItem="{Binding SelectedEntity}">
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Column="1" Grid.Row="1">
+        <StackPanel Grid.Column="1" Grid.Row="2">
             <Button Command="{Binding AddCompanyCommand}"
                     Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
             <Button Command="{Binding EditCommand}"
@@ -88,10 +208,12 @@ SelectedItem="{Binding SelectedEntity}">
 
 
         <!-- Услуги по договору -->
-        <Label Grid.Row="2" Style="{StaticResource TytletStyle}">
-        Услуги по договору</Label>
+        <Label Grid.Row="3" Style="{StaticResource TytletStyle}">
+            Услуги по договору
+        </Label>
+
         <DataGrid MinHeight="150"
-  Grid.Column="0" Grid.Row="3"
+  Grid.Column="0" Grid.Row="4"
   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
   SelectionMode="Single"
   VerticalScrollBarVisibility="Auto"
@@ -103,7 +225,7 @@ SelectedItem="{Binding SelectedEntity}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=MedicalService.ServiceName}" Header="Мед. услуга" Width="5*">
                 </DataGridTextColumn>
-                
+
                 <DataGridTextColumn Binding="{Binding Quantity}" Header="Кол.услуг" Width="5*">
                 </DataGridTextColumn>
 
@@ -126,7 +248,7 @@ SelectedItem="{Binding SelectedEntity}">
         </DataGrid>
 
 
-        <StackPanel Grid.Column="1" Grid.Row="3">
+        <StackPanel Grid.Column="1" Grid.Row="4">
             <Button Command="{Binding AddMedicalServiceForContectCommand}"
                     Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
             <Button Command="{Binding EditMedicalServiceInContectCommand}"
@@ -136,12 +258,12 @@ SelectedItem="{Binding SelectedEntity}">
         </StackPanel>
 
         <!-- Оплаты пациентом -->
-        <Label Grid.Row="4" Style="{StaticResource TytletStyle}">
+        <Label Grid.Row="5" Style="{StaticResource TytletStyle}">
             Оплаты пациентом
         </Label>
-        
+
         <DataGrid MinHeight="150"
-Grid.Column="0" Grid.Row="5"
+Grid.Column="0" Grid.Row="6"
 IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
 SelectionMode="Single"
 VerticalScrollBarVisibility="Auto"
@@ -166,7 +288,7 @@ SelectedItem="{Binding SelectedPayment, Mode=OneWayToSource}">
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Column="1" Grid.Row="5">
+        <StackPanel Grid.Column="1" Grid.Row="6">
             <Button Command="{Binding AddPaymentCommand}"
                     Style="{StaticResource WindowButtonStyle}">Дабавить</Button>
             <Button Command="{Binding EditPaymentCommand}"
@@ -175,7 +297,7 @@ SelectedItem="{Binding SelectedPayment, Mode=OneWayToSource}">
                     Style="{StaticResource WindowCloseButtonStyle}">Удалить</Button>
         </StackPanel>
 
-        <StatusBar Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource StatusBarStyle}">
+        <StatusBar Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Style="{StaticResource StatusBarStyle}">
             <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>
     </Grid>

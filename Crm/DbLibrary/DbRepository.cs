@@ -1,6 +1,5 @@
 ﻿using Entities.Interfaces;
 using System.Linq.Expressions;
-
 namespace DbLibrary;
 
 /// <summary>
@@ -287,13 +286,12 @@ public class DbRepository
         {
             return (null, ex);
         }
-
     }
 
     /// <summary>
     /// Информация о договоре
     /// </summary>
-    public async Task<(IEnumerable<Contract> data, Exception? ex)> GetAllInfoAboutContractsAsync()
+    public async Task<(IEnumerable<Contract> data, Exception? ex)> GetAllInfoAboutContractsAsync(System.Linq.Expressions.Expression<Func<Contract, bool>>? predicate = null)
     {
         var result = await GetEntitiesAsync<Contract>(include: x => x.Include(cont => cont.Patient) //Подгружаем данные о пациенте
                                                                     .Include(cont=>cont.Payments)
@@ -301,9 +299,10 @@ public class DbRepository
                                                                         .ThenInclude(ci=>ci.MedicalService)
                                                                             .ThenInclude(ms=>ms.MedicalServiceType)
                                                                     .Include(cont => cont.Employee), //Подгружаем данные о сотруднике
-                                                                             orderBy: x => x.OrderByDescending(contr => contr.ContractDate)); // Сортируем по дате заключения договора
+                                                      orderBy: x => x.OrderByDescending(contr => contr.ContractDate),// Сортируем по дате заключения договора
+                                                      predicate:predicate // Фильтр
+                                                      ); 
         return result;
     }
-
 }
 
