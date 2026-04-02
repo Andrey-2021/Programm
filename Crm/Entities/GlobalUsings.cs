@@ -7,3 +7,4 @@ global using System.Text.RegularExpressions;
 
 global using Entities.Interfaces;
 global using Entities.Base;
+global using Entities.Enums;

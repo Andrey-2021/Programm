@@ -1,5 +1,4 @@
 ﻿using Entities.Enums;
-
 namespace Entities;
 
 /// <summary>

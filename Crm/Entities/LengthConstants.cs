@@ -1,5 +1,8 @@
 ﻿namespace Entities;
 
+/// <summary>
+/// Константы
+/// </summary>
 internal class LengthConstants
 {
     /// <summary>
@@ -193,6 +196,4 @@ internal class LengthConstants
     /// Максимальная количество оказанных однотипных услуг
     /// </summary>
     public const int medicalServicesQuantityMaxLength = 50;
-
-    
 }

@@ -134,18 +134,21 @@ public class MedicalService : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private uint ndsPercent = default!;
-    
+
+    /// <summary>
+    /// Цена с НДС
+    /// </summary>
     [NotMapped]
     public decimal PriceWithNds => ServicePrice * (100 + NdsPercent) / 100.0m;
 
     public MedicalService()
-    { 
+    {
     }
 
     /// <summary>
     /// Конструктор для инициализации свойств (без ServiceId).
     /// </summary>
-    public MedicalService(string serviceName, MedicalServiceType serviceType, string serviceCode, decimal servicePrice, uint ndsPercent=0)
+    public MedicalService(string serviceName, MedicalServiceType serviceType, string serviceCode, decimal servicePrice, uint ndsPercent = 0)
     {
         ServiceName = serviceName;
         MedicalServiceType = serviceType;

@@ -3,6 +3,9 @@ using System.Linq.Expressions;
 
 namespace DbLibrary;
 
+/// <summary>
+/// Репозитория БД
+/// </summary>
 public class DbRepository
 {
     private readonly IDbContextFactory<SqlDbContext> contextFactory;
@@ -47,12 +50,6 @@ public class DbRepository
     {
         try
         {
-            //using var db = contextFactory.CreateDbContext();
-            //await db.CreateClearDbAsync();
-            //await InitDb(db);
-            //return (true, null);
-
-            //using (var db = new SqlDbContext())
             using (var db = contextFactory.CreateDbContext())
             {
                 await db.Database.EnsureDeletedAsync();
@@ -125,7 +122,15 @@ public class DbRepository
         }
     }
 
-
+    /// <summary>
+    /// Прочитать сущности
+    /// </summary>
+    /// <typeparam name="TEntity">Тип</typeparam>
+    /// <param name="predicate">Условие поиска</param>
+    /// <param name="orderBy">Сортировка</param>
+    /// <param name="include">Включить зависимые сущности</param>
+    /// <param name="trackingType">Отслеживание прочитанных сужностей</param>
+    /// <returns></returns>
     public async Task<(IEnumerable<TEntity> data, Exception? ex)> GetEntitiesAsync<TEntity>(System.Linq.Expressions.Expression<Func<TEntity, bool>>? predicate = null,
                                                                                             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                                                                             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
@@ -134,7 +139,6 @@ public class DbRepository
     {
         try
         {
-            //using var db = contextFactory.CreateDbContext();
             using (var db = contextFactory.CreateDbContext())
             {
                 var query = db.Set<TEntity>().AsQueryable(); //.AsSplitQuery();
@@ -150,6 +154,9 @@ public class DbRepository
         }
     }
 
+    /// <summary>
+    /// Настройка отслеживания
+    /// </summary>
     protected IQueryable<T> TrackingPart<T>(TrackingType trackingType, IQueryable<T> entities)
         where T : class
     {
@@ -163,6 +170,9 @@ public class DbRepository
         return query;
     }
 
+    /// <summary>
+    /// Настройка параметров
+    /// </summary>
     private IQueryable<T> Common_Predicat_OrderBy_Include<T>(IQueryable<T> query,
                                                                 System.Linq.Expressions.Expression<Func<T, bool>>? predicate = null,
                                                                 Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
@@ -183,9 +193,6 @@ public class DbRepository
     /// <summary>
 	/// Обновить сущность в БД
 	/// </summary>
-	/// <typeparam name="TEntity"></typeparam>
-	/// <param name="entity"></param>
-	/// <returns></returns>
 	public async Task<(TEntity? entety,Exception? ex)> UpdateEntityAsync<TEntity>(TEntity entity)
     where TEntity : class
     {
@@ -230,6 +237,16 @@ public class DbRepository
         }
     }
 
+    /// <summary>
+    /// Найти сущность
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="predicate"></param>
+    /// <param name="orderBy"></param>
+    /// <param name="include"></param>
+    /// <param name="trackingType"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public async Task<(TEntity? entity, Exception? ex)> GetFirstOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>>? predicate = null,
                                                             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                                             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
@@ -273,7 +290,9 @@ public class DbRepository
 
     }
 
-
+    /// <summary>
+    /// Информация о договоре
+    /// </summary>
     public async Task<(IEnumerable<Contract> data, Exception? ex)> GetAllInfoAboutContractsAsync()
     {
         var result = await GetEntitiesAsync<Contract>(include: x => x.Include(cont => cont.Patient) //Подгружаем данные о пациенте

@@ -1,6 +1,5 @@
 ﻿using Entities.Enums;
 using NickBuhro.NumToWords.Russian;
-
 namespace Entities;
 
 /// <summary>
@@ -86,7 +85,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     [Comment("Дата окончания")]
     [DisplayName("Дата окончания")]
     [Range(typeof(DateTime), "1/1/2000", "1/1/2035", ErrorMessage = "Дата окончания вне допустимого диапазона")]
-    //todo - переделать валидацию - [CustomValidation(typeof(Contract), ValidateData.ValidateEndDate)]
     public DateTime EndDate
     {
         get => endDate;
@@ -98,30 +96,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private DateTime endDate = DateTime.Now.AddDays(10);
-
-    /*
-    /// <summary>
-    /// Общая сумма договора
-    /// </summary>
-    [Required(ErrorMessage = "Введите общую сумму договора")]
-    [Range(0, (double)LengthConstants.totalAmountMaxLength, ErrorMessage = "Недопустимое значение. Должно быть от {1} до {2}")]
-    [DataType(DataType.Currency)]
-    [Comment("Общая сумма")]
-    [DisplayName("Общая сумма")]
-    public decimal TotalAmount
-    {
-        get => totalAmount;
-        set
-        {
-            totalAmount = value;
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(TotalAmountText));
-            Validate(value);
-        }
-    }
-    private decimal totalAmount;
-    */
-
 
     /// <summary>
     /// Общая сумма договора
@@ -138,57 +112,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     [Comment("Сумма прописью")]
     [DisplayName("Сумма прописью")]
     public string TotalAmountText=> RussianConverter.FormatCurrency(TotalAmount);
-    
-
-
-    /*
-    /// <summary>
-    /// Общая сумма договора прописью
-    /// </summary>
-    [Required(ErrorMessage = "Введите сумму прописью")]
-    [StringLength(LengthConstants.totalAmountTextMaxLength, MinimumLength = LengthConstants.totalAmountTextMinLength, ErrorMessage = "Длина текста суммы должна быть не менее {2} и не более {1} символов")]
-    [Comment("Сумма прописью")]
-    [DisplayName("Сумма прописью")]
-    public string TotalAmountText
-    {
-        get => totalAmountText;
-        set
-        {
-            totalAmountText = value;
-            OnPropertyChanged();
-            Validate(value);
-        }
-    }
-    private string totalAmountText = string.Empty;
-    */
-
-
-
-
-
-
-
-
-    /*
-    /// <summary>
-    /// Статус оплаты
-    /// </summary>
-    [Required(ErrorMessage = "Введите статус оплаты")]
-    [StringLength(LengthConstants.paymentStatusMaxLength, MinimumLength = LengthConstants.paymentStatusMinLength, ErrorMessage = "Длина статуса оплаты должна быть не менее {2} и не более {1} символов")]
-    [Comment("Статус оплаты")]
-    [DisplayName("Статус оплаты")]
-    public string PaymentStatus
-    {
-        get => paymentStatus;
-        set
-        {
-            paymentStatus = value;
-            OnPropertyChanged();
-            Validate(value);
-        }
-    }
-    private string paymentStatus = string.Empty;
-    */
 
     /// <summary>
     /// Статус оплаты
@@ -208,31 +131,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     }
     public PaymentStatusEnum? paymentStatus;
 
-
-
-
-
-    /*
-    /// <summary>
-    /// Статус договора
-    /// </summary>
-    [Required(ErrorMessage = "Введите статус договора")]
-    [StringLength(LengthConstants.contractStatusMaxLength, MinimumLength = LengthConstants.contractStatusMinLength, ErrorMessage = "Длина статуса договора должна быть не менее {2} и не более {1} символов")]
-    [Comment("Статус договора")]
-    [DisplayName("Статус договора")]
-    public string ContractStatus
-    {
-        get => contractStatus;
-        set
-        {
-            contractStatus = value;
-            OnPropertyChanged();
-            Validate(value);
-        }
-    }
-    private string contractStatus = string.Empty;
-    */
-
     /// <summary>
     /// Статус договора
     /// </summary>
@@ -251,9 +149,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     }
     public ContractStatusEnum? contractStatus;
 
-
-
-
     /// <summary>
     /// Дополнительные примечания к договору
     /// </summary>
@@ -271,11 +166,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         }
     }
     private string notes = string.Empty;
-
-
-
-
-
 
     /// <summary>
     /// ID пациента
@@ -323,9 +213,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     }
     private Patient? patient;
 
-
-
-
     /// <summary>
     /// ID ответственного сотрудника
     /// </summary>
@@ -371,7 +258,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
     }
     private Employee? employee;
 
-
     /// <summary>
     /// Оказанная услуга
     /// </summary>
@@ -408,7 +294,6 @@ public class Contract : BaseINotifyDataErrorInfo, IHaveId
         ContractNumber = contractNumber;
         StartDate = startDate;
         EndDate = endDate;
-        //TotalAmount = totalAmount;
         PaymentStatus = paymentStatus;
         ContractStatus = contractStatus;
         Notes = notes;

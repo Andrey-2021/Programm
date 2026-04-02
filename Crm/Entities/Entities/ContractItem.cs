@@ -55,7 +55,6 @@ public class ContractItem : BaseINotifyDataErrorInfo, IHaveId
     }
     private Contract? contract;
 
-
     /// <summary>
     /// Id мед. услуги
     /// </summary>
@@ -158,6 +157,9 @@ public class ContractItem : BaseINotifyDataErrorInfo, IHaveId
     }
     private uint ndsPercent = default!;
 
+    /// <summary>
+    /// Цена с НДС
+    /// </summary>
     [NotMapped]
     public decimal PriceWithNds => Price * (100 + NdsPercent) / 100.0m;
 
