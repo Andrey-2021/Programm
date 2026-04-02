@@ -21,17 +21,16 @@ public class CheckLoginViewModel : BaseAddEntityViewModel<CheckLogin>
 				return;
 			}
 
-			dialogService.ShowError("БД недоступна. Неправильно ввели пароль или логин!");
-			CloseWindow(parametr);
+			dialogService.ShowError("БД недоступна. Неправильно ввели пароль или логин по умолчанию!");
+			//CloseWindow(parametr);
 			return;
-
 		}
 
 		var find= await repository.GetEntitiesAsync<RegisteredUser>(x => x.Password == MainEntity.Password && x.Login == MainEntity.Login);
 		if(find.data == null || find.data.Count()==0)
 		{
 			dialogService.ShowWarning("Неправильно ввели пароль или логин!");
-            CloseWindow(parametr);
+            //CloseWindow(parametr);
 			return;
 		}
 
