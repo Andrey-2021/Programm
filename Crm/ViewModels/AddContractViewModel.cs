@@ -78,5 +78,26 @@ public class AddContractViewModel : BaseAddEntityViewModel<Contract>
         MainEntity!.Employee = null;
         return true;
     }
+
+    protected override void ClearData(object? parametr)
+    {
+        if (MainEntity == null)
+            return;
+
+        MainEntity.ContractNumber = string.Empty;
+        MainEntity.ContractDate = DateTime.Now;
+        MainEntity.StartDate = DateTime.Now;
+        MainEntity.EndDate = DateTime.Now;
+        MainEntity.PaymentStatus = null;
+        MainEntity.ContractStatus = null;
+        MainEntity.Notes = String.Empty;
+
+        MainEntity.PatientId = 0;
+        MainEntity.Patient = null;
+
+        MainEntity.EmployeeId = 0;
+        MainEntity.Employee = null;
+    }
+
 }
 

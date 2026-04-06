@@ -9,9 +9,10 @@
         Title="Мед.услуга" 
         Height="800" Width="1200"
         MinHeight="700" MinWidth="900"
-        WindowStartupLocation="CenterOwner"
-        Style="{StaticResource ModernWindowStyle}">
-    <Grid>
+        WindowStartupLocation="CenterOwner">
+    <xctk:BusyIndicator IsBusy="{Binding IsPrgBusy}"
+            BusyContent="Минутку..." Margin="2">
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -60,7 +61,7 @@
           VerticalScrollBarVisibility="Auto"
           AutoGenerateColumns="False"
           CanUserReorderColumns="False"
-          Margin="5 15 5 15"
+          Margin="5 15 15 15"
           ItemsSource="{Binding MedicalServices, Mode=TwoWay}"
           Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
             <!--SelectedValue="{Binding Path=SelectedMedicalService, ValidatesOnNotifyDataErrors=True}"-->
@@ -82,54 +83,53 @@
                 <DataGridTextColumn Binding="{Binding ServicePrice}" Header="Стоимость" Width="110"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding NdsPercent}" Header="НДС" Width="50"/>
                 <DataGridTextColumn Binding="{Binding PriceWithNds}" Header="Цена с НДС" Width="100"/>
-
             </DataGrid.Columns>
         </DataGrid>
 
 
-        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="4">Медицинская услуга:</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="4">Выбранная медицинская услуга:</Label>
         <Label Grid.Column="1" Grid.Row="4"  Style="{StaticResource RequiredStyle}">*</Label>
         <TextBox Style="{StaticResource InputTextBoxStyle}" 
                  Grid.Column="2" Grid.Row="4"
-IsReadOnly="True"
-IsEnabled="False"
-Text="{Binding Path=MainEntity.MedicalService.ServiceName, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-        
-
-        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="5">Количество услуг:</Label>
-        <Label Grid.Column="1" Grid.Row="5"  Style="{StaticResource RequiredStyle}">*</Label>
-        <xctk:IntegerUpDown Grid.Column="2" Grid.Row="5"
-                            Style="{StaticResource InputIntegerUpDownStyle}"
-                            Value="{Binding MainEntity.Quantity, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
-    Maximum="1000000"
-    HorizontalAlignment="Left"
-    Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+                 IsReadOnly="True" 
+                 IsEnabled="False"
+                 Text="{Binding Path=MainEntity.MedicalService.ServiceName, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+              
 
 
 
-        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="6">Цена услуги:</Label>
-        <StackPanel Grid.Column="2" Grid.Row="6" Orientation="Horizontal">
-            <Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>
+        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="5">Цена услуги:</Label>
+        <StackPanel Grid.Column="2" Grid.Row="5" Orientation="Horizontal">
+            <!--<Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>-->
             <TextBox Style="{StaticResource InputTextBoxStyle}" 
                 Grid.Column="2" Grid.Row="6" IsReadOnly="True" IsEnabled="False"
                      Text="{Binding Path=MainEntity.Price,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="6">НДС:</Label>
-            <Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>
+            <!--<Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>-->
             <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="6" IsReadOnly="True" IsEnabled="False"
                      Text="{Binding Path=MainEntity.NdsPercent,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="6">Цена с НДС:</Label>
-            <Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>
+            <!--<Label Grid.Column="1" Grid.Row="2"  Style="{StaticResource RequiredStyle}">*</Label>-->
             <TextBox Style="{StaticResource InputTextBoxStyle}" Grid.Column="2" Grid.Row="6" IsReadOnly="True" IsEnabled="False"
                      Text="{Binding Path=MainEntity.PriceWithNds,Mode=OneWay,  UpdateSourceTrigger=PropertyChanged}"/>
 
         </StackPanel>
-        
-        
+
+            <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="6">Количество услуг:</Label>
+            <Label Grid.Column="1" Grid.Row="6"  Style="{StaticResource RequiredStyle}">*</Label>
+            <xctk:IntegerUpDown Grid.Column="2" Grid.Row="6"
+                        Style="{StaticResource InputIntegerUpDownStyle}"
+                        Value="{Binding MainEntity.Quantity, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+Maximum="1000000"
+HorizontalAlignment="Left"
+Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+            
 
 
-        <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="7">Скидка (руб.):</Label>
+            <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="7">Скидка (руб.):</Label>
         <Label Grid.Column="1" Grid.Row="7"  Style="{StaticResource RequiredStyle}">*</Label>
         <xctk:DecimalUpDown Grid.Column="2" Grid.Row="7"
                             Style="{StaticResource InputDecimalUpDownStyle}"
@@ -160,6 +160,11 @@ Text="{Binding Path=MainEntity.ItemTotal, Mode=OneWay,  UpdateSourceTrigger=Prop
                     Style="{StaticResource WindowCloseButtonStyle}">
                 Отмена
             </Button>
-        </StackPanel>
+                <Button Style="{StaticResource WindowButtonStyle}"
+                        Command="{Binding ClearCommand}">
+                    Очистить
+                </Button>
+            </StackPanel>
     </Grid>
+    </xctk:BusyIndicator>
 </Window>

@@ -12,7 +12,10 @@
         MinHeight="550" MinWidth="650"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource ModernWindowStyle}">
-    <Grid>
+    <xctk:BusyIndicator IsBusy="{Binding IsPrgBusy}"
+                BusyContent="Минутку..." Margin="2">
+
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -119,7 +122,12 @@
             Style="{StaticResource WindowCloseButtonStyle}">
                 Отмена
             </Button>
-        </StackPanel>
+                <Button Style="{StaticResource WindowButtonStyle}"
+        Command="{Binding ClearCommand}">
+                    Очистить
+                </Button>
+            </StackPanel>
     </Grid>
+    </xctk:BusyIndicator>
 
 </Window>

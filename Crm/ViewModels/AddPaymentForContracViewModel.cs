@@ -16,4 +16,15 @@ public class AddPaymentForContracViewModel : BaseAddEntityViewModel<Payment>
         MainEntity!.Contract = null;
         return true;
     }
+
+    protected override void ClearData(object? parametr)
+    {
+        if (MainEntity == null)
+            return;
+        MainEntity.PaymentDate = DateTime.Now;
+        MainEntity.PaymentMethod = null;
+        MainEntity.PaymentAmount = 0;
+        MainEntity.TransactionId = string.Empty;
+        MainEntity.PaymentNotes = string.Empty;
+    }
 }

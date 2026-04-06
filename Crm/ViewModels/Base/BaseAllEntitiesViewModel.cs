@@ -109,6 +109,8 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     protected virtual async void DelEntity(object? parametr)
     {
         await Delete(SelectedEntity!);
+        
+
     }
 
     /// <summary>
@@ -127,18 +129,31 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     protected async Task Delete<T>(T deletedEntity)
         where T:class, IHaveId
     {
-        if (deletedEntity == null) return;
+        StatusService.Clea();
+        if (deletedEntity == null) 
+            return;
+
+        if (!AskQestionToDelete())
+            return;
+
         IsPrgBusy = true;
-        var repository = this.serviceProvider.GetRequiredService<DbRepository>();
         var result = await repository.DelEntityAsync<T>(deletedEntity);
 
         if (result.ex is not null)
             dialogService.ShowError("Ошибка при удалении данных. Попробуйте выполнить операцию позже или обратитесь к администратору.", exception: result.ex);
         else
+        {
             StatusService.SetMessage("Данные удалены.");
+        }
         
         await LoadNecessaryDates();
         IsPrgBusy = false;
+    }
+
+    protected virtual bool AskQestionToDelete()
+    {
+        return dialogService.Confirm("Удаление объекта может привести к удалению всех зависящих объектов, которые зависят от данного удаляемого. " +
+            Environment.NewLine+ "Вы действительно хотите удалить лбъект?");
     }
 
     /// <summary>

@@ -9,8 +9,11 @@
         Height="600" Width="1200"
         MinHeight="450" MinWidth="1000"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource ModernWindowStyle}">
-    <Grid>
+        Style="{StaticResource ModernWindowStyle}"
+            xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <xctk:BusyIndicator IsBusy="{Binding IsPrgBusy}"
+            BusyContent="Минутку..." Margin="2">
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"></ColumnDefinition>
             <ColumnDefinition Width="Auto" MaxWidth="200"></ColumnDefinition>
@@ -69,4 +72,5 @@
             <TextBlock Text="{Binding StatusService.StatusMessage, Mode=OneWay}"></TextBlock>
         </StatusBar>
     </Grid>
+    </xctk:BusyIndicator>
 </Window>

@@ -32,7 +32,7 @@ public class StatusService: BaseNotifyPropertyChanged
     /// </summary>
     public void AddMessage(string message)
     {
-        StatusMessage = message+ " " + DateTime.Now; ;
+        StatusMessage = (StatusMessage==null?string.Empty : StatusMessage+". ") + message + " " + DateTime.Now; ;
     }
 
     /// <summary>

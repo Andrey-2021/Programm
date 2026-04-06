@@ -27,4 +27,12 @@ public class AddPositionViewModel : BaseAddEntityViewModel<Position>
         }
         return true;
     }
+
+    protected override void ClearData(object? parametr)
+    {
+        if (MainEntity == null)
+            return;
+        MainEntity.PositionName = string.Empty;
+
+    }
 }

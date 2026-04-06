@@ -26,11 +26,6 @@ public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<Cont
     }
     public MedicalService? selectedMedicalService;
 
-    //#region Вылидация для SelectedMedicalService
-    //public string Error => throw new NotImplementedException();
-    //public string this[string columnName] => SelectedMedicalService==null?"Не выбрали мед.услугу":String.Empty;
-    //#endregion
-
     /// <summary>
     /// Список медицинских услуг из БД
     /// </summary>
@@ -63,8 +58,6 @@ public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<Cont
         if (result.ex == null)
         {
             MedicalServices = new ObservableCollection<MedicalService>(result.data.OrderBy(x => x.ServiceName));
-            //if(MainEntity?.MedicalServiceId>0)
-            //    SelectedMedicalService = MedicalServices.FirstOrDefault(x => x.Id == MainEntity.MedicalServiceId);
         }
         else
         {
@@ -80,11 +73,19 @@ public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<Cont
             SelectedMedicalService = MedicalServices!.FirstOrDefault(); // тогда, по умолчанию, сразу выбираем первую из списка
     }
 
-
     protected override async Task<bool> OperationBeforeSave()
     {
         MainEntity!.Contract = null;
         MainEntity!.MedicalService = null;
         return true;
+    }
+
+    protected override void ClearData(object? parametr)
+    {
+        if (MainEntity == null)
+            return;
+        MainEntity.Quantity = 1;
+        MainEntity.Discount = 0;
+        SelectedMedicalService = MedicalServices!.FirstOrDefault(); // тогда, по умолчанию, сразу выбираем первую из списка
     }
 }

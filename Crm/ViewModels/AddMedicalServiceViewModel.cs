@@ -63,4 +63,17 @@ public class AddMedicalServiceViewModel : BaseAddEntityViewModel<MedicalService>
         MainEntity!.MedicalServiceType = null;
         return true;
     }
+
+    protected override void ClearData(object? parametr)
+    {
+        if (MainEntity == null)
+            return;
+        MainEntity.ServiceName = string.Empty;
+        MainEntity.ServiceCode = string.Empty;
+        MainEntity.ServicePrice = 0;
+        MainEntity.NdsPercent = 0;
+        MainEntity.MedicalServiceTypeId = 0;
+        MainEntity.MedicalServiceType = null;
+    }
+
 }

@@ -8,8 +8,11 @@
         Height="850" Width="1200"
         MinHeight="800" MinWidth="900"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource ModernWindowStyle}">
-    <Grid>
+        Style="{StaticResource ModernWindowStyle}"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <xctk:BusyIndicator IsBusy="{Binding IsPrgBusy}"
+            BusyContent="Минутку..." Margin="2">
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"></ColumnDefinition>
             <ColumnDefinition Width="60*"></ColumnDefinition>
@@ -109,24 +112,12 @@
                   SelectedValue="{Binding Path=MainEntity.ContractStatus}"
                   Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-
-
-
-
-
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="0" Grid.Row="9">Примечания к договору:</Label>
         <TextBox Style="{StaticResource InputTextBoxStyle}" 
                  Grid.Column="1" Grid.Row="9"
                  MinHeight="120" MinWidth="320" TextWrapping="Wrap"
                  Text="{Binding Path=MainEntity.Notes, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
-
-
-
-
-
-
-
 
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="3" Grid.Row="1"
                HorizontalAlignment="Center"
@@ -152,8 +143,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-
-
         <Label Style="{StaticResource InputInfoStyle}" Grid.Column="3" Grid.Row="6"
                HorizontalAlignment="Center"
                VerticalAlignment="Bottom">Ответственный сотрудник:</Label>
@@ -178,48 +167,23 @@
             </DataGrid.Columns>
         </DataGrid>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <StackPanel Grid.Column="1" Grid.Row="11" Orientation="Horizontal">
-            <Button Margin="10,10,10,10" Padding="10"
-                    MinWidth="120"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Command="{Binding SaveCommand}"
+        <StackPanel Grid.Column="1" Grid.Row="11" Orientation="Horizontal"
+                    Grid.ColumnSpan="3">
+            <Button Command="{Binding SaveCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Style="{StaticResource WindowButtonStyle}">
                 Сохранить
             </Button>
-
-            <Button Margin="10,10,10,10" Padding="10"
-                    MinWidth="120"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Command="{Binding CloseWindowCommand}"
+            <Button Command="{Binding CloseWindowCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Style="{StaticResource WindowCloseButtonStyle}">
                 Отмена
             </Button>
-
-            <Button Margin="10,10,10,10" Padding="10"
-        MinWidth="120"
-        HorizontalAlignment="Right"
-        VerticalAlignment="Center"
-                    Style="{StaticResource WindowButtonStyle}">
+            <Button Style="{StaticResource WindowButtonStyle}"
+                    Command="{Binding ClearCommand}">
                 Очистить
             </Button>
         </StackPanel>
     </Grid>
+    </xctk:BusyIndicator>
 </Window>

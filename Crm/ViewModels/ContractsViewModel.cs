@@ -63,7 +63,7 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
     private Payment? selectedPayment;
 
     /// <summary>
-    /// Команда "Добавить платёж"
+    /// Команда "Добавить договор"
     /// </summary>
     public RelayCommand? CreateContractCommand { private set; get; }
 
@@ -160,8 +160,12 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         return true;
     }
 
+    /// <summary>
+    /// Добавить договор
+    /// </summary>
     protected async void CreateContract(object? parametr)
     {
+        StatusService.Clea();
         var folder = dialogService.SelectFolder();
         if (folder is null)
             return;
@@ -189,8 +193,13 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         return SelectedEntity != null;
     }
 
+    /// <summary>
+    /// Добавить платёж
+    /// </summary>
+    /// <param name="parametr"></param>
     protected virtual async void AddPayment(object? parametr)
     {
+        StatusService.Clea();
         var view = serviceProvider.GetRequiredService<IAddPaymentForContractView>();
         view.ViewModel.Parametr = new Payment() { ContractId = SelectedEntity!.Id, Contract = SelectedEntity };
         view.ShowDialog();
@@ -202,8 +211,12 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         return SelectedEntity != null;
     }
 
+    /// <summary>
+    /// Редактированть платёж
+    /// </summary>
     private async void EditPayment(object? parametr)
     {
+        StatusService.Clea();
         var view = serviceProvider.GetRequiredService<IAddPaymentForContractView>();
         view.ViewModel.Parametr = SelectedPayment;
         view.ShowDialog();
@@ -215,6 +228,10 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         return SelectedPayment != null;
     }
 
+    /// <summary>
+    /// Удалить платёж
+    /// </summary>
+    /// <param name="parametr"></param>
     private async void DeletePaymentPayment(object? parametr)
     {
         await Delete(SelectedPayment!);
@@ -225,8 +242,12 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         return SelectedPayment != null;
     }
 
+    /// <summary>
+    /// Добавить мед.услугу
+    /// </summary>
     protected virtual async void AddMedicalServiceForContect(object? parametr)
     {
+        StatusService.Clea();
         var view = serviceProvider.GetRequiredService<IAddMedicalServiceForContractView>();
         view.ViewModel.Parametr = new ContractItem() { ContractId = SelectedEntity!.Id, Contract = SelectedEntity };
         view.ShowDialog();
@@ -238,8 +259,12 @@ public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContrac
         return SelectedEntity != null;
     }
 
+    /// <summary>
+    /// Редактировать мед.услугу
+    /// </summary>
     protected virtual async void EditMedicalServiceInContect(object? parametr)
     {
+        StatusService.Clea();
         var view = serviceProvider.GetRequiredService<IAddMedicalServiceForContractView>();
         view.ViewModel.Parametr = SelectedContractItem;
         view.ShowDialog();

@@ -9,8 +9,12 @@
         Height="700" Width="1400"
         MinHeight="650" MinWidth="1000"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource ModernWindowStyle}">
-    <Grid>
+        Style="{StaticResource ModernWindowStyle}"
+                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <xctk:BusyIndicator IsBusy="{Binding IsPrgBusy}"
+                BusyContent="Минутку..." Margin="2">
+
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"></ColumnDefinition>
             <ColumnDefinition Width="50*"></ColumnDefinition>
@@ -205,4 +209,6 @@
         </StackPanel>
 
     </Grid>
+    </xctk:BusyIndicator>
+
 </Window>

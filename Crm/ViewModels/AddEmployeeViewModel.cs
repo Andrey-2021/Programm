@@ -34,7 +34,7 @@ public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
         IsPrgBusy = true;
         var result = await repository.GetEntitiesAsync<Position>();
         if (result.ex == null)
-            Entities= new ObservableCollection<Position>(result.data.OrderBy(x => x.PositionName));
+            Entities = new ObservableCollection<Position>(result.data.OrderBy(x => x.PositionName));
         else
         {
             Entities?.Clear();
@@ -45,7 +45,7 @@ public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
 
     protected override async Task<bool> OperationBeforeSave()
     {
-        var entity = await repository.GetFirstOrDefaultAsync<Employee>(x=>x.LastName.ToUpper() == MainEntity!.LastName.ToUpper()
+        var entity = await repository.GetFirstOrDefaultAsync<Employee>(x => x.LastName.ToUpper() == MainEntity!.LastName.ToUpper()
         && x.FirstName.ToUpper() == MainEntity!.FirstName.ToUpper()
         && x.MiddleName.ToUpper() == MainEntity!.MiddleName.ToUpper()
         && x.Id != MainEntity.Id);
@@ -64,5 +64,18 @@ public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
 
         MainEntity!.Position = null;
         return true;
+    }
+
+    protected override void ClearData(object? parametr)
+    {
+        if (MainEntity == null)
+            return;
+        MainEntity.LastName = string.Empty;
+        MainEntity.FirstName = string.Empty;
+        MainEntity.MiddleName = string.Empty; 
+        MainEntity.PhoneNumber = string.Empty;
+        MainEntity.Email = null;
+        MainEntity.PositionId = 0;
+        MainEntity.Position = null;
     }
 }

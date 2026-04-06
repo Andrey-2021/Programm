@@ -34,17 +34,23 @@ public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithPara
 	/// Команда "Отмена/закрыть окно"
 	/// </summary>
 	public RelayCommand? CloseWindowCommand { get; set; }
-	
-	/// <summary>
-	/// Конструктор
-	/// </summary>
-	/// <param name="serviceProvider"></param>
-	public BaseAddEntityViewModel(IServiceProvider serviceProvider, IDialogService dialogService) :base(serviceProvider, dialogService)
+
+    /// <summary>
+    /// Команда "Очистить"
+    /// </summary>
+    public RelayCommand? ClearCommand { get; set; }
+
+    /// <summary>
+    /// Конструктор
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public BaseAddEntityViewModel(IServiceProvider serviceProvider, IDialogService dialogService) :base(serviceProvider, dialogService)
 	{
 		MainEntity = new();
 		//настраиваем команды
 		SaveCommand = new RelayCommand(Save, CheckIsPossibleSave);
 		CloseWindowCommand = new RelayCommand(CloseWindow, CheckIsPossibleCloseWindow);
+        ClearCommand = new RelayCommand(ClearData, CheckIsPossibleClearData);
 
         var task = Task.Run(() => LoadNecessaryDates());
         task.Wait();
@@ -136,21 +142,37 @@ public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithPara
 		if (view != null) view.Close();
 	}
 
-	/// <summary>
-	/// Проверка можно ли выполнять команду "Отмена/закрыть окно"
-	/// </summary>
-	private bool CheckIsPossibleCloseWindow(object? parametr)
+    /// <summary>
+    /// Проверка можно ли выполнять команду "Отмена/закрыть окно"
+    /// </summary>
+    protected virtual bool CheckIsPossibleCloseWindow(object? parametr)
 	{
 		return true;
 	}
 
-	/// <summary>
-	/// Проверка можно ли выполнить команды
-	/// </summary>
-	protected override void CheckCommands()
+    /// <summary>
+    /// Закрыть окно. (Метод который вызывается командой CloseWindowCommand)
+    /// </summary>
+    protected virtual void ClearData(object? parametr)
+	{
+	}
+
+    /// <summary>
+    /// Проверка можно ли выполнять команду "Отмена/закрыть окно"
+    /// </summary>
+    protected virtual bool CheckIsPossibleClearData(object? parametr)
+    {
+        return MainEntity!=null;
+    }
+
+    /// <summary>
+    /// Проверка можно ли выполнить команды
+    /// </summary>
+    protected override void CheckCommands()
 	{
 		SaveCommand?.RaiseCanExecuteChanged();
 		CloseWindowCommand?.RaiseCanExecuteChanged();
+        ClearCommand?.RaiseCanExecuteChanged();
         base.CheckCommands();
     }
 }

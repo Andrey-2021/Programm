@@ -32,6 +32,25 @@ public class AddPatientViewModel : BaseAddEntityViewModel<Patient>
         }
         return true;
     }
+
+    protected override void ClearData(object? parametr)
+    {
+        if (MainEntity == null)
+            return;
+        MainEntity.LastName = string.Empty;
+        MainEntity.FirstName = string.Empty;
+        MainEntity.MiddleName = string.Empty;
+        MainEntity.PhoneNumber = string.Empty;
+        MainEntity.Email = string.Empty;
+        MainEntity.Address = string.Empty;
+
+        MainEntity.PassportSeries= string.Empty;
+        MainEntity.PassportNumber= string.Empty;
+        MainEntity.PassportIssueDate= DateTime.Now;
+        MainEntity.PassportIssuingAuthority= string.Empty;
+        MainEntity.BirthDate = DateTime.Now;
+        MainEntity.Gender = null;
+    }
 }
 
 internal class CheckFIO
