@@ -1,15 +1,12 @@
-﻿using Crm.Services;
-using Crm.Views;
-using DbLibrary;
-using Entities;
-using Microsoft.EntityFrameworkCore;
-using UniverApp.Views;
-namespace Crm;
+﻿namespace Crm;
 
 public partial class App : Application
 {
     public IServiceProvider ServiceProvider { get; private set; }
 
+    /// <summary>
+    /// Конструктор
+    /// </summary>
     public App()
     {
         ServiceCollection services = new ServiceCollection();
@@ -19,9 +16,8 @@ public partial class App : Application
 
     private void OnStartup(object sender, StartupEventArgs e)
     {
-        //Disable shutdown when the dialog closes
+        // Закрытие программы
         Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
         
         var checkPasswordWindow = ServiceProvider.GetRequiredService<ICheckLoginView>();
         checkPasswordWindow.ShowDialog();
@@ -39,20 +35,14 @@ public partial class App : Application
         Current.Shutdown(0);
     }
 
+    /// <summary>
+    /// Регистрация в контейнере
+    /// </summary>
     private void ConfigureServices(ServiceCollection services)
     {
         services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<LiginUserService>();
-
-        string connectionString = "Data Source = WIN10PC; Initial Catalog =2026MedicalCRM ; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        services.AddDbContextFactory<SqlDbContext>
-                (
-                    options => options.UseSqlServer(connectionString
-                                                    // описание  EnableRetryOnFailure -  https://makolyte.com/how-to-do-retries-in-ef-core/
-                                                    , options => { options.EnableRetryOnFailure(); }
-                                                    )
-                    );
-
+        DbConteinerConfiguration.AddToServiceCollection(services);
         services.AddTransient<DbRepository>();
 
         // Регистрируем окна
@@ -67,8 +57,6 @@ public partial class App : Application
         services.AddTransient<IMedicalServiceTypesView, MedicalServiceTypesWindow>();
         services.AddTransient<IAddMedicalServiceTypeView, AddMedicalServiceTypeWindow>();
 
-        
-
         services.AddTransient<IAddEmployeesView, AddEmployeesWindow>();
         services.AddTransient<IEmployeesView, EmployeesWindow>();
 
@@ -76,7 +64,6 @@ public partial class App : Application
         services.AddTransient<IAddContractView, AddContractWindow>();
         services.AddTransient<IAddPaymentForContractView, AddPaymentForContractWindow>();
         services.AddTransient<IAddMedicalServiceForContractView, AddMedicalServiceForContractWindow>();
-
 
         services.AddTransient<IPatientsView, PatientsWindow>();
         services.AddTransient<IAddPatientView, AddPatientWindow>();
@@ -88,23 +75,16 @@ public partial class App : Application
         services.AddTransient<IPositionsView, PositionsWindow>();
 
         services.AddTransient<IAddOrganizationInfoView, OrganizationInfoWindow>();
-        
-
-
-
 
         // Регистрируем ViewModel-и
         services.AddTransient<MessageViewModel>();
 
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<AboutProgrammViewModel>();
-        //services.AddTransient<HelpViewModel>();
         services.AddTransient<CheckLoginViewModel>();
 
         services.AddTransient<PatientsViewModel>();
         services.AddTransient<AddPatientViewModel>();
-
-        //services.AddTransient<AddPaymentViewModel>();
 
         services.AddTransient<ContractsViewModel>();
         services.AddTransient<AddContractViewModel>();

@@ -1,0 +1,7 @@
+{
+  "UseDb": "MsSQL",
+  "ConnectionStrings": {
+    "MsSQL": "Data Source = WIN10PC; Initial Catalog = 2027MedicalCRM; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+    "MySQL": "server=localhost;database=2027MedicalCRM;user=root;password=1234;"
+  }
+}

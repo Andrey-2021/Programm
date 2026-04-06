@@ -19,7 +19,10 @@ public class SqlDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //Когда читаем данные Employee автоматически подгружаем Position
         modelBuilder.Entity<Employee>().Navigation(e => e.Position).AutoInclude();
+        
+        //Когда читаем данные MedicalService автоматически подгружаем MedicalServiceType
         modelBuilder.Entity<MedicalService>().Navigation(e => e.MedicalServiceType).AutoInclude();
     }
 }
