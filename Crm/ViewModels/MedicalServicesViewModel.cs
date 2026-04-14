@@ -1,6 +1,9 @@
 ﻿using CreateDocuments;
 namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна вывода данных о медицинских услугах
+/// </summary>
 public class MedicalServicesViewModel : BaseImportExportDataViewModel<MedicalService, IAddMedicalServiceView>
 {
     public MedicalServicesViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)

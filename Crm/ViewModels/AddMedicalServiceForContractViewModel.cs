@@ -2,6 +2,9 @@
 
 namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна ввода данных о медицинской услуге для договора
+/// </summary>
 public class AddMedicalServiceForContractViewModel : BaseAddEntityViewModel<ContractItem>//, IDataErrorInfo
 {
     /// <summary>

@@ -1,5 +1,8 @@
 ﻿namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна ввода данных о договоре
+/// </summary>
 public class AddContractViewModel : BaseAddEntityViewModel<Contract>
 {
     /// <summary>

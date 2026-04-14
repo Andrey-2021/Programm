@@ -1,6 +1,9 @@
 ﻿using CreateDocuments;
 namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна вывода данных о договорах
+/// </summary>
 public class ContractsViewModel : BaseAllEntitiesViewModel<Contract, IAddContractView>
 {
     /// <summary>

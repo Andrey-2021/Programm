@@ -1,5 +1,8 @@
 ﻿namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна ввода данных о сотруднике
+/// </summary>
 public class AddEmployeeViewModel : BaseAddEntityViewModel<Employee>
 {
     /// <summary>

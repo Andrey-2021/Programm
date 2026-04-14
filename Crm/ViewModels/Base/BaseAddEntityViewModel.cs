@@ -1,7 +1,7 @@
 ﻿namespace ViewModels.Base;
 
 /// <summary>
-/// Базовый класс для всех AddViewModel - ViewModel для ввода и редактирования данных
+/// Базовый класс для всех ViewModel для ввода и редактирования данных
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
 public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithParametr

@@ -1,5 +1,8 @@
 ﻿namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна ввода данных об организации
+/// </summary>
 public class AddOrganizationInfoViewModel : BaseAddEntityViewModel<OrganizationInfo>
 {
     /// <summary>

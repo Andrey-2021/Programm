@@ -2,6 +2,9 @@
 
 namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна вывода данных о пациентах
+/// </summary>
 public class PatientsViewModel : BaseImportExportDataViewModel<Patient, IAddPatientView>
 {
     public PatientsViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)

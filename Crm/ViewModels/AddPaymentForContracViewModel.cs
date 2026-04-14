@@ -1,5 +1,8 @@
 ﻿namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна ввода данных об оплате для догвора
+/// </summary>
 public class AddPaymentForContracViewModel : BaseAddEntityViewModel<Payment>
 {
     public IEnumerable<PaymentMethodEnum> PaymentMethodList => Enum.GetValues(typeof(PaymentMethodEnum)).Cast<PaymentMethodEnum>();

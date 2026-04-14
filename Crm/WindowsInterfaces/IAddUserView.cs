@@ -1,7 +1,7 @@
 ﻿namespace WindowsInterfaces;
 
 /// <summary>
-/// Окно "Добавить пользователя"
+/// Интерфейс для окна ввода данных о пользователе
 /// </summary>
 public interface IAddUserView : IViewWithViewModel
 {

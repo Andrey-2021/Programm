@@ -1,7 +1,7 @@
 ﻿namespace ViewModels;
 
 /// <summary>
-/// Добавить пользователя
+/// ViewModel для окна ввода данных о пользователе
 /// </summary>
 public class AddUserViewModel : BaseAddEntityViewModel<RegisteredUser>
 {

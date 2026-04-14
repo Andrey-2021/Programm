@@ -6,5 +6,8 @@
 /// <typeparam name="TEntity"></typeparam>
 public interface IViewWithViewModel : IView
 {
+	/// <summary>
+	/// Используемая ViewModel
+	/// </summary>
 	public IViewModelWithParametr ViewModel { get; set; }
 }

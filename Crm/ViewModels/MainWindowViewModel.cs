@@ -1,5 +1,8 @@
 ﻿namespace ViewModels;
 
+/// <summary>
+/// ViewModel для главного окна
+/// </summary>
 public class MainWindowViewModel : BaseViewModel
 {
     /// <summary>

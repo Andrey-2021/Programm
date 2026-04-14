@@ -1,5 +1,8 @@
 ﻿namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна ввода данных о типе медицинской услуги
+/// </summary>
 public class AddMedicalServiceTypeViewModel : BaseAddEntityViewModel<MedicalServiceType>
 {
     /// <summary>

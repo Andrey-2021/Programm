@@ -1,5 +1,8 @@
 ﻿namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна ввода данных о пациенте
+/// </summary>
 public class AddPatientViewModel : BaseAddEntityViewModel<Patient>
 {
     public IEnumerable<GenderEnum> GendersList => Enum.GetValues(typeof(GenderEnum)).Cast<GenderEnum>();

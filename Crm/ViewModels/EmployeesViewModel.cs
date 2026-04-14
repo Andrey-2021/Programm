@@ -2,6 +2,9 @@
 
 namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна вывода данных о сотрудниках
+/// </summary>
 public class EmployeesViewModel : BaseImportExportDataViewModel<Employee, IAddEmployeesView>
 {
     public EmployeesViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)

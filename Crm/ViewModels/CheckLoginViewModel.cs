@@ -1,5 +1,8 @@
 ﻿namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна входа пользователя
+/// </summary>
 public class CheckLoginViewModel : BaseAddEntityViewModel<CheckLogin>
 {
 	public CheckLoginViewModel(IServiceProvider serviceProvider, IDialogService dialogService) : base(serviceProvider, dialogService)

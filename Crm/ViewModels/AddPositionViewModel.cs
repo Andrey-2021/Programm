@@ -1,5 +1,8 @@
 ﻿namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна ввода данных о должности
+/// </summary>
 public class AddPositionViewModel : BaseAddEntityViewModel<Position>
 {
     /// <summary>
