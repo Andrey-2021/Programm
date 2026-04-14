@@ -2,6 +2,9 @@
 
 public partial class App : Application
 {
+    /// <summary>
+    /// Контейнер (поставщик) сервисов
+    /// </summary>
     public IServiceProvider ServiceProvider { get; private set; }
 
     /// <summary>
@@ -14,15 +17,19 @@ public partial class App : Application
         ServiceProvider = services.BuildServiceProvider();
     }
 
+    /// <summary>
+    /// Начало работы программы
+    /// </summary>
     private void OnStartup(object sender, StartupEventArgs e)
     {
-        // Закрытие программы
+        // Настраиваем закрытие программы - приложение работает, пока не будет явно вызвано Application.Shutdown()
+        // Статья: https://metanit.com/sharp/wpf/3.2.php
         Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
         
         var checkPasswordWindow = ServiceProvider.GetRequiredService<ICheckLoginView>();
-        checkPasswordWindow.ShowDialog();
+        checkPasswordWindow.ShowDialog(); // Показать окно
 
-        var loginUserService = ServiceProvider.GetService<LiginUserService>();
+        var loginUserService = ServiceProvider.GetService<LoginUserService>();
         if (loginUserService!.RegisteredUser == null)
         { 
             //нет вошедшего пользователя, выходим из программы
@@ -31,8 +38,8 @@ public partial class App : Application
         }
 
         var mainWindow = ServiceProvider.GetRequiredService<IMainWindowView>();
-        mainWindow.ShowDialog();
-        Current.Shutdown(0);
+        mainWindow.ShowDialog(); // Показать окно
+        Current.Shutdown(0); //Закрываем программу
     }
 
     /// <summary>
@@ -41,7 +48,7 @@ public partial class App : Application
     private void ConfigureServices(ServiceCollection services)
     {
         services.AddSingleton<IDialogService, DialogService>();
-        services.AddSingleton<LiginUserService>();
+        services.AddSingleton<LoginUserService>();
         DbConteinerConfiguration.AddToServiceCollection(services);
         services.AddTransient<DbRepository>();
 

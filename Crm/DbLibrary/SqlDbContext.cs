@@ -1,5 +1,8 @@
 ﻿namespace DbLibrary;
 
+/// <summary>
+/// Контекст БД
+/// </summary>
 public class SqlDbContext : DbContext
 {
     public DbSet<Patient> Patients { get; set; }

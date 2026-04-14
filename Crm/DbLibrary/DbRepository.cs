@@ -7,8 +7,14 @@ namespace DbLibrary;
 /// </summary>
 public class DbRepository
 {
+    /// <summary>
+    /// Фабрика для создания контекста БД
+    /// </summary>
     private readonly IDbContextFactory<SqlDbContext> contextFactory;
 
+    /// <summary>
+    /// Конструктор
+    /// </summary>
     public DbRepository(IDbContextFactory<SqlDbContext> contextFactory)
     {
         this.contextFactory = contextFactory;
@@ -129,7 +135,7 @@ public class DbRepository
     /// <param name="orderBy">Сортировка</param>
     /// <param name="include">Включить зависимые сущности</param>
     /// <param name="trackingType">Отслеживание прочитанных сужностей</param>
-    /// <returns></returns>
+    
     public async Task<(IEnumerable<TEntity> data, Exception? ex)> GetEntitiesAsync<TEntity>(System.Linq.Expressions.Expression<Func<TEntity, bool>>? predicate = null,
                                                                                             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                                                                             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
@@ -240,12 +246,10 @@ public class DbRepository
     /// Найти сущность
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    /// <param name="predicate"></param>
-    /// <param name="orderBy"></param>
-    /// <param name="include"></param>
-    /// <param name="trackingType"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <param name="predicate">Условие поиска</param>
+    /// <param name="orderBy">Сортировка</param>
+    /// <param name="include">Включить зависимые сущности</param>
+    /// <param name="trackingType">Отслеживание прочитанных сужностей</param>
     public async Task<(TEntity? entity, Exception? ex)> GetFirstOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>>? predicate = null,
                                                             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                                             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,

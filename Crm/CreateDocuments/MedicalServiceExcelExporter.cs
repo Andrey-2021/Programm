@@ -3,8 +3,16 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 namespace CreateDocuments;
 
+/// <summary>
+/// Передача данных о медицинских услугах в Excel-файл
+/// </summary>
 public class MedicalServiceExcelExporter
 {
+    /// <summary>
+    /// Сохранение данных в Excel-файл
+    /// </summary>
+    /// <param name="medicalServices">Данные</param>
+    /// <param name="filePath">Имя файла</param>
     public static async Task<(bool result, Exception? ex)> ExportToExcel(IEnumerable<MedicalService>? medicalServices, string filePath)
     {
         try

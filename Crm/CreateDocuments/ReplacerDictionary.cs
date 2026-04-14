@@ -2,8 +2,14 @@
 
 namespace CreateDocuments;
 
+/// <summary>
+/// Создание словаря ключей
+/// </summary>
 internal static class ReplacerDictionary
 {
+    /// <summary>
+    /// Создать словарь соответствия ключей данным
+    /// </summary>
     internal static Dictionary<string, string?> CreateTable(Contract contract, OrganizationInfo organization)
     {
         var replacements = new Dictionary<string, string?>

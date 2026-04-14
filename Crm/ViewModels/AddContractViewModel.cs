@@ -2,7 +2,14 @@
 
 public class AddContractViewModel : BaseAddEntityViewModel<Contract>
 {
+    /// <summary>
+    /// Списое перечислений "Статус оплаты"
+    /// </summary>
     public IEnumerable<PaymentStatusEnum> PaymentStatusList => Enum.GetValues(typeof(PaymentStatusEnum)).Cast<PaymentStatusEnum>();
+
+    /// <summary>
+    /// Список перечислений "Статус договора"
+    /// </summary>
     public IEnumerable<ContractStatusEnum> ContractStatusList => Enum.GetValues(typeof(ContractStatusEnum)).Cast<ContractStatusEnum>();
 
 

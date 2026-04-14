@@ -1,8 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 namespace DbLibrary;
 
+/// <summary>
+/// Получить строку с настройками подключения к БД из Json-файла
+/// </summary>
 public class JSonConnectionString
 {
+	/// <summary>
+	/// Имя Json-файла с конфигурацией подключения к БД
+	/// </summary>
 	const string settingsFileName = "SQLConnectionSettings.json";
 
 	/// <summary>
@@ -12,11 +18,9 @@ public class JSonConnectionString
 	public static (string? server, string? connectionString) GetConnectionSetting()
 	{
 		var builder = new ConfigurationBuilder();
-		//var path = Directory.GetCurrentDirectory();
 		var path = AppDomain.CurrentDomain.BaseDirectory;
 		builder.SetBasePath(path);// установка пути к текущему каталогу
 
-		//todo сделать проверку наличия файла
 		builder.AddJsonFile(settingsFileName);// получаем конфигурацию из файла appsettings.json
 		var config = builder.Build();// создаем конфигурацию
 

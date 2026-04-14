@@ -1,7 +1,7 @@
 ﻿namespace ViewModels.Base;
 
 /// <summary>
-/// Базовый класс для всех AddViewModel
+/// Базовый класс для всех AddViewModel - ViewModel для ввода и редактирования данных
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
 public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithParametr
@@ -151,14 +151,14 @@ public class BaseAddEntityViewModel<TEntity>: BaseViewModel,  IViewModelWithPara
 	}
 
     /// <summary>
-    /// Закрыть окно. (Метод который вызывается командой CloseWindowCommand)
+    /// Очистить данные
     /// </summary>
     protected virtual void ClearData(object? parametr)
 	{
 	}
 
     /// <summary>
-    /// Проверка можно ли выполнять команду "Отмена/закрыть окно"
+    /// Проверка можно ли выполнять команду "Очистить данные"
     /// </summary>
     protected virtual bool CheckIsPossibleClearData(object? parametr)
     {

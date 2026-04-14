@@ -4,6 +4,9 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Entities;
 namespace CreateDocuments;
 
+/// <summary>
+/// Замена марекров в документе WORD
+/// </summary>
 internal class DocKeyReplacer
 {
     /// <summary>
@@ -63,6 +66,10 @@ internal class DocKeyReplacer
         }
     }
     
+    /// <summary>
+    /// Cjplfnm nf,kbwe
+    /// </summary>
+    /// <param name="data">Lfyyst</param>
     private static Table CreateTable(List<string> data)
     {
         Table table = new Table();
@@ -119,6 +126,9 @@ internal class DocKeyReplacer
         return table;
     }
 
+    /// <summary>
+    /// Установить свойства
+    /// </summary>
     private static RunProperties GetStyle()
     {
         // Свойства шрифта и размера

@@ -9,6 +9,9 @@ public class MegicalApprovalDocument
     private const string soglasieFileName = "forma_soglasiia.docx";
     private const string dogovorFileName = "Dogovor_i_prilozheniia.xlsx";
 
+    /// <summary>
+    /// Создать документ Word
+    /// </summary>
     public static (bool result, Exception? ex) CreateDoc(Contract contract, OrganizationInfo organizationInfo, string folder)
     {
         try

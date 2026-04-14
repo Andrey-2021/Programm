@@ -1,6 +1,9 @@
 ﻿using Microsoft.Win32;
 namespace Crm.Services;
 
+/// <summary>
+/// Сервис диалоговых окон
+/// </summary>
 public class DialogService : IDialogService
 {
     public void ShowInfo(string message, string title = "Информация")
@@ -10,7 +13,7 @@ public class DialogService : IDialogService
 
     public void ShowError(string message, string title = "Ошибка", Exception? exception = null)
     {
-#if DEBUG
+#if DEBUG // Если идёт отладка, то выводим подробные данные из исключений
         message = message
             + Environment.NewLine + "Exception: " + exception.Message +
              (exception.InnerException == null ? "" : (Environment.NewLine + "InnerException: " + exception.InnerException.Message));

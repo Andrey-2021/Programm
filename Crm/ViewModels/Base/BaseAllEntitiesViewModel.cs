@@ -109,8 +109,6 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
     protected virtual async void DelEntity(object? parametr)
     {
         await Delete(SelectedEntity!);
-        
-
     }
 
     /// <summary>
@@ -150,6 +148,10 @@ public class BaseAllEntitiesViewModel<TEntity, TAddView> : BaseViewModel
         IsPrgBusy = false;
     }
 
+    /// <summary>
+    /// Вывод вопроса на подтверждение удаления данных
+    /// </summary>
+    /// <returns>Результат</returns>
     protected virtual bool AskQestionToDelete()
     {
         return dialogService.Confirm("Удаление объекта может привести к удалению всех зависящих объектов, которые зависят от данного удаляемого. " +

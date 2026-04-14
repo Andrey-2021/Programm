@@ -1,8 +1,9 @@
-﻿using Entities;
-using System.ComponentModel.DataAnnotations;
-
+﻿using System.ComponentModel.DataAnnotations;
 namespace Crm.Validation;
 
+/// <summary>
+/// Валидация данных
+/// </summary>
 public class ValidateData
 {
     /// <summary>

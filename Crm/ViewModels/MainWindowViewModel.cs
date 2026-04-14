@@ -80,7 +80,7 @@ public class MainWindowViewModel : BaseViewModel
 
     public MainWindowViewModel(IServiceProvider serviceProvider, IDialogService dialogService):base(serviceProvider, dialogService)
     {
-        var loginUserService = serviceProvider.GetService<LiginUserService>();
+        var loginUserService = serviceProvider.GetService<LoginUserService>();
         if (loginUserService != null && loginUserService.RegisteredUser != null)
             IsAdmin = loginUserService!.RegisteredUser?.Role == Entities.Enums.RoleEnum.Админ;
 

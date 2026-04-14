@@ -6,9 +6,13 @@ using OfficeOpenXml.Style;
 using System.IO.Packaging;
 namespace CreateDocuments;
 
+/// <summary>
+/// Замена ключей в Excel-файле
+/// </summary>
 internal class ExcelKeyReplacer
 {
     private const string tableKey = "!301!";
+
     /// <summary>
     /// Заменяет ключи в указанном листе Excel файла (по имени листа).
     /// </summary>
@@ -71,14 +75,19 @@ internal class ExcelKeyReplacer
                 }
             }
 
-            SetTableIn_Perechen(package, "Перечень", contract);
-            SetTableIn_Act(package, "Акт", contract);
+            SetTableInExcelListEnumeration(package, "Перечень", contract);
+            SetTableInExcelListAct(package, "Акт", contract);
             package.Save();
         }
         return true;
     }
 
-    private static void SetTableIn_Perechen(ExcelPackage package, string sheetName, Contract contract)
+    /// <summary>
+    /// Заполнение страницы Перечень
+    /// </summary>
+    /// <param name="sheetName">Имя страницы</param>
+    /// <param name="contract">Данные</param>
+    private static void SetTableInExcelListEnumeration(ExcelPackage package, string sheetName, Contract contract)
     {
         var worksheet = package.Workbook.Worksheets[sheetName];
         var dimension = worksheet.Dimension;
@@ -130,7 +139,10 @@ internal class ExcelKeyReplacer
         }
     }
 
-    private static void SetTableIn_Act(ExcelPackage package, string sheetName, Contract contract)
+    /// <summary>
+    /// Заполнение страницы Акт
+    /// </summary>
+    private static void SetTableInExcelListAct(ExcelPackage package, string sheetName, Contract contract)
     {
         var worksheet = package.Workbook.Worksheets[sheetName];
         var dimension = worksheet.Dimension;
@@ -154,8 +166,6 @@ internal class ExcelKeyReplacer
 
                     for (int i = 0; i < contract.ContractItems.Count; i++)
                     {
-                        
-
                         var item = contract.ContractItems[i];
                         worksheet.Cells[row + i, 1].Value = i + 1;
                         worksheet.Cells[row + i, 2].Value = item.MedicalService?.ServiceName;
@@ -181,6 +191,9 @@ internal class ExcelKeyReplacer
         }
     }
 
+    /// <summary>
+    /// Установить границы ячеек
+    /// </summary>
     private static void SetBorder(ExcelRange cells, bool isTop=true, bool isBottom=true, bool isLeft=true, bool isRight=true)
     {
         if(isTop) cells.Style.Border.Top.Style = ExcelBorderStyle.Thin;
@@ -190,7 +203,4 @@ internal class ExcelKeyReplacer
         // задать цвет границы
         //cell.Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);
     }
-
-
-
 }

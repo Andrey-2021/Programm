@@ -46,7 +46,7 @@ public class AddMedicalServiceViewModel : BaseAddEntityViewModel<MedicalService>
 
     protected override async Task<bool> OperationBeforeSave()
     {
-        var entity = await repository.GetFirstOrDefaultAsync<MedicalService>(x => x.ServiceName.ToUpper() == MainEntity!.ServiceName.ToUpper());
+        var entity = await repository.GetFirstOrDefaultAsync<MedicalService>(x => x.ServiceName.ToUpper() == MainEntity!.ServiceName.ToUpper() && x.Id != MainEntity.Id);
 
         if (entity.ex != null)
         {

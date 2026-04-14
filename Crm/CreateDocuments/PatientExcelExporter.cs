@@ -4,10 +4,13 @@ using OfficeOpenXml.Style;
 namespace CreateDocuments;
 
 /// <summary>
-/// Экспорт данных
+/// Передача данных о пациентах в Excel-файл
 /// </summary>
 public class PatientExcelExporter
 {
+    /// <summary>
+    /// Сохранение данных в Excel-файл
+    /// </summary>
     public static async Task<(bool rezult, Exception? ex)> ExportToExcel(IEnumerable<Patient>? patients, string filePath)
     {
         try

@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
+                <!--Подключаем ресурсы-->
                 <ResourceDictionary Source="pack://application:,,,/DictionaryForElements.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/ValidateDictionary.xaml"/>
 
